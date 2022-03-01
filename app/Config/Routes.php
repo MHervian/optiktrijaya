@@ -41,9 +41,35 @@ $routes->post("/login", "Home::login");
 $routes->get("/logout", "Home::logout");
 
 /**
- * 2) For Dashboard
+ * 2) Dashboard
  */
 $routes->get("/dashboard", "Dashboard::index");
+
+/**
+ * 3) Konsumen
+ */
+$routes->get("/konsumen", "Konsumen::index");
+$routes->get("/konsumen/detail/(:any)", "Konsumen::displayDetailKonsumen/$1");
+$routes->get("/konsumen/id/(:any)", "Konsumen::getDataKonsumen/$1");
+$routes->post("/konsumen/create", "Konsumen::createNewKonsumen");
+$routes->post("/konsumen/update", "Konsumen:updateKonsumen");
+$routes->get("/konsumen/delete/(:any)", "Konsumen::deleteKonsumen/$1");
+
+/**
+ * 4) Pemesanan
+ */
+
+/**
+ * 5) Transaction
+ */
+
+/**
+ * 6) Master Data
+ */
+
+/**
+ * 7) User and Roles
+ */
 
 /*
  * --------------------------------------------------------------------
