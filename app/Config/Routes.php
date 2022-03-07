@@ -52,7 +52,7 @@ $routes->get("/konsumen", "Konsumen::index");
 $routes->get("/konsumen/detail/(:any)", "Konsumen::displayDetailKonsumen/$1");
 $routes->get("/konsumen/id/(:any)", "Konsumen::getDataKonsumen/$1");
 $routes->post("/konsumen/create", "Konsumen::createNewKonsumen");
-$routes->post("/konsumen/update", "Konsumen:updateKonsumen");
+$routes->post("/konsumen/update", "Konsumen::updateKonsumen");
 $routes->get("/konsumen/delete/(:any)", "Konsumen::deleteKonsumen/$1");
 
 /**

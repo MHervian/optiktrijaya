@@ -114,8 +114,8 @@
                             <?= ($dataKonsumen["jumlah"] !== "0") ? "<td class='text-danger'>YA</td>" : "<td class='text-success'>TIDAK</td>" ?>
                             <td>
                               <a href="<?= base_url("konsumen/detail/" . $dataKonsumen["id_konsumen"]) ?>" class="text-secondary d-block">Detail</a>
-                              <a href="#" data-toggle="modal" data-target="#form_update_user" class="d-block ubah">Ubah</a>
-                              <a href="#" class="text-danger d-block hapus" data-toggle="modal" data-target="#form_delete_user">Hapus</a>
+                              <a href="#" data-toggle="modal" data-target="#form_update_user" data-backdrop="static" data-keyboard="false" class="d-block ubah">Ubah</a>
+                              <a href="#" class="text-danger d-block hapus" data-toggle="modal" data-target="#form_delete_user" data-backdrop="static" data-keyboard="false">Hapus</a>
                             </td>
                           </tr>
                         <?php
@@ -213,31 +213,31 @@
             <div class="form-group row">
               <label for="updateKonsumen" class="col-sm-4 col-form-label">Nama</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="updateKonsumen" />
+                <input type="text" name="nama" class="form-control" id="updateKonsumen" />
               </div>
             </div>
             <div class="form-group row">
               <label for="updateBirth" class="col-sm-4 col-form-label">Tanggal Lahir</label>
               <div class="col-sm-8">
-                <input type="date" class="form-control" id="updateBirth" />
+                <input type="date" name="tgl_lahir" class="form-control" id="updateBirth" />
               </div>
             </div>
             <div class="form-group row">
               <label for="updateContact" class="col-sm-4 col-form-label">Nomor Telepon</label>
               <div class="col-sm-8">
-                <input type="tel" class="form-control" id="updateContact" />
+                <input type="tel" name="no_telepon" class="form-control" id="updateContact" />
               </div>
             </div>
             <div class="form-group row">
               <label for="updateAddress" class="col-sm-4 col-form-label">Alamat</label>
               <div class="col-sm-8">
-                <textarea type="date" class="form-control" id="updateAddress"></textarea>
+                <textarea type="date" name="alamat" class="form-control" id="updateAddress"></textarea>
               </div>
             </div>
           </div>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
-              Simpan Data
+              Ubah Data
             </button>
             <button type="reset" class="btn btn-secondary">
               Reset Form
@@ -262,8 +262,9 @@
           </button>
         </div>
         <div class="modal-body">
+          <input type="hidden" id="uriPoint" value="<?= base_url("konsumen/delete/") ?>">
           <p>Tekan 'Proses' untuk menghapus data konsumen</p>
-          <a href="#" class="btn btn-danger">Proses</a>
+          <a href="#" id="btn_delete" class="btn btn-danger">Proses</a>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -329,6 +330,12 @@
             $("#updateAddress").val(result.alamat);
           }
         });
+      });
+
+      $(".hapus").click(function(e) {
+        let id_konsumen = $(e.target).parent().parent().attr("id");
+        let uri_point = $("#uriPoint").val() + "/" + id_konsumen;
+        $("#btn_delete").attr("href", uri_point);
       });
     });
   </script>

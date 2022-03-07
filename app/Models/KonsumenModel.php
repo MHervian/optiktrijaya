@@ -36,11 +36,13 @@ class KonsumenModel extends Model
     $this->insert($data);
   }
 
-  public function updateKonsumen()
+  public function updateKonsumen($id_konsumen, $data)
   {
+    $this->update($id_konsumen, $data);
   }
 
-  public function deleteKonsumen()
+  public function deleteKonsumen($id_konsumen)
   {
+    $this->delete($id_konsumen);
   }
 }

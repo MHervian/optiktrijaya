@@ -64,10 +64,10 @@
                 <div class="card-body">
                   <h5 class="font-weight-bold">
                     Data Pemesan:
-                    <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#form_update_user">
+                    <button href="#" class="btn btn-primary ubah" data-toggle="modal" data-target="#form_update_user">
                       <i class="fas fa-edit"></i> Ubah
                     </button>
-                    <button href="#" class="btn btn-danger" data-toggle="modal" data-target="#form_delete_user">
+                    <button href="#" class="btn btn-danger hapus" data-toggle="modal" data-target="#form_delete_user">
                       <i class="fas fa-trash"></i> Hapus
                     </button>
                   </h5>
@@ -171,6 +171,7 @@
                 </div>
               </div>
             </div>
+            <input type="hidden" id="uriPoint" value="<?= base_url("/konsumen/delete") ?>">
             <div class="col-lg-6">
               <div class="card card-primary card-outline">
                 <div class="card-body">
@@ -233,37 +234,38 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form>
-          <input type="hidden" name="id_konsumen" value="<?= $konsumen["id_konsumen"] ?>" />
+        <form action="<?= base_url("konsumen/update") ?>" method="post">
+          <input type="hidden" id="id_konsumen" name="id_konsumen" value="<?= $konsumen["id_konsumen"] ?>" />
+          <input type="hidden" name="from" value="v_detail_konsumen" />
           <div class="modal-body">
             <div class="form-group row">
               <label for="inputUser" class="col-sm-4 col-form-label">Nama</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputUser" placeholder="Isi Nama User.." />
+                <input type="text" class="form-control" name="nama" id="updateKonsumen" placeholder="Isi Nama User.." />
               </div>
             </div>
             <div class="form-group row">
               <label for="inputBirth" class="col-sm-4 col-form-label">Tanggal Lahir</label>
               <div class="col-sm-8">
-                <input type="date" class="form-control" id="inputBirth" />
+                <input type="date" class="form-control" name="tgl_lahir" id="updateBirth" />
               </div>
             </div>
             <div class="form-group row">
               <label for="inputContact" class="col-sm-4 col-form-label">Nomor Telepon</label>
               <div class="col-sm-8">
-                <input type="tel" class="form-control" id="inputContact" placeholder="Isi Nomor Kontak.." />
+                <input type="tel" class="form-control" name="no_telepon" id="updateContact" placeholder="Isi Nomor Kontak.." />
               </div>
             </div>
             <div class="form-group row">
               <label for="inputAddress" class="col-sm-4 col-form-label">Alamat</label>
               <div class="col-sm-8">
-                <textarea type="date" class="form-control" id="inputBirth" placeholder="Isi Alamat User.."></textarea>
+                <textarea type="date" class="form-control" name="alamat" id="updateAddress" placeholder="Isi Alamat User.."></textarea>
               </div>
             </div>
           </div>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
-              Simpan Data
+              Ubah Data
             </button>
             <button type="reset" class="btn btn-secondary">
               Reset Form
@@ -289,7 +291,7 @@
         </div>
         <div class="modal-body">
           <p>Tekan 'Proses' untuk menghapus data konsumen</p>
-          <a href="#" class="btn btn-danger">Proses</a>
+          <a href="#" id="btn_delete" class="btn btn-danger">Proses</a>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -320,5 +322,31 @@
   <!-- AdminLTE App -->
   <script src="<?= base_url("dist/js/adminlte.min.js") ?>"></script>
 </body>
+
+<script>
+  $(function() {
+    // If user click update form
+    $(".ubah").click(function(e) {
+      let id_konsumen = $("#id_konsumen").val();
+      $.ajax({
+        url: "/konsumen/id/" + id_konsumen,
+        method: "GET",
+        success: function(response) {
+          result = JSON.parse(response);
+          $("#updateKonsumen").val(result.nama);
+          $("#updateBirth").val(result.tgl_lahir);
+          $("#updateContact").val(result.no_telepon);
+          $("#updateAddress").val(result.alamat);
+        }
+      });
+    });
+
+    $(".hapus").click(function(e) {
+      let id_konsumen = $("#id_konsumen").val();
+      let uri_point = $("#uriPoint").val() + "/" + id_konsumen;
+      $("#btn_delete").attr("href", uri_point);
+    });
+  })
+</script>
 
 </html>
