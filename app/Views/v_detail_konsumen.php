@@ -64,10 +64,10 @@
                 <div class="card-body">
                   <h5 class="font-weight-bold">
                     Data Pemesan:
-                    <button href="#" class="btn btn-primary ubah" data-toggle="modal" data-target="#form_update_user">
+                    <button href="#" class="btn btn-primary ubah" data-toggle="modal" data-target="#form_update_user" data-backdrop="static" data-keyboard="false">
                       <i class="fas fa-edit"></i> Ubah
                     </button>
-                    <button href="#" class="btn btn-danger hapus" data-toggle="modal" data-target="#form_delete_user">
+                    <button href="#" class="btn btn-danger hapus" data-toggle="modal" data-target="#form_delete_user" data-backdrop="static" data-keyboard="false">
                       <i class="fas fa-trash"></i> Hapus
                     </button>
                   </h5>

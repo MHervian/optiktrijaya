@@ -70,6 +70,9 @@ $routes->get("/konsumen/delete/(:any)", "Konsumen::deleteKonsumen/$1");
 /**
  * 7) User and Roles
  */
+$routes->get("/admin", "Pengguna::index");
+$routes->get("/admin/update", "Pengguna::updateAdmin");
+$routes->get("/admin/delete/(:any)", "Pengguna::deleteAdmin/$1");
 
 /*
  * --------------------------------------------------------------------

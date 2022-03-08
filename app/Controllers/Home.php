@@ -72,4 +72,5 @@ class Home extends BaseController
         $session->setFlashdata("loginStatus", $loginStatus);
         return redirect()->to(base_url());
     }
+	
 }
