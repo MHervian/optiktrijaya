@@ -71,8 +71,11 @@ $routes->get("/konsumen/delete/(:any)", "Konsumen::deleteKonsumen/$1");
  * 7) User and Roles
  */
 $routes->get("/admin", "Pengguna::index");
-$routes->get("/admin/update", "Pengguna::updateAdmin");
-$routes->get("/admin/delete/(:any)", "Pengguna::deleteAdmin/$1");
+$routes->get("/admin/id/(:any)", "Pengguna::getDataAdmin/$1");
+$routes->post("/admin/create", "Pengguna::createAdmin");
+$routes->post("/admin/update", "Pengguna::updateAdmin");
+// $routes->get("/admin/delete/(:any)", "Pengguna::deleteAdmin/$1");
+$routes->match(["get", "post"], "/admin/delete/(:any)", "Pengguna::deleteAdmin/$1");
 
 /*
  * --------------------------------------------------------------------

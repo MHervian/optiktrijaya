@@ -29,7 +29,100 @@ class Pengguna extends BaseController
     // Get all data admin
     $data["admin"] = $this->pengguna->getAllAdmin();
 
+    $loginStatus = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
+    $data["pageStatus"] = $loginStatus;
+
     return view("v_admin", $data);
+  }
+
+  public function getDataAdmin($id_pengguna)
+  {
+    $result = $this->pengguna->getAdmin($id_pengguna);
+    return json_encode($result);
+  }
+
+  public function createAdmin()
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    $request = service("request");
+    $username = $request->getPost("username");
+    $email = $request->getPost("email");
+    $password = $request->getPost("password");
+    $id_pengguna = Uuid::uuid4();
+
+    $data = array(
+      "id_pengguna" => $id_pengguna->toString(),
+      "username" => $username,
+      "email" => $email,
+      "pass" => password_hash($password, PASSWORD_DEFAULT),
+      "lvl_akses" => "admin"
+    );
+
+    $this->pengguna->insertAdmin($data);
+
+    $session->setFlashdata("pageStatus", "insert success");
+    return redirect()->to(base_url("admin"));
+  }
+
+  public function updateAdmin()
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    $request = service("request");
+    $id_pengguna = $request->getPost("id_pengguna");
+    $username = $request->getPost("username");
+    $email = $request->getPost("email");
+    $password_lama = $request->getPost("password_lama");
+    $password_baru = $request->getPost("password_baru");
+    $password_ulangi = $request->getPost("password_ulangi");
+
+    if (!empty($password_lama) && !empty($password_baru)) {
+      // Validation of old and new password
+      $profile = $this->pengguna->getAdminByUsername($session->username);
+      if (!password_verify($password_lama, $profile["pass"])) {
+        $session->setFlashdata("pageStatus", "wrong old password");
+        return redirect()->to(base_url("admin"));
+      }
+
+      if ($password_lama === $password_baru) {
+        $session->setFlashdata("pageStatus", "password still same");
+        return redirect()->to(base_url("admin"));
+      }
+
+      if ($password_baru !== $password_ulangi) {
+        $session->setFlashdata("pageStatus", "new password is not matched");
+        return redirect()->to(base_url("admin"));
+      }
+
+      $data = array(
+        "username" => $username,
+        "email" => $email,
+        "pass" => password_hash($password_baru, PASSWORD_DEFAULT)
+      );
+    } else {
+      $data = array(
+        "username" => $username,
+        "email" => $email
+      );
+    }
+
+    $this->pengguna->updateAdmin($id_pengguna, $data);
+
+    if (!empty($request->getPost("current_profile"))) {
+      $session->set("username", $username);
+    }
+
+    $session->setFlashdata("pageStatus", "update success");
+    return redirect()->to(base_url("admin"));
   }
 
   public function deleteAdmin($id_pengguna = "")
@@ -39,5 +132,20 @@ class Pengguna extends BaseController
       $session->setFlashdata("loginStatus", "user not login");
       return redirect()->to(base_url());
     }
+    $request = service("request");
+
+    // Delete of data
+    $this->pengguna->deleteAdmin($id_pengguna);
+
+    if (!empty($request->getPost("btn_delete"))) {
+      // Pass to logout page
+      $session->setFlashdata("pageStatus", "delete and log out");
+      return redirect()->to(base_url("logout"));
+    } else {
+      $session->setFlashdata("pageStatus", "delete success");
+      return redirect()->to(base_url("admin"));
+    }
   }
+
+  // Other methods to support master data
 }

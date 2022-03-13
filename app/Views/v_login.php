@@ -15,6 +15,19 @@
   ?>
 
   <?php
+  if (isset($loginStatus) && $loginStatus === "delete and log out") {
+  ?>
+    <div class="alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+      <p class="m-0">Akun Anda Telah Berhasil Dihapus Oleh Sistem.</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <?php
+  }
+  ?>
+
+  <?php
   if (isset($loginStatus) && $loginStatus === "login failed") {
   ?>
     <div class="alert alert-danger text-center alert-dismissible fade show mb-4" role="alert">

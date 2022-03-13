@@ -68,9 +68,8 @@ class Home extends BaseController
         $session->remove("username");
         $session->remove("level");
 
-        $loginStatus = "logout success";
+        $loginStatus = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : "logout success";
         $session->setFlashdata("loginStatus", $loginStatus);
         return redirect()->to(base_url());
     }
-	
 }
