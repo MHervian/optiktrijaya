@@ -29,8 +29,8 @@ class Pengguna extends BaseController
     // Get all data admin
     $data["admin"] = $this->pengguna->getAllAdmin();
 
-    $loginStatus = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
-    $data["pageStatus"] = $loginStatus;
+    $pageStatus = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
+    $data["pageStatus"] = $pageStatus;
 
     return view("v_admin", $data);
   }
@@ -146,6 +146,4 @@ class Pengguna extends BaseController
       return redirect()->to(base_url("admin"));
     }
   }
-
-  // Other methods to support master data
 }

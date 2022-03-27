@@ -15,6 +15,9 @@
   switch ($pageTitle) {
     case "Data Konsumen":
     case "Data Admin":
+    case "Data Master : Sales":
+    case "Data Master : Collector":
+    case "Data Master : Kacamata":
   ?>
       <!-- DataTables -->
       <link rel="stylesheet" href="<?= base_url("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") ?>" />

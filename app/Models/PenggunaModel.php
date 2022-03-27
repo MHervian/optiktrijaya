@@ -22,7 +22,8 @@ class PenggunaModel extends Model
   {
     return $this
       ->asArray()
-      ->where("lvl_akses", "admin")->findAll();
+      ->where("lvl_akses", "admin")
+      ->findAll();
   }
 
   public function getAdmin($id_pengguna)

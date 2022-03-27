@@ -32,7 +32,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Data Konsumen</h1>
+              <h1 class="m-0">Data Master Collector</h1>
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
@@ -40,7 +40,7 @@
                 <li class="breadcrumb-item">
                   <a href="<?= base_url("dashboard") ?>">Home</a>
                 </li>
-                <li class="breadcrumb-item active">Data Konsumen</li>
+                <li class="breadcrumb-item active">Data Sales</li>
               </ol>
             </div>
             <!-- /.col -->
@@ -55,7 +55,7 @@
       if (isset($pageStatus) && $pageStatus === "insert success") {
       ?>
         <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Data Konsumen Baru Berhasil Ditambah</p>
+          <p class="m-0">Data Master Collector Baru Berhasil Ditambah.</p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -68,7 +68,7 @@
       if (isset($pageStatus) && $pageStatus === "update success") {
       ?>
         <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Data Konsumen Berhasil Diubah</p>
+          <p class="m-0">Data Master Collector Baru Berhasil Diubah.</p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -81,7 +81,46 @@
       if (isset($pageStatus) && $pageStatus === "delete success") {
       ?>
         <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Data Konsumen Berhasil Dihapus</p>
+          <p class="m-0">Data Master Collector Baru Berhasil Dihapus.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
+      <?php
+      if (isset($pageStatus) && $pageStatus === "wrong old password") {
+      ?>
+        <div class="my-3 alert alert-danger text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Password Lama Data Collector Tidak Benar. Ulangi Lagi.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
+      <?php
+      if (isset($pageStatus) && $pageStatus === "new password is not matched") {
+      ?>
+        <div class="my-3 alert alert-danger text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Gagal Update Password Baru pada Data Master Collector. Pastikan Password Baru Sama yang Diulangi</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
+      <?php
+      if (isset($pageStatus) && $pageStatus === "password still same") {
+      ?>
+        <div class="my-3 alert alert-danger text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Password Baru Masih Sama dengan Password Lama pada Data Master Collector.</p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -97,51 +136,43 @@
             <div class="col-lg-12">
               <div class="card card-primary card-outline">
                 <div class="card-header">
-                  <button id="createKonsumen" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_konsumen" data-backdrop="static" data-keyboard="false">
-                    Tambah Konsumen
+                  <button id="createMaster" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_collector" data-backdrop="static" data-keyboard="false">
+                    Tambah Data Collector
                   </button>
                 </div>
                 <div class="card-body">
                   <?php
-                  $totalRows = count($konsumen);
+                  $totalRows = count($collector);
                   if ($totalRows === 0) {
                   ?>
                     <div class="alert alert-info text-center alert-dismissible fade show mb-4" role="alert">
-                      <p class="m-0">Data Konsumen Belum Ada</p>
+                      <p class="m-0">Data Collector Belum Ada</p>
                     </div>
                   <?php
                   } else {
                   ?>
-                    <table id="data_konsumen" class="table table-bordered table-hover">
+                    <table id="data_collector" class="table table-bordered table-hover">
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>Nama Pelanggan</th>
-                          <th>No Telepon</th>
-                          <th>Tgl Lahir</th>
-                          <th>Alamat</th>
-                          <th>Kredit Aktif</th>
+                          <th>Nama Collector</th>
+                          <th>Email Collector</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
                         $nomor = 1;
-                        foreach ($konsumen as $dataKonsumen) {
+                        foreach ($collector as $dataCollector) {
                         ?>
-                          <tr id="<?= $dataKonsumen["id_konsumen"] ?>">
+                          <tr id="<?= $dataCollector["id_pengguna"] ?>">
                             <td><?= $nomor ?></td>
-                            <td><?= $dataKonsumen["nama"] ?></td>
-                            <td><?= $dataKonsumen["no_telepon"] ?></td>
-                            <td><?= date("d F Y", strtotime($dataKonsumen["tgl_lahir"])) ?></td>
+                            <td><?= $dataCollector["username"] ?></td>
+                            <td><?= $dataCollector["email"] ?></td>
                             <td>
-                              <?= $dataKonsumen["alamat"] ?>
-                            </td>
-                            <?= ($dataKonsumen["jumlah"] !== "0") ? "<td class='text-danger'>YA</td>" : "<td class='text-success'>TIDAK</td>" ?>
-                            <td>
-                              <a href="<?= base_url("konsumen/detail/" . $dataKonsumen["id_konsumen"]) ?>" class="text-secondary d-block">Detail</a>
-                              <a href="#" data-toggle="modal" data-target="#form_update_user" data-backdrop="static" data-keyboard="false" class="d-block ubah">Ubah</a>
-                              <a href="#" class="text-danger d-block hapus" data-toggle="modal" data-target="#form_delete_user" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              <a href="#" class="text-secondary detail" data-toggle="modal" data-target="#form_detail_collector" data-backdrop="static" data-keyboard="false">Detail</a>
+                              <a href="#" class="ubah" data-toggle="modal" data-target="#form_update_collector" data-backdrop="static" data-keyboard="false">Ubah</a>
+                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_collector" data-backdrop="static" data-keyboard="false">Hapus</a>
                             </td>
                           </tr>
                         <?php
@@ -157,6 +188,7 @@
               </div>
               <!-- /.card -->
             </div>
+            <!-- /.col-md-12 -->
           </div>
           <!-- /.row -->
         </div>
@@ -166,44 +198,38 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <?= $this->include("layout/v_footer") ?>
+    <?= base_url("layout/v_footer") ?>
   </div>
   <!-- ./wrapper -->
 
-  <!-- Form modal create new user -->
-  <div class="modal fade" id="form_create_konsumen">
+  <!-- Form modal create new collector -->
+  <div class="modal fade" id="form_create_collector">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Create New Konsumen</h4>
+          <h4 class="modal-title">Create New Data Master Collector</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="<?= base_url("konsumen/create") ?>" method="post">
+        <form action="<?= base_url("masters/collector/create") ?>" method="post">
           <div class="modal-body">
             <div class="form-group row">
-              <label for="inputKonsumen" class="col-sm-4 col-form-label">Nama</label>
+              <label for="inputCollector" class="col-sm-4 col-form-label">Username Collector</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputKonsumen" name="nama" placeholder="Isi Nama Konsumen.." />
+                <input type="text" class="form-control" id="inputCollector" name="username" placeholder="Isi Nama Collector.." />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputBirth" class="col-sm-4 col-form-label">Tanggal Lahir</label>
+              <label for="inputEmail" class="col-sm-4 col-form-label">Email Collector</label>
               <div class="col-sm-8">
-                <input type="date" class="form-control" id="inputBirth" name="tgl_lahir" />
+                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Isi Email Collector.." />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputContact" class="col-sm-4 col-form-label">Nomor Telepon</label>
+              <label for="inputPassword" class="col-sm-4 col-form-label">Password</label>
               <div class="col-sm-8">
-                <input type="tel" class="form-control" id="inputContact" name="no_telepon" placeholder="Isi Nomor Kontak.." />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="inputAddress" class="col-sm-4 col-form-label">Alamat</label>
-              <div class="col-sm-8">
-                <textarea type="date" class="form-control" id="inputAddress" name="alamat" placeholder="Isi Alamat User.."></textarea>
+                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password Akun..." />
               </div>
             </div>
           </div>
@@ -223,41 +249,47 @@
   </div>
   <!-- /.modal -->
 
-  <!-- Form modal update konsumen -->
-  <div class="modal fade" id="form_update_user">
+  <!-- Form modal update collector data -->
+  <div class="modal fade" id="form_update_collector">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Ubah Data Konsumen</h4>
+          <h4 class="modal-title">Ubah Data Master Collector</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="<?= base_url("konsumen/update") ?>" method="post">
-          <input id="updateIDKonsumen" type="hidden" name="id_konsumen" />
+        <form action="<?= base_url("masters/collector/update") ?>" method="post">
+          <input type="hidden" id="updateIDPengguna" name="id_pengguna">
           <div class="modal-body">
             <div class="form-group row">
-              <label for="updateKonsumen" class="col-sm-4 col-form-label">Nama</label>
+              <label for="updateUsername" class="col-sm-4 col-form-label">Username Collector</label>
               <div class="col-sm-8">
-                <input type="text" name="nama" class="form-control" id="updateKonsumen" />
+                <input type="text" class="form-control" name="username" id="updateUsername" placeholder="Isi Nama Collector.." />
               </div>
             </div>
             <div class="form-group row">
-              <label for="updateBirth" class="col-sm-4 col-form-label">Tanggal Lahir</label>
+              <label for="updateEmail" class="col-sm-4 col-form-label">Email Collector</label>
               <div class="col-sm-8">
-                <input type="date" name="tgl_lahir" class="form-control" id="updateBirth" />
+                <input type="email" class="form-control" name="email" id="updateEmail" placeholder="Isi Email Collector.." />
               </div>
             </div>
             <div class="form-group row">
-              <label for="updateContact" class="col-sm-4 col-form-label">Nomor Telepon</label>
+              <label for="ubahPasswordLama" class="col-sm-4 col-form-label">Password Lama</label>
               <div class="col-sm-8">
-                <input type="tel" name="no_telepon" class="form-control" id="updateContact" />
+                <input type="password" class="form-control" name="password_lama" id="updatePasswordLama" placeholder="Password Akun..." />
               </div>
             </div>
             <div class="form-group row">
-              <label for="updateAddress" class="col-sm-4 col-form-label">Alamat</label>
+              <label for="ubahPasswordBaru" class="col-sm-4 col-form-label">Password Baru</label>
               <div class="col-sm-8">
-                <textarea type="date" name="alamat" class="form-control" id="updateAddress"></textarea>
+                <input type="password" class="form-control" name="password_baru" id="updatePasswordBaru" placeholder="Password Akun..." />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="ubahUlangiPassword" class="col-sm-4 col-form-label">Ulangi Password Baru</label>
+              <div class="col-sm-8">
+                <input type="password" class="form-control" name="password_ulangi" id="inputUlangiPassword" placeholder="Password Akun..." />
               </div>
             </div>
           </div>
@@ -277,19 +309,50 @@
   </div>
   <!-- /.modal -->
 
-  <!-- Form modal delete user -->
-  <div class="modal fade" id="form_delete_user">
+  <!-- Form modal detail collector data -->
+  <div class="modal fade" id="form_detail_collector">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Hapus Data Konsumen</h4>
+          <h4 class="modal-title">Info Data Collector</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <input type="hidden" id="uriPoint" value="<?= base_url("konsumen/delete/") ?>">
-          <p>Tekan 'Proses' untuk menghapus data konsumen</p>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Username Collector</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="infoCollector" disabled />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label">Email Collector</label>
+            <div class="col-sm-8">
+              <input type="email" class="form-control" id="infoEmail" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Form modal delete collector -->
+  <div class="modal fade" id="form_delete_collector">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hapus Data Collector</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="uriPoint" value="<?= base_url("masters/collector/delete/") ?>">
+          <p>Tekan 'Proses' untuk menghapus data Master Collector</p>
           <a href="#" id="btn_delete" class="btn btn-danger">Proses</a>
         </div>
       </div>
@@ -320,11 +383,10 @@
   <script src="<?= base_url("plugins/datatables-buttons/js/buttons.colVis.min.js") ?>"></script>
   <!-- AdminLTE App -->
   <script src="<?= base_url("dist/js/adminlte.min.js") ?>"></script>
-  <!-- Custom Javascript Here -->
   <script>
     $(function() {
       // For datatable
-      $("#data_konsumen").DataTable({
+      $("#data_collector").DataTable({
         paging: true,
         lengthChange: true,
         searching: true,
@@ -334,33 +396,44 @@
         responsive: true,
       });
 
-      $("#createKonsumen").click(function(e) {
-        $("#inputKonsumen").val("");
-        $("#inputBirth").val("");
-        $("#inputContact").val("");
-        $("#inputAddress").val("");
+      $("#createMaster").click(function(e) {
+        $("#inputCollector").val("");
+        $("#inputEmail").val("");
+        $("#inputPassword").val("");
+      });
+
+      // Click to display info of collector master
+      $(".detail").click(function(e) {
+        let id_pengguna = $(e.target).parent().parent().attr("id");
+        $.ajax({
+          url: "/masters/collector/id/" + id_pengguna,
+          method: "GET",
+          success: function(response) {
+            result = JSON.parse(response);
+            $("#infoCollector").val(result.username);
+            $("#infoEmail").val(result.email);
+          }
+        });
       });
 
       // If user click update form
       $(".ubah").click(function(e) {
-        let id_konsumen = $(e.target).parent().parent().attr("id");
+        let id_pengguna = $(e.target).parent().parent().attr("id");
         $.ajax({
-          url: "/konsumen/id/" + id_konsumen,
+          url: "/masters/collector/id/" + id_pengguna,
           method: "GET",
           success: function(response) {
             result = JSON.parse(response);
-            $("#updateIDKonsumen").val(result.id_konsumen);
-            $("#updateKonsumen").val(result.nama);
-            $("#updateBirth").val(result.tgl_lahir);
-            $("#updateContact").val(result.no_telepon);
-            $("#updateAddress").val(result.alamat);
+            $("#updateIDPengguna").val(result.id_pengguna);
+            $("#updateUsername").val(result.username);
+            $("#updateEmail").val(result.email);
           }
         });
       });
 
       $(".hapus").click(function(e) {
-        let id_konsumen = $(e.target).parent().parent().attr("id");
-        let uri_point = $("#uriPoint").val() + "/" + id_konsumen;
+        let id_pengguna = $(e.target).parent().parent().attr("id");
+        let uri_point = $("#uriPoint").val() + "/" + id_pengguna;
         $("#btn_delete").attr("href", uri_point);
       });
     });

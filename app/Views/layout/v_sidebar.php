@@ -59,21 +59,21 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="sales.html" class="nav-link">
+              <a href="<?= base_url("masters/sales") ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Data Sales</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="collector.html" class="nav-link">
+              <a href="<?= base_url("masters/collector") ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Data Collector</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="lensa.html" class="nav-link">
+              <a href="<?= base_url("masters/lensa-kacamata") ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Data Lensa</p>
+                <p>Data Lensa dan Kacamata</p>
               </a>
             </li>
           </ul>

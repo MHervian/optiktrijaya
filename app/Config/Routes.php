@@ -66,6 +66,16 @@ $routes->get("/konsumen/delete/(:any)", "Konsumen::deleteKonsumen/$1");
 /**
  * 6) Master Data
  */
+$routes->get("/masters/(:any)", "Masters::index/$1");
+$routes->get("/masters/sales/id/(:any)", "Masters::getMasterDataSales/$1");
+$routes->post("/masters/sales/create", "Masters::createMasterSales");
+$routes->post("/masters/sales/update", "Masters::updateMasterSales");
+$routes->get("/masters/sales/delete/(:any)", "Masters::deleteMasterSales/$1");
+
+$routes->get("/masters/collector/id/(:any)", "Masters::getMasterDatacollector/$1");
+$routes->post("/masters/collector/create", "Masters::createMastercollector");
+$routes->post("/masters/collector/update", "Masters::updateMastercollector");
+$routes->get("/masters/collector/delete/(:any)", "Masters::deleteMastercollector/$1");
 
 /**
  * 7) User and Roles
@@ -74,7 +84,6 @@ $routes->get("/admin", "Pengguna::index");
 $routes->get("/admin/id/(:any)", "Pengguna::getDataAdmin/$1");
 $routes->post("/admin/create", "Pengguna::createAdmin");
 $routes->post("/admin/update", "Pengguna::updateAdmin");
-// $routes->get("/admin/delete/(:any)", "Pengguna::deleteAdmin/$1");
 $routes->match(["get", "post"], "/admin/delete/(:any)", "Pengguna::deleteAdmin/$1");
 
 /*

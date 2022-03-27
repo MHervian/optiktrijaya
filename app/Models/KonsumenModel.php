@@ -13,7 +13,6 @@ class KonsumenModel extends Model
   public function getAllKonsumen()
   {
     $builder = $this->db->table($this->table);
-    // return $this->asArray()->findAll();
     return $builder->select("
       konsumen.id_konsumen AS id_konsumen,
       konsumen.nama AS nama,
