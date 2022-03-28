@@ -10,11 +10,13 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="<?= base_url("plugins/fontawesome-free/css/all.min.css") ?>" />
+  <meta name="robots" content="noindex,nofollow">
   <?php
   // Some page display table
   switch ($pageTitle) {
     case "Data Konsumen":
     case "Data Admin":
+    case "Data Pemesanan":
     case "Data Master : Sales":
     case "Data Master : Collector":
     case "Data Master : Kacamata":

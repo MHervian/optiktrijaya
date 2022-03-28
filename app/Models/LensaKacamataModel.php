@@ -26,6 +26,14 @@ class LensaKacamataModel extends Model
       ->get()->getResultArray();
   }
 
+  public function getAllLensVariantByCategoryID($id_kategori)
+  {
+    $builder = $this->db->table("lensa_varian");
+    return $builder->select("*")
+      ->where("id_lensa", $id_kategori)
+      ->get()->getResultArray();
+  }
+
   public function getAllCoating()
   {
     $builder = $this->db->table("coating");

@@ -51,6 +51,7 @@ $routes->get("/dashboard", "Dashboard::index");
 $routes->get("/konsumen", "Konsumen::index");
 $routes->get("/konsumen/detail/(:any)", "Konsumen::displayDetailKonsumen/$1");
 $routes->get("/konsumen/id/(:any)", "Konsumen::getDataKonsumen/$1");
+$routes->get("/konsumen/search/(:any)", "Konsumen::getDataKonsumenByKeyword/$1");
 $routes->post("/konsumen/create", "Konsumen::createNewKonsumen");
 $routes->post("/konsumen/update", "Konsumen::updateKonsumen");
 $routes->get("/konsumen/delete/(:any)", "Konsumen::deleteKonsumen/$1");
@@ -58,15 +59,19 @@ $routes->get("/konsumen/delete/(:any)", "Konsumen::deleteKonsumen/$1");
 /**
  * 4) Pemesanan
  */
+$routes->get("/pemesanan", "Pemesanan::index");
+$routes->get("/pemesanan/detail/(:any)", "Pemesanan::displayDetailPemesanan/$1");
+$routes->get("/buat-pemesanan", "Pemesanan::pemesananForm");
+$routes->post("/buat-pemesanan/create", "Pemesanan::createNewPemesanan");
 
 /**
- * 5) Transaction
+ * 5) Kredit
  */
 
 /**
  * 6) Master Data
  */
-$routes->get("/masters/(:any)", "Masters::index/$1");
+$routes->get("/masters/(:alpha)", "Masters::index/$1");
 $routes->get("/masters/sales/id/(:any)", "Masters::getMasterDataSales/$1");
 $routes->post("/masters/sales/create", "Masters::createMasterSales");
 $routes->post("/masters/sales/update", "Masters::updateMasterSales");
@@ -76,6 +81,8 @@ $routes->get("/masters/collector/id/(:any)", "Masters::getMasterDatacollector/$1
 $routes->post("/masters/collector/create", "Masters::createMastercollector");
 $routes->post("/masters/collector/update", "Masters::updateMastercollector");
 $routes->get("/masters/collector/delete/(:any)", "Masters::deleteMastercollector/$1");
+
+$routes->get("/masters/lensa/kategori/(:num)", "Masters::getLensVariantByCategoryID/$1");
 
 /**
  * 7) User and Roles

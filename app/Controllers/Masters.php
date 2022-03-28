@@ -40,7 +40,7 @@ class Masters extends BaseController
           $view_file = "v_collector";
           break;
         }
-      case "lensa-kacamata": {
+      case "lensa": {
           $data["pageTitle"] = "Data Master : Lensa dan Kacamata";
           $view_file = "v_lensa";
 
@@ -280,6 +280,13 @@ class Masters extends BaseController
   public function getMasterDatacollector($id_pengguna = "")
   {
     $result = $this->collector->getCollectorByID($id_pengguna);
+    return json_encode($result);
+  }
+
+  // All Lens Master Data by Category
+  public function getLensVariantByCategoryID($id_kategori = "")
+  {
+    $result = $this->lensaKacamata->getAllLensVariantByCategoryID($id_kategori);
     return json_encode($result);
   }
 }

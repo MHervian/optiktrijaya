@@ -25,6 +25,14 @@ class KonsumenModel extends Model
       ->groupBy("konsumen.id_konsumen")->get()->getResultArray();
   }
 
+  public function getAllKonsumenByKeyword($keyword)
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("*")
+      ->where("nama LIKE '%" . $keyword . "%'")
+      ->get()->getResultArray();
+  }
+
   public function getKonsumenByID($id_konsumen)
   {
     return $this->find($id_konsumen);

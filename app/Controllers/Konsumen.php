@@ -131,4 +131,10 @@ class Konsumen extends BaseController
     $result = $this->konsumen->getKonsumenByID($id_konsumen);
     return json_encode($result);
   }
+
+  public function getDataKonsumenByKeyword($keyword = "")
+  {
+    $result = $this->konsumen->getAllKonsumenByKeyword($keyword);
+    return json_encode($result);
+  }
 }

@@ -39,13 +39,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="pemesanan.html" class="nav-link">
+              <a href="<?= base_url("pemesanan") ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Data Pesanan</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="buat_pemesanan.html" class="nav-link">
+              <a href="<?= base_url("buat-pemesanan") ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Pesanan Baru</p>
               </a>
@@ -71,9 +71,9 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?= base_url("masters/lensa-kacamata") ?>" class="nav-link">
+              <a href="<?= base_url("masters/lensa") ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Data Lensa dan Kacamata</p>
+                <p>Data Lensa</p>
               </a>
             </li>
           </ul>
