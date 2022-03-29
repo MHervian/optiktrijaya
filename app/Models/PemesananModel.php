@@ -45,7 +45,6 @@ class PemesananModel extends Model
       pemesanan.no_sp AS no_sp,
       pemesanan.frame AS frame,
       pemesanan.harga AS harga,
-      pemesanan.dp AS dp,
       pemesanan.sisa_kredit AS sisa_kredit,
       pemesanan.tgl_pengiriman AS tgl_pengiriman,
       pemesanan.tgl_jatuh_tempo AS tgl_jatuh_tempo,
@@ -79,6 +78,11 @@ class PemesananModel extends Model
   }
 
   public function updatePemesanan($id_pemesanan, $data)
+  {
+    $this->update($id_pemesanan, $data);
+  }
+
+  public function updateKredit($id_pemesanan, $data)
   {
     $this->update($id_pemesanan, $data);
   }

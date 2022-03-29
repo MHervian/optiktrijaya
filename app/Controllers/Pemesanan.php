@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\PemesananModel;
+use App\Models\TransaksiModel;
 use App\Models\LensaKacamataModel;
 use Ramsey\Uuid\Uuid;
 
@@ -11,6 +12,7 @@ class Pemesanan extends BaseController
   public function __construct()
   {
     $this->pemesanan = new PemesananModel();
+    $this->transaksi = new TransaksiModel();
     $this->lensa = new LensaKacamataModel();
   }
 
@@ -27,6 +29,8 @@ class Pemesanan extends BaseController
     // Query all pemesanan data
     $data["pemesanan"] = $this->pemesanan->getAllPemesanan();
 
+    $pageStatus = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
+    $data["pageStatus"] = $pageStatus;
     return view("v_pemesanan", $data);
   }
 
@@ -40,9 +44,16 @@ class Pemesanan extends BaseController
     $data = array("pageTitle" => "Detail Pemesanan");
     $data["username"] = $session->username;
 
+    // Get detail pemesanan by ID
     $detail = $this->pemesanan->getPemesananByID($id_pemesanan);
     $data["detail"] = $detail[0];
 
+    // Get all log pembayaran of this detail
+    $logs = $this->transaksi->getAllLogsPembayaranByID($id_pemesanan);
+    $data["logs"] = $logs;
+
+    $pageStatus = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
+    $data["pageStatus"] = $pageStatus;
     return view("v_detail_pemesanan", $data);
   }
 
@@ -82,7 +93,6 @@ class Pemesanan extends BaseController
     $coating = $request->getPost("coating");
     $harga = $request->getPost("harga");
     $dp = $request->getPost("dp");
-    $kredit = $request->getPost("kredit");
     $tgl_pengiriman = $request->getPost("tgl_pengiriman");
     $tgl_jatuh_tempo = $request->getPost("tgl_jatuh_tempo");
     $sales = $request->getPost("sales");
@@ -100,13 +110,15 @@ class Pemesanan extends BaseController
     $r_prism = $request->getPost("r_prism");
     $uuid = Uuid::uuid4();
 
+    // Menghitung sisa kredit
+    $kredit = floatval($harga) - floatval($dp);
+
     $data = array(
       "id_pemesanan" => $uuid->toString(),
       "no_sp" => $no_sp,
       "id_konsumen" => $id_konsumen,
       "frame" => $frame,
       "harga" => $harga,
-      "dp" => $dp,
       "sisa_kredit" => $kredit,
       "tgl_pengiriman" => $tgl_pengiriman,
       "tgl_jatuh_tempo" => $tgl_jatuh_tempo,
@@ -130,9 +142,77 @@ class Pemesanan extends BaseController
       "status_kredit" => "ya",
     );
 
+    // Insert new pemesanan
     $this->pemesanan->insertPemesanan($data);
+
+    // Insert first credit transaction
+    $data = array(
+      "id_pemesanan" => $uuid->toString(),
+      "jmlh_bayar" => $dp,
+      "sisa_kredit" => $kredit,
+      "tenor_ke" => 1,
+      "collector" => $sales
+    );
+    $this->transaksi->insertPembayaran($data);
 
     $session->setFlashdata("pageStatus", "insert success");
     return redirect()->to(base_url("pemesanan"));
+  }
+
+  public function deletePemesanan($id_pemesanan)
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    // Delete all logs in this pemesanan
+    $this->transaksi->deletePembayaran($id_pemesanan);
+
+    // Delete pemesanan
+    $this->pemesanan->deletePemesanan($id_pemesanan);
+
+    $session->setFlashdata("pageStatus", "delete success");
+    return redirect()->to(base_url("pemesanan"));
+  }
+
+  // Credit transaction methods
+  public function beginPembayaranKredit()
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    $request = service("request");
+    $id_pemesanan = $request->getPost("id_pemesanan");
+    $nominal = $request->getPost("nominal");
+    $collector = $request->getPost("collector");
+    $tenor = $request->getPost("tenor");
+    $kredit = $request->getPost("kredit");
+
+    $kredit = floatval($kredit) - floatval($nominal);
+
+
+    $data = array(
+      "id_pemesanan" => $id_pemesanan,
+      "jmlh_bayar" => $nominal,
+      "sisa_kredit" => $kredit,
+      "tenor_ke" => $tenor,
+      "collector" => $collector
+    );
+    $this->transaksi->insertPembayaran($data);
+
+    // Update tenor and the remaining of kredit into pemesanan
+    $data = array(
+      "tenor" => $tenor,
+      "sisa_kredit" => $kredit
+    );
+    $this->pemesanan->updateKredit($id_pemesanan, $data);
+
+    $session->setFlashdata("pageStatus", "update success");
+    return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
   }
 }

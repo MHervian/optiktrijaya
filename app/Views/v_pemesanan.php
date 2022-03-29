@@ -137,8 +137,8 @@
                             <td><?= $data_pemesanan["nama"] ?></td>
                             <td><?= $data_pemesanan["no_telepon"] ?></td>
                             <td>Rp<?= number_format(floatval($data_pemesanan["sisa_kredit"]), 2) ?></td>
-                            <td><?= $data_pemesanan["tgl_pengiriman"] ?></td>
-                            <td><?= $data_pemesanan["tgl_jatuh_tempo"] ?></td>
+                            <td><?= date("d F Y", strtotime($data_pemesanan["tgl_pengiriman"])) ?></td>
+                            <td><?= date("d F Y", strtotime($data_pemesanan["tgl_jatuh_tempo"])) ?></td>
                             <td><?= $data_pemesanan["sales"] ?></td>
                             <td>
                               <a href="<?= base_url("pemesanan/detail/" . $data_pemesanan["id_pemesanan"]) ?>">Detail</a>

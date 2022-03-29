@@ -54,6 +54,19 @@
       </div>
       <!-- /.content-header -->
 
+      <?php
+      if (isset($pageStatus) && $pageStatus === "update success") {
+      ?>
+        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Detail Data Pemesanan Berhasil Diubah</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
@@ -103,11 +116,6 @@
                             <td>Harga</td>
                             <td>:</td>
                             <td>Rp<?= number_format(floatval($detail["harga"]), 2) ?></td>
-                          </tr>
-                          <tr>
-                            <td>DP</td>
-                            <td>:</td>
-                            <td>Rp<?= number_format(floatval($detail["dp"]), 2) ?></td>
                           </tr>
                           <tr>
                             <td>Sisa Kredit</td>
@@ -236,28 +244,24 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>21 Januari 2020</td>
-                        <td>Rp100.000</td>
-                        <td>Rp650.000</td>
-                        <td>Agus</td>
-                      </tr>
-                      <tr>
-                        <td>28 Januari 2020</td>
-                        <td>Rp200.000</td>
-                        <td>Rp450.000</td>
-                        <td>Agus</td>
-                      </tr>
-                      <tr>
-                        <td>30 Januari 2020</td>
-                        <td>Rp50.000</td>
-                        <td>Rp400.000</td>
-                        <td>Agus</td>
-                      </tr>
+                      <?php
+                      $tenor = 0;
+                      foreach ($logs as $log) {
+                      ?>
+                        <tr>
+                          <td><?= date("d F Y", strtotime($log["tgl_bayar"])) ?></td>
+                          <td>Rp<?= number_format(floatval($log["jmlh_bayar"]), 2) ?></td>
+                          <td>Rp<?= number_format(floatval($log["sisa_kredit"])) ?></td>
+                          <td><?= $log["collector"] ?></td>
+                        </tr>
+                      <?php
+                        $tenor++;
+                      }
+                      ?>
                     </tbody>
                   </table>
                   <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran">
-                    Tambah Pembayaran
+                    Input Pembayaran
                   </button>
                 </div>
               </div>
@@ -293,27 +297,27 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form>
+        <form action="<?= base_url("pemesanan/bayar") ?>" method="post">
+          <input type="hidden" name="id_pemesanan" value="<?= $detail["id_pemesanan"] ?>" />
+          <input type="hidden" name="tenor" value="<?= $tenor++ ?>" />
+          <input type="hidden" name="kredit" value="<?= $detail["sisa_kredit"] ?>" />
           <div class="modal-body">
             <div class="form-group row">
               <label for="inputNominal" class="col-sm-4 col-form-label">Nominal Pembayaran</label>
               <div class="col-sm-8">
-                <input type="number" class="form-control" id="inputNominal" placeholder="Isi Nominal.." />
+                <input type="text" class="form-control" id="inputNominal" name="nominal" placeholder="Isi Nominal.." />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputCollector" class="col-sm-4 col-form-label">Nama</label>
+              <label for="inputCollector" class="col-sm-4 col-form-label">Nama Collector</label>
               <div class="col-sm-8">
-                <select id="inputCollector" class="form-control">
-                  <option>Agus</option>
-                  <option>Hermawan</option>
-                </select>
+                <input type="text" class="form-control" id="inputCollector" name="collector" placeholder="Isi Nama Collector.." />
               </div>
             </div>
           </div>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
-              Confirm
+              Konfirmasi
             </button>
             <button type="reset" class="btn btn-secondary">
               Reset Form
@@ -339,7 +343,7 @@
         </div>
         <div class="modal-body">
           <p>Tekan 'Proses' untuk menghapus data pemesanan.</p>
-          <a href="#" class="btn btn-danger">Proses</a>
+          <a href="<?= base_url("pemesanan/delete/" . $detail["id_pemesanan"]) ?>" class="btn btn-danger">Proses</a>
         </div>
       </div>
       <!-- /.modal-content -->

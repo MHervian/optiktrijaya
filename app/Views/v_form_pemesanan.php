@@ -222,14 +222,14 @@
                             <input type="text" id="inputDP" name="dp" class="form-control" placeholder="0" />
                           </div>
                         </div>
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                           <div class="col-4">
                             <label for="inputKredit">Kredit : </label>
                           </div>
                           <div class="col-8">
                             <input type="text" id="inputKredit" name="kredit" class="form-control" placeholder="0" />
                           </div>
-                        </div>
+                        </div> -->
                         <div class="form-group row">
                           <div class="col-4">
                             <label for="inputTanggal">Tanggal Pengiriman:
@@ -270,55 +270,55 @@
                         <div class="form-group row">
                           <div class="col-lg-2">Sph</div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="l_sph" class="form-control" />
+                            <input type="text" name="l_sph" class="form-control" placeholder="0.00" />
                           </div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="r_sph" class="form-control" />
+                            <input type="text" name="r_sph" class="form-control" placeholder="0.00" />
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-lg-2">Cyl</div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="l_cyl" class="form-control" />
+                            <input type="text" name="l_cyl" class="form-control" placeholder="0.00" />
                           </div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="r_cyl" class="form-control" />
+                            <input type="text" name="r_cyl" class="form-control" placeholder="0.00" />
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-lg-2">Axis</div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="l_axis" class="form-control" />
+                            <input type="text" name="l_axis" class="form-control" placeholder="0.00" />
                           </div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="r_axis" class="form-control" />
+                            <input type="text" name="r_axis" class="form-control" placeholder="0.00" />
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-lg-2">Add</div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="l_add" class="form-control" />
+                            <input type="text" name="l_add" class="form-control" placeholder="0.00" />
                           </div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="r_add" class="form-control" />
+                            <input type="text" name="r_add" class="form-control" placeholder="0.00" />
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-lg-2">Mpd</div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="l_mpd" class="form-control" />
+                            <input type="text" name="l_mpd" class="form-control" placeholder="0.00" />
                           </div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="r_mpd" class="form-control" />
+                            <input type="text" name="r_mpd" class="form-control" placeholder="0.00" />
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-lg-2">Prism</div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="l_prism" class="form-control" />
+                            <input type="text" name="l_prism" class="form-control" placeholder="0.00" />
                           </div>
                           <div class="col-lg-2 font-weight-bold">
-                            <input type="text" name="r_prism" class="form-control" />
+                            <input type="text" name="r_prism" class="form-control" placeholder="0.00" />
                           </div>
                         </div>
                       </div>
