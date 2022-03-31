@@ -284,9 +284,10 @@ class Masters extends BaseController
   }
 
   // All Lens Master Data by Category
-  public function getLensVariantByCategoryID($id_kategori = "")
+  public function getLensVariantByCategoryName($nama = "")
   {
-    $result = $this->lensaKacamata->getAllLensVariantByCategoryID($id_kategori);
+    $nama = rawurldecode($nama);
+    $result = $this->lensaKacamata->getAllLensVariantByCategoryName($nama);
     return json_encode($result);
   }
 }

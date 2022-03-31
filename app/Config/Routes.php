@@ -84,7 +84,7 @@ $routes->post("/masters/collector/create", "Masters::createMastercollector");
 $routes->post("/masters/collector/update", "Masters::updateMastercollector");
 $routes->get("/masters/collector/delete/(:any)", "Masters::deleteMastercollector/$1");
 
-$routes->get("/masters/lensa/kategori/(:num)", "Masters::getLensVariantByCategoryID/$1");
+$routes->get("/masters/lensa/kategori/(:any)", "Masters::getLensVariantByCategoryName/$1");
 
 /**
  * 7) User and Roles

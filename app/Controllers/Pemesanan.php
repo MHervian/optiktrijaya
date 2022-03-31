@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\PemesananModel;
 use App\Models\TransaksiModel;
 use App\Models\LensaKacamataModel;
+use App\Models\SalesModel;
 use Ramsey\Uuid\Uuid;
 
 class Pemesanan extends BaseController
@@ -14,6 +15,7 @@ class Pemesanan extends BaseController
     $this->pemesanan = new PemesananModel();
     $this->transaksi = new TransaksiModel();
     $this->lensa = new LensaKacamataModel();
+    $this->sales = new SalesModel();
   }
 
   public function index()
@@ -67,10 +69,11 @@ class Pemesanan extends BaseController
     $data = array("pageTitle" => "Buat Pemesanan Baru");
     $data["username"] = $session->username;
 
-    // Query all lens data master
+    // Query all lens data master and sales master data
     $data["lensa"] = $this->lensa->getAllLens();
     $data["coating"] = $this->lensa->getAllCoating();
     $data["flattop"] = $this->lensa->getAllFlattop();
+    $data["sales"] = $this->sales->getAllSales();
 
     return view("v_form_pemesanan", $data);
   }

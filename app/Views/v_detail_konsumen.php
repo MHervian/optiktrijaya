@@ -145,24 +145,23 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>82193</td>
-                          <td>Rp400.000</td>
-                          <td>21 Januari 2022</td>
-                          <td>
-                            <a href="detail_pemesanan.html">Detail</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>2</td>
-                          <td>82193</td>
-                          <td>Rp200.000</td>
-                          <td>21 Januari 2022</td>
-                          <td>
-                            <a href="detail_pemesanan.html">Detail</a>
-                          </td>
-                        </tr>
+                        <?php
+                        $nomor = 1;
+                        foreach ($kredit as $kr) {
+                        ?>
+                          <tr>
+                            <td><?= $nomor ?></td>
+                            <td><?= $kr["no_sp"] ?></td>
+                            <td>Rp<?= number_format(floatval($kr["sisa_kredit"]), 2) ?></td>
+                            <td><?= date("d F Y", strtotime($kr["tgl_jatuh_tempo"])) ?></td>
+                            <td>
+                              <a href="<?= base_url("pemesanan/detail/" . $kr["id_pemesanan"]) ?>">Detail</a>
+                            </td>
+                          </tr>
+                        <?php
+                          $nomor++;
+                        }
+                        ?>
                       </tbody>
                     </table>
                   <?php
@@ -196,14 +195,22 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>1</td>
-                          <td>67238</td>
-                          <td>Rp900.000</td>
-                          <td>
-                            <a href="detail_pemesanan.html">Detail</a>
-                          </td>
-                        </tr>
+                        <?php
+                        $nomor = 1;
+                        foreach ($lunas as $ln) {
+                        ?>
+                          <tr>
+                            <td><?= $nomor ?></td>
+                            <td><?= $ln["no_sp"] ?></td>
+                            <td>Rp<?= number_format(floatval($ln["harga"]), 2) ?></td>
+                            <td>
+                              <a href="<?= base_url("pemesanan/detail/" . $kr["id_pemesanan"]) ?>">Detail</a>
+                            </td>
+                          </tr>
+                        <?php
+                          $nomor++;
+                        }
+                        ?>
                       </tbody>
                     </table>
                   <?php

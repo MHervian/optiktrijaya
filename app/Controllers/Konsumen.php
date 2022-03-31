@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\KonsumenModel;
+use App\Models\PemesananModel;
 use Ramsey\Uuid\Uuid;
 
 class Konsumen extends BaseController
@@ -10,6 +11,7 @@ class Konsumen extends BaseController
   public function __construct()
   {
     $this->konsumen = new KonsumenModel();
+    $this->pemesanan = new PemesananModel();
   }
 
   public function index()
@@ -41,8 +43,8 @@ class Konsumen extends BaseController
 
     $data["konsumen"] = $this->konsumen->getKonsumenByID($id_konsumen);
     // Kueri apa saja yang dipesan oleh konsumen ini
-    $data["kredit"] = array();
-    $data["lunas"] = array();
+    $data["kredit"] = $this->pemesanan->getAllActiveCredit($id_konsumen);
+    $data["lunas"] = $this->pemesanan->getAllPaidOffCredit($id_konsumen);
 
     return view("v_detail_konsumen", $data);
   }

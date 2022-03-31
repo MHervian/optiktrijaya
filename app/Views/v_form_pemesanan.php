@@ -162,7 +162,7 @@
                               <?php
                               foreach ($lensa as $lens) {
                               ?>
-                                <option value="<?= $lens["id_lensa"] ?>"><?= $lens["jenis_lensa"] ?></option>
+                                <option value="<?= $lens["jenis_lensa"] ?>"><?= $lens["jenis_lensa"] ?></option>
                               <?php
                               }
                               ?>
@@ -183,7 +183,7 @@
                               <?php
                               foreach ($flattop as $flat) {
                               ?>
-                                <option value="<?= $flat["id_flattop"] ?>"><?= $flat["bahan_lensa"] ?></option>
+                                <option value="<?= $flat["bahan_lensa"] ?>"><?= $flat["bahan_lensa"] ?></option>
                               <?php
                               }
                               ?>
@@ -199,7 +199,7 @@
                               <?php
                               foreach ($coating as $coat) {
                               ?>
-                                <option value="<?= $coat["id_coating"] ?>"><?= $coat["nama_coating"] ?></option>
+                                <option value="<?= $coat["nama_coating"] ?>"><?= $coat["nama_coating"] ?></option>
                               <?php
                               }
                               ?>
@@ -253,7 +253,16 @@
                             <label for="inputSales">Sales: </label>
                           </div>
                           <div class="col-8">
-                            <input type="text" id="inputSales" name="sales" class="form-control" placeholder="Input Nama Sales.." />
+                            <!-- <input type="text" id="inputSales" name="sales" class="form-control" placeholder="Input Nama Sales.." /> -->
+                            <select name="sales" id="inputSales" class="form-control">
+                              <?php
+                              foreach ($sales as $sale) {
+                              ?>
+                                <option value="<?= $sale["username"] ?>"><?= $sale["username"] ?></option>
+                              <?php
+                              }
+                              ?>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -367,7 +376,7 @@
       // First initiate
       $("#cariKonsumen").val("");
       $.ajax({
-        url: "/masters/lensa/kategori/" + $("#lensSelection :selected").attr("value"),
+        url: "/masters/lensa/kategori/" + encodeURIComponent($("#lensSelection :selected").attr("value")),
         method: "GET",
         success: function(response) {
           result = JSON.parse(response);
@@ -377,7 +386,7 @@
           var i = 0;
           result.forEach(el => {
             var opt = jQuery("<option />", {
-              value: el.id_varian,
+              value: el.nama_varian,
               text: el.nama_varian
             });
 
@@ -411,9 +420,9 @@
 
       $("#lensSelection").change(function(evt) {
 
-        var id_kategori = $("#lensSelection :selected").attr("value");
+        var nama_kategori = $("#lensSelection :selected").attr("value");
         $.ajax({
-          url: "/masters/lensa/kategori/" + id_kategori,
+          url: "/masters/lensa/kategori/" + encodeURIComponent(nama_kategori),
           method: "GET",
           success: function(response) {
             result = JSON.parse(response);
@@ -423,7 +432,7 @@
             var i = 0;
             result.forEach(el => {
               var opt = jQuery("<option />", {
-                value: el.id_varian,
+                value: el.nama_varian,
                 text: el.nama_varian
               });
 
@@ -468,7 +477,6 @@
               $(list).click(function(evt) {
                 var idxData = $(evt.target).attr("id");
                 idxData = idxData.split("-")[1];
-                // alert("Anda milih data nomor : " + idxData);
                 $("#listSearchResult").empty();
                 $("#boxSearchResult").css({
                   "display": "none"

@@ -32,7 +32,7 @@ class PemesananModel extends Model
       ->get()->getResultArray();
   }
 
-  public function getPemesananByID()
+  public function getPemesananByID($id_pemesanan)
   {
     $builder = $this->db->table($this->table);
     return $builder->select("
@@ -68,6 +68,35 @@ class PemesananModel extends Model
       pemesanan.status_kredit AS status_kredit
     ")
       ->join("konsumen", "konsumen.id_konsumen = pemesanan.id_konsumen", "INNER")
+      ->where("pemesanan.id_pemesanan", $id_pemesanan)
+      ->get()
+      ->getResultArray();
+  }
+
+  public function getAllActiveCredit($id_konsumen)
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("
+      id_pemesanan, no_sp, sisa_kredit, tgl_jatuh_tempo
+    ")
+      ->where(array(
+        "id_konsumen" => $id_konsumen,
+        "status_kredit" => "ya"
+      ))
+      ->get()
+      ->getResultArray();
+  }
+
+  public function getAllPaidOffCredit($id_konsumen)
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("
+      id_pemesanan, no_sp, sisa_kredit, tgl_jatuh_tempo
+    ")
+      ->where(array(
+        "id_konsumen" => $id_konsumen,
+        "status_kredit" => "tidak"
+      ))
       ->get()
       ->getResultArray();
   }
