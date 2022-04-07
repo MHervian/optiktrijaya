@@ -6,6 +6,7 @@ use App\Models\PemesananModel;
 use App\Models\TransaksiModel;
 use App\Models\LensaKacamataModel;
 use App\Models\SalesModel;
+use App\Models\CollectorModel;
 use Ramsey\Uuid\Uuid;
 
 class Pemesanan extends BaseController
@@ -16,6 +17,7 @@ class Pemesanan extends BaseController
     $this->transaksi = new TransaksiModel();
     $this->lensa = new LensaKacamataModel();
     $this->sales = new SalesModel();
+    $this->collector = new CollectorModel();
   }
 
   public function index()
@@ -49,6 +51,8 @@ class Pemesanan extends BaseController
     // Get detail pemesanan by ID
     $detail = $this->pemesanan->getPemesananByID($id_pemesanan);
     $data["detail"] = $detail[0];
+
+    $data["collector"] = $this->collector->getAllCollector();
 
     // Get all log pembayaran of this detail
     $logs = $this->transaksi->getAllLogsPembayaranByID($id_pemesanan);
@@ -215,7 +219,7 @@ class Pemesanan extends BaseController
     );
     $this->pemesanan->updateKredit($id_pemesanan, $data);
 
-    $session->setFlashdata("pageStatus", "update success");
+    $session->setFlashdata("pageStatus", "transaction success");
     return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
   }
 }

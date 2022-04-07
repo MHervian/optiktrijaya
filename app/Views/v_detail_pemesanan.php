@@ -67,6 +67,19 @@
       }
       ?>
 
+      <?php
+      if (isset($pageStatus) && $pageStatus === "transaction success") {
+      ?>
+        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Pembayaran Kredit Telah Berhasil Direkap Sistem.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
@@ -311,7 +324,16 @@
             <div class="form-group row">
               <label for="inputCollector" class="col-sm-4 col-form-label">Nama Collector</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputCollector" name="collector" placeholder="Isi Nama Collector.." />
+                <select name="collector" class="form-control">
+                  <?php
+                  foreach ($collector as $c) {
+                  ?>
+                    <option value="<?= $c["username"] ?>"><?= $c["username"] ?></option>
+                  <?php
+                  }
+                  ?>
+                </select>
+                <!-- <input type="text" class="form-control" id="inputCollector" name="collector" placeholder="Isi Nama Collector.." /> -->
               </div>
             </div>
           </div>
