@@ -78,6 +78,19 @@
       ?>
 
       <?php
+      if (isset($pageStatus) && $pageStatus === "update password success") {
+      ?>
+        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Password Baru Berhasil Diset di Sistem.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
+      <?php
       if (isset($pageStatus) && $pageStatus === "delete success") {
       ?>
         <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
@@ -199,7 +212,7 @@
 
               <?php
               $dataRows = count($admin);
-              if ($dataRows > 1) {
+              if ($dataRows > 1 && $profile["lvl_akses"] !== "supadmin") {
               ?>
                 <div class="card card-danger card-outline">
                   <div class="card-header">
@@ -243,6 +256,7 @@
                       <?php
                       $nomor = 1;
                       foreach ($admin as $adm) {
+                        if ($adm["lvl_akses"] == "supadmin") continue;
                       ?>
                         <tr id="<?= $adm["id_pengguna"] ?>">
                           <td><?= $nomor ?></td>
@@ -252,7 +266,7 @@
                             <?php
                             if ($adm["username"] !== $username) {
                             ?>
-                              <a href="#" class="text-secondary">Detail</a>
+                              <a href="#" data-toggle="modal" data-target="#form_detail_admin" data-backdrop="static" data-keyboard="false" class="text-secondary detail">Detail</a>
                               <a href="#" data-toggle="modal" data-target="#form_update_admin" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
                               <a href="#" data-toggle="modal" data-target="#form_delete_admin" data-backdrop="static" data-keyboard="false" class="text-danger hapus">Hapus</a>
                             <?php
@@ -281,6 +295,7 @@
     <?= $this->include("layout/v_footer") ?>
   </div>
   <!-- ./wrapper -->
+
   <!-- Form modal create new admin -->
   <div class="modal fade" id="form_create_admin">
     <div class="modal-dialog">
@@ -388,6 +403,46 @@
   </div>
   <!-- /.modal -->
 
+  <!-- Form modal detail admin -->
+  <div class="modal fade" id="form_detail_admin">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Detail Admin</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group row">
+            <label for="inputUsername" class="col-sm-4 col-form-label">Username :
+            </label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" id="detailUsername" disabled />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmailUsername" class="col-sm-4 col-form-label">Email :
+            </label>
+            <div class="col-sm-8">
+              <input type="email" class="form-control" id="detailEmailUsername" disabled />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPasswordUsername" class="col-sm-4 col-form-label">Password :
+            </label>
+            <div class="col-sm-8">
+              <input type="password" class="form-control" id="detailPasswordUsername" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
   <!-- Form modal delete admin -->
   <div class="modal fade" id="form_delete_admin">
     <div class="modal-dialog">
@@ -444,6 +499,21 @@
         let id_pengguna = $(e.target).parent().parent().attr("id");
         let uri_point = $("#uriPoint").val() + "/" + id_pengguna;
         $("#btn_delete").attr("href", uri_point);
+      });
+
+      // User click detail admin
+      $(".detail").click(function(e) {
+        let id_pengguna = $(e.target).parent().parent().attr("id");
+        $.ajax({
+          url: "/admin/id/" + id_pengguna,
+          method: "GET",
+          success: function(response) {
+            result = JSON.parse(response);
+            $("#detailUsername").val(result.username);
+            $("#detailEmailUsername").val(result.email);
+            $("#detailPasswordUsername").val("***********");
+          }
+        });
       });
     })
   </script>

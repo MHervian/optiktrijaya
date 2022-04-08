@@ -86,8 +86,11 @@ class Pengguna extends BaseController
     $password_ulangi = $request->getPost("password_ulangi");
 
     if (!empty($password_lama) && !empty($password_baru)) {
+      // Check whether this request from form current profile or other profile
+      // $profile = $this->pengguna->getAdminByUsername($session->username);
+      $profile = $this->pengguna->getAdmin($id_pengguna);
+
       // Validation of old and new password
-      $profile = $this->pengguna->getAdminByUsername($session->username);
       if (!password_verify($password_lama, $profile["pass"])) {
         $session->setFlashdata("pageStatus", "wrong old password");
         return redirect()->to(base_url("admin"));
@@ -122,6 +125,9 @@ class Pengguna extends BaseController
     }
 
     $session->setFlashdata("pageStatus", "update success");
+    if (!empty($password_baru)) {
+      $session->setFlashdata("pageStatus", "update password success");
+    }
     return redirect()->to(base_url("admin"));
   }
 
