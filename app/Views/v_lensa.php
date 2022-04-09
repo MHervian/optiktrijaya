@@ -51,6 +51,45 @@
       </div>
       <!-- /.content-header -->
 
+      <?php
+      if (isset($pageStatus) && $pageStatus === "insert success") {
+      ?>
+        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Data Baru Master Lensa Berhasil Ditambah</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
+      <?php
+      if (isset($pageStatus) && $pageStatus === "update success") {
+      ?>
+        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Data Master Lensa Berhasil Diubah</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
+      <?php
+      if (isset($pageStatus) && $pageStatus === "delete success") {
+      ?>
+        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Data Master Lensa Berhasil Dihapus</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
@@ -92,8 +131,8 @@
                             <td><?= $nomor ?></td>
                             <td><?= $data_lensa["jenis_lensa"] ?></td>
                             <td>
-                              <a href="#" data-toggle="modal" data-target="#form_update_user" data-backdrop="static" data-keyboard="false" class="d-block ubah">Ubah</a>
-                              <a href="#" class="text-danger d-block hapus" data-toggle="modal" data-target="#form_delete_user" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
+                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
                             </td>
                           </tr>
                         <?php
@@ -145,8 +184,8 @@
                             <td><?= $nomor ?></td>
                             <td><?= $wa["nama"] ?></td>
                             <td>
-                              <a href="#" data-toggle="modal" data-target="#form_update_user" data-backdrop="static" data-keyboard="false" class="d-block ubah">Ubah</a>
-                              <a href="#" class="text-danger d-block hapus" data-toggle="modal" data-target="#form_delete_user" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
+                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
                             </td>
                           </tr>
                         <?php
@@ -200,8 +239,8 @@
                             <td><?= $nomor ?></td>
                             <td><?= $bhn["bahan_lensa"] ?></td>
                             <td>
-                              <a href="#" data-toggle="modal" data-target="#form_update_user" data-backdrop="static" data-keyboard="false" class="d-block ubah">Ubah</a>
-                              <a href="#" class="text-danger d-block hapus" data-toggle="modal" data-target="#form_delete_user" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
+                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
                             </td>
                           </tr>
                         <?php
@@ -253,8 +292,8 @@
                             <td><?= $nomor ?></td>
                             <td><?= $coat["nama_coating"] ?></td>
                             <td>
-                              <a href="#" data-toggle="modal" data-target="#form_update_user" data-backdrop="static" data-keyboard="false" class="d-block ubah">Ubah</a>
-                              <a href="#" class="text-danger d-block hapus" data-toggle="modal" data-target="#form_delete_user" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
+                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
                             </td>
                           </tr>
                         <?php
@@ -325,8 +364,8 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="<?= base_url("master/lensa/update") ?>" method="post">
-          <input id="jenisData" type="hidden" name="jenis_data" />
+        <form action="<?= base_url("masters/lensa/update") ?>" method="post">
+          <input id="jenisDataUpdate" type="hidden" name="jenis_data" />
           <input id="idData" type="hidden" name="id_data" />
           <div class="modal-body">
             <div class="form-group row">
@@ -360,8 +399,8 @@
           </button>
         </div>
         <div class="modal-body">
-          <input type="hidden" id="uriPoint" value="<?= base_url("master/lensa/delete/") ?>">
-          <p>Tekan 'Proses' untuk menghapus data konsumen</p>
+          <input type="hidden" id="uriPoint" value="<?= base_url("masters/lensa/delete/") ?>">
+          <p>Tekan 'Proses' untuk menghapus data <span id="data"></span></p>
           <a href="#" id="btn_delete" class="btn btn-danger">Proses</a>
         </div>
       </div>
@@ -407,6 +446,95 @@
         $("#titleForm").text(titleForm);
         $("#jenisData").val(pilihan);
       });
+
+      $(".ubah").click(function(evt) {
+        let pilihan = $(evt.target).parent().parent().attr("id");
+        let titleForm = "";
+        let kelompok = pilihan.split("-")[0];
+        let id = pilihan.split("-")[1];
+        let result = null;
+        let data = null;
+
+        $.ajax({
+          url: "/masters/lensa/" + kelompok + "/" + id,
+          method: "GET",
+          async: false,
+          success: function(response) {
+            result = JSON.parse(response);
+            result = result[0];
+          }
+        });
+
+        console.log(result);
+
+        switch (kelompok) {
+          case "jenis": {
+            titleForm = "Form Ubah Data Jenis Lensa";
+            pilihan = "updateJenis";
+            data = result.jenis_lensa;
+            break;
+          }
+          case "warna": {
+            titleForm = "Form Ubah Data Warna";
+            pilihan = "updateWarna";
+            data = result.nama;
+            break;
+          }
+          case "bahan": {
+            titleForm = "Form Ubah Data Bahan Lensa";
+            pilihan = "updateBahan";
+            data = result.bahan_lensa;
+            break;
+          }
+          case "coating": {
+            titleForm = "Form Ubah Data Coating Lensa";
+            pilihan = "updateCoating";
+            data = result.nama_coating;
+            break;
+          }
+        }
+
+        $("#titleFormUpdate").text(titleForm);
+        $("#jenisDataUpdate").val(pilihan);
+        $("#idData").val(id);
+        $("#updateNama").val(data);
+      });
+
+      $(".hapus").click(function(evt) {
+        let pilihan = $(evt.target).parent().parent().attr("id");
+        let kelompok = pilihan.split("-")[0];
+        let id = pilihan.split("-")[1];
+        let uriPoint = $("#uriPoint").val();
+        let titleDeleteData = "";
+        let info = "";
+
+        switch (kelompok) {
+          case "jenis": {
+            titleDeleteData = "Hapus Data Master Jenis Lensa";
+            info = "jenis lensa";
+            break;
+          }
+          case "warna": {
+            titleDeleteData = "Hapus Data Master Warna";
+            info = "warna";
+            break;
+          }
+          case "bahan": {
+            titleDeleteData = "Hapus Data Master Bahan";
+            info = "bahan lensa";
+            break;
+          }
+          case "coating": {
+            titleDeleteData = "Hapus Data Master Coating";
+            info = "coating lensa";
+            break;
+          }
+        }
+
+        $("#titleDeleteData").text(titleDeleteData);
+        $("#data").text(info);
+        $("#btn_delete").attr("href", uriPoint + "/" + kelompok + "/" + id);
+      })
     })
   </script>
 </body>

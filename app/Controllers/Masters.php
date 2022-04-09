@@ -13,7 +13,7 @@ class Masters extends BaseController
   {
     $this->sales = new SalesModel();
     $this->collector = new CollectorModel();
-    $this->lensaKacamata = new LensaKacamataModel();
+    $this->lensa_kacamata = new LensaKacamataModel();
   }
 
   public function index($route = "")
@@ -45,10 +45,10 @@ class Masters extends BaseController
           $view_file = "v_lensa";
 
           // Get all lens, lens variant, coating, and flattop
-          $data["lens"] = $this->lensaKacamata->getAllLens();
-          $data["coating"] = $this->lensaKacamata->getAllCoating();
-          $data["bahan"] = $this->lensaKacamata->getAllFlattop();
-          $data["warna"] = $this->lensaKacamata->getAllWarna();
+          $data["lens"] = $this->lensa_kacamata->getAllLens();
+          $data["coating"] = $this->lensa_kacamata->getAllCoating();
+          $data["bahan"] = $this->lensa_kacamata->getAllFlattop();
+          $data["warna"] = $this->lensa_kacamata->getAllWarna();
           break;
         }
       default: {
@@ -268,6 +268,34 @@ class Masters extends BaseController
   }
 
   /** All Lens Master Data Methods */
+  public function getMasterDataLensa($jenis_data = "", $id_data = "")
+  {
+    switch ($jenis_data) {
+      case "jenis": {
+          $jenis_data = "lensa";
+          $column_name = "id_lensa";
+          break;
+        }
+      case "warna": {
+          $jenis_data = "warna";
+          $column_name = "id_warna";
+          break;
+        }
+      case "bahan": {
+          $jenis_data = "flattop_bahan";
+          $column_name = "id_flattop";
+          break;
+        }
+      case "coating": {
+          $jenis_data = "coating";
+          $column_name = "id_coating";
+          break;
+        }
+    }
+    $result = $this->lensa_kacamata->getDataLensa($jenis_data, $column_name, $id_data);
+    return json_encode($result);
+  }
+
   public function createMasterDataLensa()
   {
     $session = session();
@@ -283,22 +311,22 @@ class Masters extends BaseController
     switch ($jenis_data) {
       case "createJenis": {
           $data = array("jenis_lensa" => $nama);
-          $this->lensaKacamata->insertLensa($data);
+          $this->lensa_kacamata->insertLensa($data);
           break;
         }
       case "createWarna": {
           $data = array("nama" => $nama);
-          $this->lensaKacamata->insertWarna($data);
+          $this->lensa_kacamata->insertWarna($data);
           break;
         }
       case "createBahan": {
           $data = array("bahan_lensa" => $nama);
-          $this->lensaKacamata->insertBahan($data);
+          $this->lensa_kacamata->insertBahan($data);
           break;
         }
       case "createCoating": {
           $data = array("nama_coating" => $nama);
-          $this->lensaKacamata->insertCoating($data);
+          $this->lensa_kacamata->insertCoating($data);
           break;
         }
       default: {
@@ -312,16 +340,92 @@ class Masters extends BaseController
 
   public function updateMasterDataLensa()
   {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    $request = service("request");
+    $jenis_data = $request->getPost("jenis_data");
+    $id_data = $request->getPost("id_data");
+    $nama = $request->getPost("nama");
+
+    switch ($jenis_data) {
+      case "updateJenis": {
+          $jenis_data = "lensa";
+          $column_name = "jenis_lensa";
+          $id_column = "id_lensa";
+          break;
+        }
+      case "updateWarna": {
+          $jenis_data = "warna";
+          $column_name = "nama";
+          $id_column = "id_warna";
+          break;
+        }
+      case "updateBahan": {
+          $jenis_data = "flattop_bahan";
+          $column_name = "bahan_lensa";
+          $id_column = "id_flattop";
+          break;
+        }
+      case "updateCoating": {
+          $jenis_data = "coating";
+          $column_name = "nama_coating";
+          $id_column = "id_coating";
+          break;
+        }
+    }
+
+    $data = array($column_name => $nama);
+    $this->lensa_kacamata->updateDataMasterLensa($jenis_data, $id_column, $id_data, $data);
+
+    $session->setFlashdata("pageStatus", "update success");
+    return redirect()->to(base_url("masters/lensa"));
   }
 
   public function deleteMasterDataLensa($jenis_data = "", $id_data = "")
   {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    switch ($jenis_data) {
+      case "jenis": {
+          $jenis_data = "lensa";
+          $id_column = "id_lensa";
+          break;
+        }
+      case "warna": {
+          $jenis_data = "warna";
+          $id_column = "id_warna";
+          break;
+        }
+      case "bahan": {
+          $jenis_data = "flattop_bahan";
+          $id_column = "id_flattop";
+          break;
+        }
+      case "coating": {
+          $jenis_data = "coating";
+          $id_column = "id_coating";
+          break;
+        }
+    }
+
+    $this->lensa_kacamata->deleteDataMasterLensa($jenis_data, $id_column, $id_data);
+
+    $session->setFlashdata("pageStatus", "delete success");
+    return redirect()->to(base_url("masters/lensa"));
   }
 
   public function getLensVariantByCategoryName($nama = "")
   {
     $nama = rawurldecode($nama);
-    $result = $this->lensaKacamata->getAllLensVariantByCategoryName($nama);
+    $result = $this->lensa_kacamata->getAllLensVariantByCategoryName($nama);
     return json_encode($result);
   }
 }

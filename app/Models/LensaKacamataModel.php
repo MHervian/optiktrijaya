@@ -13,6 +13,14 @@ class LensaKacamataModel extends Model
       ->get()->getResultArray();
   }
 
+  public function getDataLensa($jenis_data, $column_name, $id_data)
+  {
+    $builder = $this->db->table($jenis_data);
+    return $builder->select("*")
+      ->where(array($column_name => $id_data))
+      ->get()->getResultArray();
+  }
+
   public function insertLensa($data)
   {
     $builder = $this->db->table("lensa");
@@ -82,5 +90,18 @@ class LensaKacamataModel extends Model
   {
     $builder = $this->db->table("warna");
     return $builder->insert($data);
+  }
+
+  public function updateDataMasterLensa($jenis_data, $id_column, $id_data, $data)
+  {
+    $builder = $this->db->table($jenis_data);
+    return $builder->where(array($id_column => $id_data))
+      ->update($data);
+  }
+
+  public function deleteDataMasterLensa($jenis_data, $id_column, $id_data)
+  {
+    $builder = $this->db->table($jenis_data);
+    return $builder->where(array($id_column => $id_data))->delete();
   }
 }
