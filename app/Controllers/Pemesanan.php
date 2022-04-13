@@ -15,7 +15,7 @@ class Pemesanan extends BaseController
   {
     $this->pemesanan = new PemesananModel();
     $this->transaksi = new TransaksiModel();
-    $this->lensa = new LensaKacamataModel();
+    $this->lensa_kacamata = new LensaKacamataModel();
     $this->sales = new SalesModel();
     $this->collector = new CollectorModel();
   }
@@ -74,9 +74,10 @@ class Pemesanan extends BaseController
     $data["username"] = $session->username;
 
     // Query all lens data master and sales master data
-    $data["lensa"] = $this->lensa->getAllLens();
-    $data["coating"] = $this->lensa->getAllCoating();
-    $data["flattop"] = $this->lensa->getAllFlattop();
+    $data["lensa"] = $this->lensa_kacamata->getAllLens();
+    $data["coating"] = $this->lensa_kacamata->getAllCoating();
+    $data["flattop"] = $this->lensa_kacamata->getAllFlattop();
+    $data["warna"] = $this->lensa_kacamata->getAllWarna();
     $data["sales"] = $this->sales->getAllSales();
 
     return view("v_form_pemesanan", $data);
