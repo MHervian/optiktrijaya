@@ -64,7 +64,7 @@
                       <h6>Form Cari Konsumen</h6>
                       <input type="text" class="form-control" id="cariKonsumen" placeholder="Cari dgn Nomor / Nama.." />
                       <div id="boxSearchResult" style="
-                            display: none;
+                            display: block;
                             position: absolute;
                             left: 0;
                             right: 0;
@@ -77,16 +77,18 @@
                               height: 180px;
                               overflow-y: scroll;
                             " class="m-0 p-0">
-                          <!-- <li style="
-                                border-bottom: 1px solid grey;
+                          <li style="border-bottom: 1px solid grey;">
+                            <a id="testing" href="javascript:void(0)" style="
+                                display: block;
                                 padding: 13px 10px;
                                 cursor: pointer;
                               ">
-                            <span><b>Vian</b> : 09723874823</span>
-                            <p class="m-0">
-                              Jalan Wahid Hasyim, Wahid Hasyim
-                            </p>
-                          </li> -->
+                              <span><b>Vian</b> : 09723874823</span>
+                              <p class="m-0">
+                                Jalan Wahid Hasyim, Wahid Hasyim
+                              </p>
+                            </a>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -353,6 +355,7 @@
 
       // First initiate
       $("#cariKonsumen").val("");
+
       // $.ajax({
       //   url: "/masters/lensa/kategori/" + encodeURIComponent($("#lensSelection :selected").attr("value")),
       //   method: "GET",
@@ -439,14 +442,17 @@
               var list = jQuery("<li />", {
                 id: "result-" + i,
                 class: "select-konsumen",
-                style: "border-bottom: 1px solid grey;padding: 13px 10px;cursor: pointer;"
+                style: "border-bottom: 1px solid grey;padding: 13px 10px;cursor: pointer;z-index: 2;"
               });
 
-              var span = jQuery("<span />")
+              var span = jQuery("<span />", {
+                  style: "z-index: 1;"
+                })
                 .append(jQuery("<b />").text(data.nama))
                 .append(" : " + data.no_telepon);
               var p = jQuery("<p />", {
-                  class: "m-0"
+                  class: "m-0",
+                  style: "z-index: 1;"
                 })
                 .append(data.alamat);
 

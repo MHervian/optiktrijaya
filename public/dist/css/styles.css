@@ -1,0 +1,27 @@
+/* 
+Custom CSS for AdminLTE
+ */
+.box-search-consument {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-color: white;
+  z-index: 4;
+  box-shadow: 0 0 4px grey;
+}
+
+.ul-search-consument {
+  list-style-type: none;
+  height: 180px;
+  overflow-y: scroll;
+}
+
+.list-content {
+  border-bottom: 1px solid grey;
+}
+
+.list-content a {
+  display: block;
+  padding: 13px 10px;
+}

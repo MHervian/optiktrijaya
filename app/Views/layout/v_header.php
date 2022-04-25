@@ -30,4 +30,5 @@
   ?>
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url("dist/css/adminlte.css") ?>" />
+  <link rel="stylesheet" href="<?= base_url("dist/css/styles.css") ?>" />
 </head>
