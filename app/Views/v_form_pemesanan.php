@@ -63,43 +63,19 @@
                     <div class="col-4 p-0" style="position: relative;">
                       <h6>Form Cari Konsumen</h6>
                       <input type="text" class="form-control" id="cariKonsumen" placeholder="Cari dgn Nomor / Nama.." />
-                      <div id="boxSearchResult" style="
-                            display: block;
-                            position: absolute;
-                            left: 0;
-                            right: 0;
-                            background-color: white;
-                            z-index: 4;
-                            box-shadow: 0 0 4px gray;
-                          ">
-                        <ul id="listSearchResult" style="
-                              list-style-type: none;
-                              height: 180px;
-                              overflow-y: scroll;
-                            " class="m-0 p-0">
-                          <li style="border-bottom: 1px solid grey;">
-                            <a id="testing" href="javascript:void(0)" style="
-                                display: block;
-                                padding: 13px 10px;
-                                cursor: pointer;
-                              ">
+                      <div id="boxSearchResult" class="list-search-cst-container">
+                        <ul id="listSearchResult" class="m-0 p-0 ul-search-cst">
+                          <!-- <li class="list-content">
+                            <a href="javascript:void(0)">
                               <span><b>Vian</b> : 09723874823</span>
                               <p class="m-0">
                                 Jalan Wahid Hasyim, Wahid Hasyim
                               </p>
                             </a>
-                          </li>
+                          </li> -->
                         </ul>
                       </div>
                     </div>
-                    <!-- <div class="col-auto">
-                      <button type="button" style="
-                            background-color: #02a09e;
-                            border-color: #02a09e;
-                          " class="btn btn-primary">
-                        Cari
-                      </button>
-                    </div> -->
                   </div>
                   <div class="row mb-3">
                     <div class="col-lg-4">
@@ -144,7 +120,7 @@
                             <label for="inputSP">No. SP : </label>
                           </div>
                           <div class="col-6">
-                            <input type="text" class="form-control" name="sp" id="inputSP" placeholder="Input No SP.." />
+                            <input type="text" class="form-control" name="sp" id="inputSP" placeholder="Input No SP.." required />
                           </div>
                         </div>
                         <div class="form-group row">
@@ -152,7 +128,7 @@
                             <label for="inputFrame">Frame : </label>
                           </div>
                           <div class="col-6">
-                            <input type="text" class="form-control" name="frame" id="inputFrame" placeholder="Input Frame.." />
+                            <input type="text" class="form-control" name="frame" id="inputFrame" placeholder="Input Frame.." required />
                           </div>
                         </div>
                         <div class="form-group row">
@@ -160,7 +136,7 @@
                             <label for="inputFrame">Jenis Lensa : </label>
                           </div>
                           <div class="col-6">
-                            <select id="lensSelection" class="form-control" name="jenis_lensa" id="inputFrame">
+                            <select id="lensSelection" class="form-control" name="jenis_lensa" id="inputFrame" required>
                               <?php
                               foreach ($lensa as $lens) {
                               ?>
@@ -181,7 +157,7 @@
                             </label>
                           </div>
                           <div class="col-6">
-                            <select id="inputBahanFlattop" name="flattop" class="form-control">
+                            <select id="inputBahanFlattop" name="flattop" class="form-control" required>
                               <?php
                               foreach ($flattop as $flat) {
                               ?>
@@ -197,7 +173,7 @@
                             <label for="inputCoating">Coating : </label>
                           </div>
                           <div class="col-6">
-                            <select id="inputCoating" name="coating" class="form-control">
+                            <select id="inputCoating" name="coating" class="form-control" required>
                               <?php
                               foreach ($coating as $coat) {
                               ?>
@@ -213,7 +189,7 @@
                             <label for="inputWarna">Warna : </label>
                           </div>
                           <div class="col-6">
-                            <select id="inputWarna" name="warna" class="form-control">
+                            <select id="inputWarna" name="warna" class="form-control" required>
                               <?php
                               foreach ($warna as $w) {
                               ?>
@@ -229,7 +205,7 @@
                             <label for="inputHarga">Harga : </label>
                           </div>
                           <div class="col-6">
-                            <input type="text" id="inputHarga" name="harga" class="form-control" placeholder="0" />
+                            <input type="text" id="inputHarga" name="harga" class="form-control" placeholder="0" required />
                           </div>
                         </div>
                         <div class="form-group row">
@@ -237,7 +213,7 @@
                             <label for="inputDP">DP : </label>
                           </div>
                           <div class="col-6">
-                            <input type="text" id="inputDP" name="dp" class="form-control" placeholder="0" />
+                            <input type="text" id="inputDP" name="dp" class="form-control" placeholder="0" required />
                           </div>
                         </div>
                         <div class="form-group row">
@@ -246,7 +222,7 @@
                             </label>
                           </div>
                           <div class="col-6">
-                            <input type="date" id="inputTanggal" name="tgl_pengiriman" class="form-control" placeholder="0" />
+                            <input type="date" id="inputTanggal" name="tgl_pengiriman" class="form-control" placeholder="0" required />
                           </div>
                         </div>
                         <div class="form-group row">
@@ -255,7 +231,7 @@
                             </label>
                           </div>
                           <div class="col-6">
-                            <input type="date" id="inputTanggalJatuhTempo" name="tgl_jatuh_tempo" class="form-control" placeholder="0" />
+                            <input type="date" id="inputTanggalJatuhTempo" name="tgl_jatuh_tempo" class="form-control" placeholder="0" required />
                           </div>
                         </div>
                         <div class="form-group row">
@@ -264,7 +240,7 @@
                           </div>
                           <div class="col-6">
                             <!-- <input type="text" id="inputSales" name="sales" class="form-control" placeholder="Input Nama Sales.." /> -->
-                            <select name="sales" id="inputSales" class="form-control">
+                            <select name="sales" id="inputSales" class="form-control" required>
                               <?php
                               foreach ($sales as $sale) {
                               ?>
@@ -440,33 +416,45 @@
             i = 0;
             result.forEach(data => {
               var list = jQuery("<li />", {
-                id: "result-" + i,
-                class: "select-konsumen",
-                style: "border-bottom: 1px solid grey;padding: 13px 10px;cursor: pointer;z-index: 2;"
+                class: "list-content"
               });
 
-              var span = jQuery("<span />", {
-                  style: "z-index: 1;"
-                })
-                .append(jQuery("<b />").text(data.nama))
-                .append(" : " + data.no_telepon);
-              var p = jQuery("<p />", {
-                  class: "m-0",
-                  style: "z-index: 1;"
-                })
-                .append(data.alamat);
-
-              $(list).append(span);
-              $(list).append(p);
-              $(list).click(function(evt) {
+              var a = jQuery("<a />", {
+                id: "result-" + i,
+                href: "javascript:void(0)"
+              }).click(function(evt) {
                 var idxData = $(evt.target).attr("id");
+                // alert(idxData);
                 idxData = idxData.split("-")[1];
                 $("#listSearchResult").empty();
                 $("#boxSearchResult").css({
-                  "display": "none"
-                });
+                  display: "none"
+                })
                 updateInfoSelection(parseInt(idxData));
               });
+
+              var span = jQuery("<span />")
+                .append(jQuery("<b />").text(data.nama))
+                .append(" : " + data.no_telepon);
+              var p = jQuery("<p />", {
+                  class: "m-0"
+                })
+                .append(data.alamat);
+
+              $(a).append(span).append(p);
+              $(list).append(a);
+
+              // $(list).append(span);
+              // $(list).append(p);
+              // $(list).click(function(evt) {
+              //   var idxData = $(evt.target).attr("id");
+              //   idxData = idxData.split("-")[1];
+              //   $("#listSearchResult").empty();
+              //   $("#boxSearchResult").css({
+              //     "display": "none"
+              //   });
+              //   updateInfoSelection(parseInt(idxData));
+              // });
 
               listSearchResult[i] = list;
               i++;

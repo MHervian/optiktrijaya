@@ -96,9 +96,10 @@ class Pemesanan extends BaseController
     $no_sp = $request->getPost("sp");
     $frame = $request->getPost("frame");
     $jenis_lensa = $request->getPost("jenis_lensa");
-    $varian_lensa = $request->getPost("varian_lensa");
+    // $varian_lensa = $request->getPost("varian_lensa");
     $flattop = $request->getPost("flattop");
     $coating = $request->getPost("coating");
+    $warna = $request->getPost("warna");
     $harga = $request->getPost("harga");
     $dp = $request->getPost("dp");
     $tgl_pengiriman = $request->getPost("tgl_pengiriman");
@@ -132,7 +133,9 @@ class Pemesanan extends BaseController
       "tgl_jatuh_tempo" => $tgl_jatuh_tempo,
       "tenor" => 1,
       "sales" => $sales,
-      "lensa" => $jenis_lensa . " - " . $varian_lensa,
+      // "lensa" => $jenis_lensa . " - " . $varian_lensa,
+      "lensa" => $jenis_lensa,
+      "warna" => $warna,
       "flattop" => $flattop,
       "coating" => $coating,
       "L_sph" => $l_sph,
@@ -147,7 +150,7 @@ class Pemesanan extends BaseController
       "R_add" => $r_add,
       "R_mpd" => $r_mpd,
       "R_prism" => $r_prism,
-      "status_kredit" => "ya",
+      "status_kredit" => "ya"
     );
 
     // Insert new pemesanan

@@ -1,8 +1,8 @@
 /* 
 Custom CSS for AdminLTE
  */
-.box-search-consument {
-  display: block;
+.list-search-cst-container {
+  display: none;
   position: absolute;
   left: 0;
   right: 0;
@@ -11,9 +11,9 @@ Custom CSS for AdminLTE
   box-shadow: 0 0 4px grey;
 }
 
-.ul-search-consument {
+.ul-search-cst {
   list-style-type: none;
-  height: 180px;
+  height: 380px;
   overflow-y: scroll;
 }
 
@@ -24,4 +24,8 @@ Custom CSS for AdminLTE
 .list-content a {
   display: block;
   padding: 13px 10px;
+}
+
+.list-content a > * { 
+  pointer-events: none; /* Disable child event so can bubble up to parent*/
 }
