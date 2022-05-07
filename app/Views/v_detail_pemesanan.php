@@ -89,7 +89,7 @@
                 <div class="card-body">
                   <h5 class="font-weight-bold">
                     Data Harga dan Spesifikasi :
-                    <a href="#" class="btn btn-primary">
+                    <a href="<?= base_url("pemesanan/edit/" . $detail["id_pemesanan"]) ?>" class="btn btn-primary">
                       <i class="fas fa-edit"></i> Ubah
                     </a>
                     <button class="btn btn-danger" data-toggle="modal" data-target="#form_delete_pemesanan">
@@ -97,8 +97,8 @@
                     </button>
                   </h5>
                   <div class="row">
-                    <div class="col-md-6">
-                      <table class="table">
+                    <div class="col-md-4">
+                      <table class="table table-bordered">
                         <tbody>
                           <tr>
                             <td>No. SP</td>
@@ -111,12 +111,12 @@
                             <td><?= $detail["frame"] ?></td>
                           </tr>
                           <tr>
-                            <td>Jenis Lensa</td>
+                            <td>Lensa</td>
                             <td>:</td>
                             <td><?= $detail["lensa"] ?></td>
                           </tr>
                           <tr>
-                            <td>Bahan Flattop</td>
+                            <td>Bahan</td>
                             <td>:</td>
                             <td><?= $detail["flattop"] ?></td>
                           </tr>
@@ -124,6 +124,11 @@
                             <td>Coating</td>
                             <td>:</td>
                             <td><?= $detail["coating"] ?></td>
+                          </tr>
+                          <tr>
+                            <td>Warna</td>
+                            <td>:</td>
+                            <td><?= $detail["warna"] ?></td>
                           </tr>
                           <tr>
                             <td>Harga</td>
@@ -153,64 +158,52 @@
                         </tbody>
                       </table>
                     </div>
-                    <div class="offset-md-1 col-md-4">
-                      <table class="table table-bordered">
+                    <div class="col-md-4">
+                      <table class="table table-bordered mb-5">
                         <thead>
                           <tr>
                             <th></th>
-                            <th>L</th>
-                            <th>R</th>
+                            <th>Sph</th>
+                            <th>Cyl</th>
+                            <th>Axis</th>
+                            <th>Add</th>
+                            <th>Mpd</th>
+                            <th>Prism</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <td>Sph</td>
-                            <td><?= $detail["L_sph"] ?></td>
+                            <td>R</td>
                             <td><?= $detail["R_sph"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Cyt</td>
-                            <td><?= $detail["L_cyt"] ?></td>
                             <td><?= $detail["R_cyt"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Axis</td>
-                            <td><?= $detail["L_axis"] ?></td>
                             <td><?= $detail["R_axis"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Add</td>
-                            <td><?= $detail["L_add"] ?></td>
                             <td><?= $detail["R_add"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Mpd</td>
-                            <td><?= $detail["L_mpd"] ?></td>
                             <td><?= $detail["R_mpd"] ?></td>
+                            <td><?= $detail["R_prism"] ?></td>
                           </tr>
                           <tr>
-                            <td>Prism</td>
+                            <td>L</td>
+                            <td><?= $detail["L_sph"] ?></td>
+                            <td><?= $detail["L_cyt"] ?></td>
+                            <td><?= $detail["L_axis"] ?></td>
+                            <td><?= $detail["L_add"] ?></td>
+                            <td><?= $detail["L_mpd"] ?></td>
                             <td><?= $detail["L_prism"] ?></td>
-                            <td><?= $detail["R_prism"] ?></td>
                           </tr>
                         </tbody>
                       </table>
-                    </div>
-                  </div>
-                  <h5 class="font-weight-bold">Data Pemesan :</h5>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <table class="table">
+                      <h5 class="font-weight-bold">Data Pemesan :</h5>
+                      <table class="table table-bordered">
                         <tbody>
-                          <tr>
-                            <td>Nomor Telepon</td>
-                            <td>:</td>
-                            <td><?= $detail["no_telepon"] ?></td>
-                          </tr>
                           <tr>
                             <td>Nama</td>
                             <td>:</td>
                             <td><?= $detail["nama"] ?></td>
+                          </tr>
+                          <tr>
+                            <td>Nomor Telepon</td>
+                            <td>:</td>
+                            <td><?= $detail["no_telepon"] ?></td>
                           </tr>
                           <?php
                           // Calculate Age
@@ -222,12 +215,6 @@
                             <td>:</td>
                             <td><?= $age ?> Tahun</td>
                           </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="col-md-5">
-                      <table class="table">
-                        <tbody>
                           <tr>
                             <td>Alamat</td>
                             <td>:</td>
@@ -246,36 +233,40 @@
             <div class="col-lg-12">
               <div class="card card-primary card-outline">
                 <div class="card-body">
-                  <h5 class="font-weight-bold">Log Pembayaran :</h5>
-                  <table class="table table-bordered table-hover mb-3">
-                    <thead>
-                      <tr>
-                        <th>Tanggal Bayar</th>
-                        <th>Jumlah Bayar</th>
-                        <th>Sisa Kredit</th>
-                        <th>Collector</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      $tenor = 0;
-                      foreach ($logs as $log) {
-                      ?>
-                        <tr>
-                          <td><?= date("d F Y", strtotime($log["tgl_bayar"])) ?></td>
-                          <td>Rp<?= number_format(floatval($log["jmlh_bayar"]), 2) ?></td>
-                          <td>Rp<?= number_format(floatval($log["sisa_kredit"])) ?></td>
-                          <td><?= $log["collector"] ?></td>
-                        </tr>
-                      <?php
-                        $tenor++;
-                      }
-                      ?>
-                    </tbody>
-                  </table>
-                  <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran">
-                    Input Pembayaran
-                  </button>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h5 class="font-weight-bold">Log Pembayaran :</h5>
+                      <table class="table table-bordered table-hover mb-3">
+                        <thead>
+                          <tr>
+                            <th>Tanggal Bayar</th>
+                            <th>Jumlah Bayar</th>
+                            <th>Sisa Kredit</th>
+                            <th>Collector</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $tenor = 0;
+                          foreach ($logs as $log) {
+                          ?>
+                            <tr>
+                              <td><?= date("d F Y", strtotime($log["tgl_bayar"])) ?></td>
+                              <td>Rp<?= number_format(floatval($log["jmlh_bayar"]), 2) ?></td>
+                              <td>Rp<?= number_format(floatval($log["sisa_kredit"])) ?></td>
+                              <td><?= $log["collector"] ?></td>
+                            </tr>
+                          <?php
+                            $tenor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                      <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran">
+                        Input Pembayaran
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- /.card -->
@@ -318,13 +309,13 @@
             <div class="form-group row">
               <label for="inputNominal" class="col-sm-4 col-form-label">Nominal Pembayaran</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputNominal" name="nominal" placeholder="Isi Nominal.." />
+                <input type="text" class="form-control" id="inputNominal" name="nominal" placeholder="Isi Nominal.." required />
               </div>
             </div>
             <div class="form-group row">
               <label for="inputCollector" class="col-sm-4 col-form-label">Nama Collector</label>
               <div class="col-sm-8">
-                <select name="collector" class="form-control">
+                <select name="collector" class="form-control" required>
                   <?php
                   foreach ($collector as $c) {
                   ?>

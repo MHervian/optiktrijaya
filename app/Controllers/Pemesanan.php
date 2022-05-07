@@ -170,6 +170,98 @@ class Pemesanan extends BaseController
     return redirect()->to(base_url("pemesanan"));
   }
 
+  public function editPesanan($id_pemesanan = "")
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    $data = array("pageTitle" => "Edit Data Pemesanan");
+    $data["username"] = $session->username;
+
+    // Query pemesanan by id_pemesanan
+    $data["pesanan"] = $this->pemesanan->getPemesananByID($id_pemesanan)[0];
+
+    // Query all lens data master and sales master data
+    $data["lensa"] = $this->lensa_kacamata->getAllLens();
+    $data["coating"] = $this->lensa_kacamata->getAllCoating();
+    $data["flattop"] = $this->lensa_kacamata->getAllFlattop();
+    $data["warna"] = $this->lensa_kacamata->getAllWarna();
+    $data["sales"] = $this->sales->getAllSales();
+
+    return view("v_edit_pemesanan", $data);
+  }
+
+  public function updatePesanan()
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    $request = service("request");
+    $id_konsumen = $request->getPost("id_konsumen");
+    $id_pemesanan = $request->getPost("id_pemesanan");
+    $no_sp = $request->getPost("sp");
+    $frame = $request->getPost("frame");
+    $lensa = $request->getPost("jenis_lensa");
+    $flattop = $request->getPost("flattop");
+    $coating = $request->getPost("coating");
+    $warna = $request->getPost("warna");
+    $tgl_pengiriman = $request->getPost("tgl_pengiriman");
+    $tgl_jatuh_tempo = $request->getPost("tgl_jatuh_tempo");
+    $sales = $request->getPost("sales");
+    $l_sph = $request->getPost("l_sph");
+    $r_sph = $request->getPost("r_sph");
+    $l_cyl = $request->getPost("l_cyl");
+    $r_cyl = $request->getPost("r_cyl");
+    $l_axis = $request->getPost("l_axis");
+    $r_axis = $request->getPost("r_axis");
+    $l_add = $request->getPost("l_add");
+    $r_add = $request->getPost("r_add");
+    $l_mpd = $request->getPost("l_mpd");
+    $r_mpd = $request->getPost("r_mpd");
+    $l_prism = $request->getPost("l_prism");
+    $r_prism = $request->getPost("r_prism");
+
+    $data = array(
+      "no_sp" => $no_sp,
+      "id_konsumen" => $id_konsumen,
+      "frame" => $frame,
+      "tgl_pengiriman" => $tgl_pengiriman,
+      "tgl_jatuh_tempo" => $tgl_jatuh_tempo,
+      "sales" => $sales,
+      "lensa" => $lensa,
+      "warna" => $warna,
+      "flattop" => $flattop,
+      "coating" => $coating,
+      "L_sph" => $l_sph,
+      "L_cyt" => $l_cyl,
+      "L_axis" => $l_axis,
+      "L_add" => $l_add,
+      "L_mpd" => $l_mpd,
+      "L_prism" => $l_prism,
+      "R_sph" => $r_sph,
+      "R_cyt" => $r_cyl,
+      "R_axis" => $r_axis,
+      "R_add" => $r_add,
+      "R_mpd" => $r_mpd,
+      "R_prism" => $r_prism
+    );
+
+    echo "<pre>";
+    var_dump($data);
+    echo "</pre>";
+
+    $this->pemesanan->updatePemesanan($id_pemesanan, $data);
+
+    $session->setFlashdata("pageStatus", "update success");
+    return redirect()->to(base_url("pemesanan"));
+  }
+
   public function deletePemesanan($id_pemesanan)
   {
     $session = session();
@@ -189,7 +281,7 @@ class Pemesanan extends BaseController
   }
 
   // Credit transaction methods
-  public function beginPembayaranKredit()
+  public function addPembayaranKredit()
   {
     $session = session();
     if (!isset($session->username)) {
@@ -205,7 +297,6 @@ class Pemesanan extends BaseController
     $kredit = $request->getPost("kredit");
 
     $kredit = floatval($kredit) - floatval($nominal);
-
 
     $data = array(
       "id_pemesanan" => $id_pemesanan,

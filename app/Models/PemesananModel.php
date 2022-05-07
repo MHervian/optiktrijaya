@@ -11,7 +11,7 @@ class PemesananModel extends Model
   protected $allowedFields = [
     "id_pemesanan", "no_sp", "id_konsumen", "frame", "harga", "dp", "sisa_kredit", "tgl_pengiriman",
     "tgl_jatuh_tempo", "tenor", "sales", "lensa", "flattop", "coating", "L_sph", "L_cyt", "L_axis",
-    "L_add", "L_mpd", "L_prism", "R_sph", "R_cyt", "R_axis", "R_add", "R_mpd", "R_prism", "status_kredit"
+    "L_add", "L_mpd", "L_prism", "R_sph", "R_cyt", "R_axis", "R_add", "R_mpd", "R_prism", "status_kredit", "warna"
   ];
 
   public function getAllPemesanan()
@@ -65,12 +65,28 @@ class PemesananModel extends Model
       pemesanan.R_add AS R_add,
       pemesanan.R_mpd AS R_mpd,
       pemesanan.R_prism AS R_prism,
-      pemesanan.status_kredit AS status_kredit
+      pemesanan.status_kredit AS status_kredit,
+      pemesanan.warna AS warna
     ")
       ->join("konsumen", "konsumen.id_konsumen = pemesanan.id_konsumen", "INNER")
       ->where("pemesanan.id_pemesanan", $id_pemesanan)
       ->get()
       ->getResultArray();
+  }
+
+  public function getKonsumenByIDPemesanan($id_pemesanan)
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("
+      konsumen.id_konsumen AS id_konsumen,
+      konsumen.nama AS nama,
+      konsumen.no_telepon AS no_telepon,
+      konsumen.alamat AS alamat,
+      konsumen.tgl_lahir AS tgl_lahir
+      ")
+      ->join("konsumen", "konsumen.id_konsumen = pemesanan.id_konsumen", "INNER")
+      ->where("pemesanan.id_pemesanan", $id_pemesanan)
+      ->get()->getResultArray();
   }
 
   public function getAllActiveCredit($id_konsumen)
