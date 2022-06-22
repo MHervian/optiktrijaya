@@ -52,19 +52,19 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-7 col-sm-7">
-              <div class="card card-primary card-outline">
+            <div class="col-md-6 col-sm-6">
+              <div class="card card-primary card-outline mb-4">
                 <div class="row p-3">
-                  <div class="col-md-7">
+                  <div class="col-md-5">
                     <!-- For chart -->
                     <canvas id="donutChart" style="min-height: 250px; height: 100%; max-height: 100%; max-width: 100%;"></canvas>
                   </div>
-                  <div class="col-md-5">
+                  <div class="col-md-7">
                     <div class="info-box bg-gradient-success">
                       <span class="info-box-icon"><i class="fas fa-cash-register"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">Total Kredit Terbayar</span>
-                        <span class="info-box-number text-lg">Rp41,410,000.00</span>
+                        <span id="totalTerbayar" class="info-box-number text-lg" data-totalterbayar="<?= $total_terbayar ?>">Rp<?= number_format($total_terbayar, 0, '.', ',') ?></span>
                       </div>
                       <!-- /.info-box-content -->
                     </div>
@@ -72,32 +72,73 @@
                       <span class="info-box-icon"><i class="far fa-credit-card"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">Total Kredit Jalan</span>
-                        <span class="info-box-number text-lg">Rp23,900,000.00</span>
+                        <span id="totalKredit" class="info-box-number text-lg" data-totalkredit="<?= $total_kredit ?>">Rp<?= number_format($total_kredit, 0, '.', ',') ?></span>
                       </div>
                       <!-- /.info-box-content -->
                     </div>
                     <div class="info-box bg-gradient-warning">
                       <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-
                       <div class="info-box-content">
                         <span class="info-box-text">Jumlah Kredit Aktif</span>
-                        <span class="info-box-number text-lg">14</span>
-                      </div>
-                      <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                    <div class="info-box bg-gradient-info">
-                      <span class="info-box-icon"><i class="fas fa-users"></i></span>
-
-                      <div class="info-box-content">
-                        <span class="info-box-text">Jumlah Pelanggan</span>
-                        <span class="info-box-number text-lg">52</span>
+                        <span id="kreditAktif" class="info-box-number text-lg" data-kreditaktif="<?= $kredit_aktif ?>"><?= $kredit_aktif ?></span>
                       </div>
                       <!-- /.info-box-content -->
                     </div>
                   </div>
                 </div>
-                <div class="p-3">
+              </div>
+              <!-- /.card -->
+              <div class="card card-primary card-outline">
+                <div class="card-header">
+                  <h5 class="d-inline-block">Data Pemesanan <b>Total : <?= $total_pemesanan ?></b></h5>
+                  <a href="<?= base_url("pemesanan") ?>" class="btn btn-primary ml-3"><i class="fas fa-list"></i> Lihat Semua</a>
+                </div>
+                <div class="card-body">
+                  <table class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>No SP</th>
+                        <th>Pemesan</th>
+                        <th>Kredit</th>
+                        <th>Tenor</th>
+                        <th>Jatuh Tempo</th>
+                        <th>Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      $nomor = 1;
+                      foreach ($pemesanan as $p) {
+                        $strtime = strtotime($p["tgl_jatuh_tempo"]);
+                      ?>
+                        <tr>
+                          <td><?= $nomor ?></td>
+                          <td><?= $p["no_sp"] ?></td>
+                          <td><?= $p["nama"] ?></td>
+                          <td><?= $p["kredit"] ?></td>
+                          <td><?= $p["tenor"] ?></td>
+                          <td><?= date("d F Y", $strtime) ?></td>
+                          <td>
+                            <a href="<?= base_url("pemesanan/detail/" . $p["id_pemesanan"]) ?>">Detail</a>
+                          </td>
+                        </tr>
+                      <?php
+                        $nomor++;
+                      }
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6">
+              <div class="card card-primary card-outline">
+                <div class="card-header">
+                  <h5 class="d-inline-block">Data Konsumen <b>Total : <?= $total_konsumen ?></b></h5>
+                  <a href="<?= base_url("konsumen") ?>" class="btn btn-primary ml-3"><i class="fas fa-list"></i> Lihat Semua</a>
+                </div>
+                <div class="card-body">
                   <table class="table table-bordered table-hover">
                     <thead>
                       <tr>
@@ -109,152 +150,24 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Lorem</td>
-                        <td>02039238</td>
-                        <td>7 Januari 1966</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Lorem</td>
-                        <td>02039238</td>
-                        <td>7 Januari 1966</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Lorem</td>
-                        <td>02039238</td>
-                        <td>7 Januari 1966</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Lorem</td>
-                        <td>02039238</td>
-                        <td>7 Januari 1966</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>Lorem</td>
-                        <td>02039238</td>
-                        <td>7 Januari 1966</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <!-- /.card -->
-            </div>
-            <div class="col-md-5 col-sm-5">
-              <div class="card card-primary card-outline">
-                <div class="p-3">
-                  <div class="small-box bg-danger">
-                    <div class="inner">
-                      <h3>7 Kredit</h3>
-
-                      <p>Mendekati Batas Tunggakan Kredit</p>
-                    </div>
-                    <div class="icon">
-                      <i class="fas fa-alarm-exclamation"></i>
-                    </div>
-                  </div>
-                  <table class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>No SP</th>
-                        <th>Nama Pemesan</th>
-                        <th>Tgl Batas</th>
-                        <th>Durasi</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>7 Januari 2022</td>
-                        <td class="text-red">7 Hari</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>7 Januari 2022</td>
-                        <td class="text-red">7 Hari</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>7 Januari 2022</td>
-                        <td class="text-red">6 Hari</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>7 Januari 2022</td>
-                        <td class="text-red">4 Hari</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>5</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>7 Januari 2022</td>
-                        <td class="text-red">2 Hari</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>6</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>7 Januari 2022</td>
-                        <td class="text-red">7 Hari</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>7</td>
-                        <td>Lorem</td>
-                        <td>Lorem</td>
-                        <td>7 Januari 2022</td>
-                        <td class="text-red">3 Hari</td>
-                        <td>
-                          <a href="#">Detail</a>
-                        </td>
-                      </tr>
+                      <?php
+                      $nomor = 1;
+                      foreach ($konsumen as $k) {
+                        $str_time = strtotime($k["tgl_lahir"]);
+                      ?>
+                        <tr>
+                          <td><?= $nomor ?></td>
+                          <td><?= $k["nama"] ?></td>
+                          <td><?= $k["no_telepon"] ?></td>
+                          <td><?= date("d F Y", $str_time) ?></td>
+                          <td>
+                            <a href="<?= base_url("konsumen/detail/" . $k["id_konsumen"]) ?>">Detail</a>
+                          </td>
+                        </tr>
+                      <?php
+                        $nomor++;
+                      }
+                      ?>
                     </tbody>
                   </table>
                 </div>
@@ -284,6 +197,10 @@
   <script src="<?= base_url("dist/js/adminlte.min.js") ?>"></script>
   <script>
     $(function() {
+      // Get data of kredit
+      var total_terbayar = $("#totalTerbayar").attr("data-totalterbayar");
+      var total_kredit = $("#totalKredit").attr("data-totalkredit");
+
       //-------------
       //- DONUT CHART -
       //-------------
@@ -295,7 +212,7 @@
           'Kredit Jalan'
         ],
         datasets: [{
-          data: [41, 24],
+          data: [total_terbayar, total_kredit],
           backgroundColor: ['#28a745', '#17a2b8'],
         }]
       }

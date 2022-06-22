@@ -137,6 +137,7 @@
               <div class="card card-primary card-outline">
                 <div class="card-header">
                   <button id="createMaster" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_sales" data-backdrop="static" data-keyboard="false">
+                    <i class="fas fa-plus-square"></i>
                     Tambah Data Sales
                   </button>
                 </div>

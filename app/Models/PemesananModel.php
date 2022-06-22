@@ -23,6 +23,7 @@ class PemesananModel extends Model
       konsumen.no_telepon AS no_telepon,
       pemesanan.id_pemesanan AS id_pemesanan,
       pemesanan.no_sp AS no_sp,
+      pemesanan.harga AS harga,
       pemesanan.sisa_kredit AS sisa_kredit,
       pemesanan.tgl_pengiriman AS tgl_pengiriman,
       pemesanan.tgl_jatuh_tempo AS tgl_jatuh_tempo,
@@ -115,6 +116,48 @@ class PemesananModel extends Model
       ))
       ->get()
       ->getResultArray();
+  }
+
+  public function getTotalKreditPemesanan()
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("SUM(sisa_kredit) AS total_kredit")->get()->getResultArray();
+  }
+
+  public function getTotalPemesanan()
+  {
+    return $this->countAllResults(false);
+  }
+
+  public function getPemesananLimit5()
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("
+      konsumen.nama AS nama,
+      pemesanan.id_pemesanan AS id_pemesanan,
+      pemesanan.no_sp AS no_sp,
+      pemesanan.sisa_kredit AS kredit,
+      pemesanan.tenor AS tenor,
+      pemesanan.tgl_jatuh_tempo AS tgl_jatuh_tempo
+    ")
+      ->join("konsumen", "konsumen.id_konsumen = pemesanan.id_konsumen", "INNER")
+      ->limit(5)
+      ->get()->getResultArray();
+  }
+
+  public function getTotalKreditTerbayar()
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("SUM(harga - sisa_kredit) AS total_terbayar")->get()
+      ->getResultArray();
+  }
+
+  public function getActiveCredit()
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("COUNT(id_pemesanan) AS kredit_aktif")
+      ->where("status_kredit", "ya")
+      ->get()->getResultArray();
   }
 
   public function insertPemesanan($data)

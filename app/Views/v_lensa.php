@@ -99,7 +99,7 @@
                 <div class="card-header">
                   <h5>Data Jenis Lensa
                     <button id="createJenis" style="background-color: #02a09e; border-color: #02a09e;" class="ml-2 btn btn-primary btn-sm tambah" type="button" data-toggle="modal" data-target="#form_create_lensa" data-backdrop="static" data-keyboard="false">
-                      Tambah Jenis
+                      <i class="fas fa-plus-square"></i> Tambah Jenis
                     </button>
                   </h5>
                 </div>
@@ -152,7 +152,7 @@
                 <div class="card-header">
                   <h5>Data Warna
                     <button id="createWarna" style="background-color: #02a09e; border-color: #02a09e;" class="ml-2 btn btn-primary btn-sm tambah" type="button" data-toggle="modal" data-target="#form_create_lensa" data-backdrop="static" data-keyboard="false">
-                      Tambah Warna
+                      <i class="fas fa-plus-square"></i> Tambah Warna
                     </button>
                   </h5>
                 </div>
@@ -207,7 +207,7 @@
                 <div class="card-header">
                   <h5>Data Bahan Lensa
                     <button id="createBahan" style="background-color: #02a09e; border-color: #02a09e;" class="ml-2 btn btn-primary btn-sm tambah" type="button" data-toggle="modal" data-target="#form_create_lensa" data-backdrop="static" data-keyboard="false">
-                      Tambah Bahan
+                      <i class="fas fa-plus-square"></i> Tambah Bahan
                     </button>
                   </h5>
                 </div>
@@ -260,7 +260,7 @@
                 <div class="card-header">
                   <h5>Data Coating Lensa
                     <button id="createCoating" style="background-color: #02a09e; border-color: #02a09e;" class="ml-2 btn btn-primary btn-sm tambah" type="button" data-toggle="modal" data-target="#form_create_lensa" data-backdrop="static" data-keyboard="false">
-                      Tambah Coating
+                      <i class="fas fa-plus-square"></i> Tambah Coating
                     </button>
                   </h5>
                 </div>
@@ -343,7 +343,7 @@
           </div>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
-              Tambah Data
+              <i class="fas fa-plus-square"></i> Tambah Data
             </button>
           </div>
         </form>

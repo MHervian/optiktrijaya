@@ -9,7 +9,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<?= base_url("plugins/fontawesome-free/css/all.min.css") ?>" />
+  <!-- <link rel="stylesheet" href="<?= base_url("plugins/fontawesome-free/css/all.min.css") ?>" /> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <meta name="robots" content="noindex,nofollow">
   <?php
   // Some page display table

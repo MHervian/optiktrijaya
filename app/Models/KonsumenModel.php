@@ -25,6 +25,25 @@ class KonsumenModel extends Model
       ->groupBy("konsumen.id_konsumen")->get()->getResultArray();
   }
 
+  public function getTotalKonsumen()
+  {
+    return $this->countAllResults(false);
+  }
+
+  public function getKonsumenLimit5()
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("
+      konsumen.id_konsumen AS id_konsumen,
+      konsumen.nama AS nama,
+      konsumen.no_telepon AS no_telepon,
+      konsumen.tgl_lahir AS tgl_lahir,
+      konsumen.alamat AS alamat
+    ")
+      ->limit(5)
+      ->get()->getResultArray();
+  }
+
   public function getAllKonsumenByKeyword($keyword)
   {
     $builder = $this->db->table($this->table);

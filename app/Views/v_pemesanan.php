@@ -98,6 +98,7 @@
               <div class="card card-primary card-outline">
                 <div class="card-header">
                   <a href="<?= base_url("buat-pemesanan") ?>" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
+                    <i class="fas fa-plus-square"></i>
                     Tambah Pemesanan
                   </a>
                 </div>
