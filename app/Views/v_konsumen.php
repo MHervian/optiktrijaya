@@ -183,28 +183,29 @@
         </div>
         <form action="<?= base_url("konsumen/create") ?>" method="post">
           <div class="modal-body">
+            <div class="mb-3"><span class="text-danger font-weight-bold">&#42;</span> Wajib diisi</div>
             <div class="form-group row">
-              <label for="inputKonsumen" class="col-sm-4 col-form-label">Nama</label>
+              <label for="inputKonsumen" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Nama</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputKonsumen" name="nama" placeholder="Isi Nama Konsumen.." />
+                <input type="text" class="form-control" id="inputKonsumen" name="nama" placeholder="Isi Nama Konsumen.." required />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputBirth" class="col-sm-4 col-form-label">Tanggal Lahir</label>
+              <label for="inputBirth" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Tanggal Lahir</label>
               <div class="col-sm-8">
-                <input type="date" class="form-control" id="inputBirth" name="tgl_lahir" />
+                <input type="date" class="form-control" id="inputBirth" name="tgl_lahir" required />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputContact" class="col-sm-4 col-form-label">Nomor Telepon</label>
+              <label for="inputContact" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Nomor Telepon</label>
               <div class="col-sm-8">
-                <input type="tel" class="form-control" id="inputContact" name="no_telepon" placeholder="Isi Nomor Kontak.." />
+                <input type="tel" class="form-control" id="inputContact" name="no_telepon" placeholder="Isi Nomor Kontak.." required />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputAddress" class="col-sm-4 col-form-label">Alamat</label>
+              <label for="inputAddress" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Alamat</label>
               <div class="col-sm-8">
-                <textarea type="date" class="form-control" id="inputAddress" name="alamat" placeholder="Isi Alamat User.."></textarea>
+                <textarea type="date" class="form-control" id="inputAddress" name="alamat" placeholder="Isi Alamat User.." required></textarea>
               </div>
             </div>
           </div>

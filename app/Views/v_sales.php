@@ -215,24 +215,25 @@
         </div>
         <form action="<?= base_url("masters/sales/create") ?>" method="post">
           <div class="modal-body">
+            <div class="mb-3"><span class="text-danger font-weight-bold">&#42;</span> Wajib diisi</div>
             <div class="form-group row">
-              <label for="inputSales" class="col-sm-4 col-form-label">Username Sales</label>
+              <label for="inputSales" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Username Sales</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputSales" name="username" placeholder="Isi Nama Sales.." />
+                <input type="text" class="form-control" id="inputSales" name="username" placeholder="Isi Nama Sales.." required />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputEmail" class="col-sm-4 col-form-label">Email Sales</label>
+              <label for="inputEmail" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Email Sales</label>
               <div class="col-sm-8">
-                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Isi Email Sales.." />
+                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Isi Email Sales.." required />
               </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label for="inputPassword" class="col-sm-4 col-form-label">Password</label>
               <div class="col-sm-8">
                 <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password Akun..." />
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
@@ -263,19 +264,20 @@
         <form action="<?= base_url("masters/sales/update") ?>" method="post">
           <input type="hidden" id="updateIDPengguna" name="id_pengguna">
           <div class="modal-body">
+            <div class="mb-3"><span class="text-danger font-weight-bold">&#42;</span> Isian jangan kosong</div>
             <div class="form-group row">
-              <label for="updateUsername" class="col-sm-4 col-form-label">Username Sales</label>
+              <label for="updateUsername" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Username Sales</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" name="username" id="updateUsername" placeholder="Isi Nama Sales.." />
               </div>
             </div>
             <div class="form-group row">
-              <label for="updateEmail" class="col-sm-4 col-form-label">Email Sales</label>
+              <label for="updateEmail" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Email Sales</label>
               <div class="col-sm-8">
                 <input type="email" class="form-control" name="email" id="updateEmail" placeholder="Isi Email Sales.." />
               </div>
             </div>
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label for="ubahPasswordLama" class="col-sm-4 col-form-label">Password Lama</label>
               <div class="col-sm-8">
                 <input type="password" class="form-control" name="password_lama" id="updatePasswordLama" placeholder="Password Akun..." />
@@ -292,7 +294,7 @@
               <div class="col-sm-8">
                 <input type="password" class="form-control" name="password_ulangi" id="inputUlangiPassword" placeholder="Password Akun..." />
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">

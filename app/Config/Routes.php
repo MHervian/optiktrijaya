@@ -90,7 +90,7 @@ $routes->post("/masters/lensa/create", "Masters::createMasterDataLensa");
 $routes->get("/masters/lensa/(:alpha)/(:num)", "Masters::getMasterDataLensa/$1/$2");
 $routes->post("/masters/lensa/update", "Masters::updateMasterDataLensa");
 $routes->get("/masters/lensa/delete/(:alpha)/(:num)", "Masters::deleteMasterDataLensa/$1/$2");
-// $routes->get("/masters/lensa/kategori/(:any)", "Masters::getLensVariantByCategoryName/$1");
+$routes->get("/masters/lensa/kategori/(:alpha)/(:num)", "Masters::getMasterDataLensByCategory/$1/$2");
 
 /**
  * 7) User and Roles

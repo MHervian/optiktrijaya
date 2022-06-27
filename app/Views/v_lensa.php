@@ -65,10 +65,28 @@
       ?>
 
       <?php
-      if (isset($pageStatus) && $pageStatus === "update success") {
+      if (isset($pageStatus) && $pageStatus === "update success $jenisUpdate") {
+        switch ($jenisUpdate) {
+          case "lensa": {
+              $jenisUpdate = "Lensa";
+              break;
+            }
+          case "warna": {
+              $jenisUpdate = "Warna";
+              break;
+            }
+          case "flattop_bahan": {
+              $jenisUpdate = "Bahan";
+              break;
+            }
+          case "coating": {
+              $jenisUpdate = "Coating";
+              break;
+            }
+        }
       ?>
         <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Data Master Lensa Berhasil Diubah</p>
+          <p class="m-0">Data Master <?= $jenisUpdate ?> Berhasil Diubah</p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -98,8 +116,8 @@
               <div class="card card-primary card-outline">
                 <div class="card-header">
                   <h5>Data Jenis Lensa
-                    <button id="createJenis" style="background-color: #02a09e; border-color: #02a09e;" class="ml-2 btn btn-primary btn-sm tambah" type="button" data-toggle="modal" data-target="#form_create_lensa" data-backdrop="static" data-keyboard="false">
-                      <i class="fas fa-plus-square"></i> Tambah Jenis
+                    <button id="createJenisLensa" style="background-color: #02a09e; border-color: #02a09e;" class="ml-2 btn btn-primary btn-sm tambah" type="button" data-toggle="modal" data-target="#form_create_lensa" data-backdrop="static" data-keyboard="false">
+                      <i class="fas fa-plus-square"></i> Tambah Jenis Lensa
                     </button>
                   </h5>
                 </div>
@@ -127,7 +145,7 @@
                         $nomor = 1;
                         foreach ($lens as $data_lensa) {
                         ?>
-                          <tr id="jenis-<?= $data_lensa["id_lensa"] ?>">
+                          <tr id="lensa-<?= $data_lensa["id_lensa"] ?>">
                             <td><?= $nomor ?></td>
                             <td><?= $data_lensa["jenis_lensa"] ?></td>
                             <td>
@@ -425,7 +443,7 @@
         let titleForm = "";
 
         switch (pilihan) {
-          case "createJenis": {
+          case "createJenisLensa": {
             titleForm = "Form Input Jenis Lensa";
             break;
           }
@@ -455,8 +473,11 @@
         let result = null;
         let data = null;
 
+        console.log("Kelompok: " + kelompok);
+        console.log("ID : " + id);
+
         $.ajax({
-          url: "/masters/lensa/" + kelompok + "/" + id,
+          url: "/masters/lensa/kategori/" + kelompok + "/" + id,
           method: "GET",
           async: false,
           success: function(response) {
@@ -468,7 +489,7 @@
         console.log(result);
 
         switch (kelompok) {
-          case "jenis": {
+          case "lensa": {
             titleForm = "Form Ubah Data Jenis Lensa";
             pilihan = "updateJenis";
             data = result.jenis_lensa;

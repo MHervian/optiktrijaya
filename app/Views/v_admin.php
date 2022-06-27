@@ -81,7 +81,7 @@
       if (isset($pageStatus) && $pageStatus === "update password success") {
       ?>
         <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Password Baru Berhasil Diset di Sistem.</p>
+          <p class="m-0">Password Baru Berhasil Diset Ulang oleh Sistem.</p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -238,6 +238,7 @@
               <div class="card card-primary card-outline">
                 <div class="card-header">
                   <button id="btnCreateAdmin" type="submit" style="background-color: #02a09e; border-color: #02a09e;" data-toggle="modal" data-target="#form_create_admin" class="btn btn-primary" data-backdrop="static" data-keyboard="false">
+                    <i class="fas fa-plus-square"></i>
                     Tambah Akun
                   </button>
                 </div>
@@ -308,25 +309,26 @@
         </div>
         <form action="<?= base_url("admin/create") ?>" method="post">
           <div class="modal-body">
+            <div class="mb-3"><span class="text-danger font-weight-bold">&#42;</span> Wajib diisi</div>
             <div class="form-group row">
-              <label for="inputUsername" class="col-sm-4 col-form-label">Username :
+              <label for="inputUsername" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Username :
               </label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" name="username" id="inputUsername" placeholder="Isi Nama User.." />
+                <input type="text" class="form-control" name="username" id="inputUsername" placeholder="Isi Nama User.." required />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputEmailUsername" class="col-sm-4 col-form-label">Email :
+              <label for="inputEmailUsername" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Email :
               </label>
               <div class="col-sm-8">
-                <input type="email" class="form-control" name="email" id="inputEmailUsername" placeholder="Isi Nama User.." />
+                <input type="email" class="form-control" name="email" id="inputEmailUsername" placeholder="Isi Nama User.." required />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputPasswordUsername" class="col-sm-4 col-form-label">Password :
+              <label for="inputPasswordUsername" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Password :
               </label>
               <div class="col-sm-8">
-                <input type="password" class="form-control" name="password" id="inputPasswordUsername" placeholder="Isi Nama User.." />
+                <input type="password" class="form-control" name="password" id="inputPasswordUsername" placeholder="Isi Nama User.." required />
               </div>
             </div>
           </div>
@@ -359,16 +361,17 @@
         <form action="<?= base_url("admin/update") ?>" method="post">
           <input id="updateIDAdmin" type="hidden" name="id_pengguna" />
           <div class="modal-body">
+            <div class="mb-3"><span class="text-danger font-weight-bold">&#42;</span> Isian jangan kosong</div>
             <div class="form-group row">
-              <label for="updateUsername" class="col-sm-4 col-form-label">Username</label>
+              <label for="updateUsername" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Username</label>
               <div class="col-sm-8">
-                <input type="text" name="username" class="form-control" id="updateUsername" />
+                <input type="text" name="username" class="form-control" id="updateUsername" required />
               </div>
             </div>
             <div class="form-group row">
-              <label for="updateEmailUsername" class="col-sm-4 col-form-label">Email</label>
+              <label for="updateEmailUsername" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Email</label>
               <div class="col-sm-8">
-                <input type="email" name="email" class="form-control" id="updateEmailUsername" />
+                <input type="email" name="email" class="form-control" id="updateEmailUsername" required />
               </div>
             </div>
             <div class="form-group row">

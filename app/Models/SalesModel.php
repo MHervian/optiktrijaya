@@ -8,7 +8,8 @@ class SalesModel extends Model
 {
   protected $table = "pengguna";
   protected $primaryKey = "id_pengguna";
-  protected $allowedFields = ["id_pengguna", "username", "email", "pass", "lvl_akses"];
+  // protected $allowedFields = ["id_pengguna", "username", "email", "pass", "lvl_akses"];
+  protected $allowedFields = ["id_pengguna", "username", "email", "lvl_akses"];
 
   public function getAllSales()
   {

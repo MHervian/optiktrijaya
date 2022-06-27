@@ -47,7 +47,7 @@
             <li class="nav-item">
               <a href="<?= base_url("buat-pemesanan") ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Pesanan Baru</p>
+                <p>Buat Pesanan Baru</p>
               </a>
             </li>
           </ul>

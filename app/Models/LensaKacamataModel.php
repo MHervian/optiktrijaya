@@ -6,6 +6,12 @@ use CodeIgniter\Model;
 
 class LensaKacamataModel extends Model
 {
+  public function getMasterDataLensByCategory($kategori, $id, $data_id)
+  {
+    $builder = $this->db->table($kategori);
+    return $builder->select("*")->where($id, $data_id)->get()->getResultArray();
+  }
+
   public function getAllLens()
   {
     $builder = $this->db->table("lensa");
@@ -13,45 +19,11 @@ class LensaKacamataModel extends Model
       ->get()->getResultArray();
   }
 
-  // public function getDataLensa($jenis_data, $column_name, $id_data)
-  // {
-  //   $builder = $this->db->table($jenis_data);
-  //   return $builder->select("*")
-  //     ->where(array($column_name => $id_data))
-  //     ->get()->getResultArray();
-  // }
-
   public function insertLensa($data)
   {
     $builder = $this->db->table("lensa");
     return $builder->insert($data);
   }
-
-  // public function getAllLensVariant()
-  // {
-  //   $builder = $this->db->table("lensa");
-  //   return $builder->select("
-  //     lensa.id_lensa AS id_lensa,
-  //     lensa.jenis_lensa AS jenis_lensa,
-  //     lensa_varian.id_varian AS id_varian,
-  //     lensa_varian.nama_varian AS nama_varian
-  //   ")
-  //     ->join("lensa_varian", "lensa_varian.id_lensa = lensa.id_lensa", "INNER")
-  //     ->get()->getResultArray();
-  // }
-
-  // public function getAllLensVariantByCategoryName($nama)
-  // {
-  //   $builder = $this->db->table("lensa_varian");
-  //   return $builder->select("
-  //     lensa_varian.id_varian AS id_varian,
-  //     lensa_varian.id_lensa AS id_lensa,
-  //     lensa_varian.nama_varian AS nama_varian
-  //   ")
-  //     ->join("lensa", "lensa.id_lensa = lensa_varian.id_lensa", "INNER")
-  //     ->where("lensa.jenis_lensa", $nama)
-  //     ->get()->getResultArray();
-  // }
 
   public function getAllCoating()
   {

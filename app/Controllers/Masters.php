@@ -49,6 +49,7 @@ class Masters extends BaseController
           $data["coating"] = $this->lensa_kacamata->getAllCoating();
           $data["bahan"] = $this->lensa_kacamata->getAllFlattop();
           $data["warna"] = $this->lensa_kacamata->getAllWarna();
+          $data["jenisUpdate"] = ($session->getFlashdata("jenisData")) ? $session->getFlashdata("jenisData") : null;;
           break;
         }
       default: {
@@ -75,14 +76,14 @@ class Masters extends BaseController
     $request = service("request");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
-    $password = $request->getPost("password");
+    // $password = $request->getPost("password");
     $id_pengguna = Uuid::uuid4();
 
     $data = array(
       "id_pengguna" => $id_pengguna->toString(),
       "username" => $username,
       "email" => $email,
-      "pass" => password_hash($password, PASSWORD_DEFAULT),
+      // "pass" => password_hash($password, PASSWORD_DEFAULT),
       "lvl_akses" => "sales"
     );
 
@@ -104,39 +105,43 @@ class Masters extends BaseController
     $id_pengguna = $request->getPost("id_pengguna");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
-    $password_lama = $request->getPost("password_lama");
-    $password_baru = $request->getPost("password_baru");
-    $password_ulangi = $request->getPost("password_ulangi");
+    // $password_lama = $request->getPost("password_lama");
+    // $password_baru = $request->getPost("password_baru");
+    // $password_ulangi = $request->getPost("password_ulangi");
 
-    if (!empty($password_lama) && !empty($password_baru)) {
-      // Validation of old and new password
-      $profile = $this->sales->getSalesByID($id_pengguna);
-      if (!password_verify($password_lama, $profile["pass"])) {
-        $session->setFlashdata("pageStatus", "wrong old password");
-        return redirect()->to(base_url("masters/sales"));
-      }
+    // if (!empty($password_lama) && !empty($password_baru)) {
+    //   // Validation of old and new password
+    //   $profile = $this->sales->getSalesByID($id_pengguna);
+    //   if (!password_verify($password_lama, $profile["pass"])) {
+    //     $session->setFlashdata("pageStatus", "wrong old password");
+    //     return redirect()->to(base_url("masters/sales"));
+    //   }
 
-      if ($password_lama === $password_baru) {
-        $session->setFlashdata("pageStatus", "password still same");
-        return redirect()->to(base_url("masters/sales"));
-      }
+    //   if ($password_lama === $password_baru) {
+    //     $session->setFlashdata("pageStatus", "password still same");
+    //     return redirect()->to(base_url("masters/sales"));
+    //   }
 
-      if ($password_baru !== $password_ulangi) {
-        $session->setFlashdata("pageStatus", "new password is not matched");
-        return redirect()->to(base_url("masters/sales"));
-      }
+    //   if ($password_baru !== $password_ulangi) {
+    //     $session->setFlashdata("pageStatus", "new password is not matched");
+    //     return redirect()->to(base_url("masters/sales"));
+    //   }
 
-      $data = array(
-        "username" => $username,
-        "email" => $email,
-        "pass" => password_hash($password_baru, PASSWORD_DEFAULT)
-      );
-    } else {
-      $data = array(
-        "username" => $username,
-        "email" => $email
-      );
-    }
+    //   $data = array(
+    //     "username" => $username,
+    //     "email" => $email,
+    //     "pass" => password_hash($password_baru, PASSWORD_DEFAULT)
+    //   );
+    // } else {
+    //   $data = array(
+    //     "username" => $username,
+    //     "email" => $email
+    //   );
+    // }
+    $data = array(
+      "username" => $username,
+      "email" => $email
+    );
 
     $this->sales->updateSales($id_pengguna, $data);
 
@@ -177,14 +182,14 @@ class Masters extends BaseController
     $request = service("request");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
-    $password = $request->getPost("password");
+    // $password = $request->getPost("password");
     $id_pengguna = Uuid::uuid4();
 
     $data = array(
       "id_pengguna" => $id_pengguna->toString(),
       "username" => $username,
       "email" => $email,
-      "pass" => password_hash($password, PASSWORD_DEFAULT),
+      // "pass" => password_hash($password, PASSWORD_DEFAULT),
       "lvl_akses" => "collector"
     );
 
@@ -206,39 +211,43 @@ class Masters extends BaseController
     $id_pengguna = $request->getPost("id_pengguna");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
-    $password_lama = $request->getPost("password_lama");
-    $password_baru = $request->getPost("password_baru");
-    $password_ulangi = $request->getPost("password_ulangi");
+    // $password_lama = $request->getPost("password_lama");
+    // $password_baru = $request->getPost("password_baru");
+    // $password_ulangi = $request->getPost("password_ulangi");
 
-    if (!empty($password_lama) && !empty($password_baru)) {
-      // Validation of old and new password
-      $profile = $this->collector->getCollectorByID($id_pengguna);
-      if (!password_verify($password_lama, $profile["pass"])) {
-        $session->setFlashdata("pageStatus", "wrong old password");
-        return redirect()->to(base_url("masters/collector"));
-      }
+    // if (!empty($password_lama) && !empty($password_baru)) {
+    //   // Validation of old and new password
+    //   $profile = $this->collector->getCollectorByID($id_pengguna);
+    //   if (!password_verify($password_lama, $profile["pass"])) {
+    //     $session->setFlashdata("pageStatus", "wrong old password");
+    //     return redirect()->to(base_url("masters/collector"));
+    //   }
 
-      if ($password_lama === $password_baru) {
-        $session->setFlashdata("pageStatus", "password still same");
-        return redirect()->to(base_url("masters/collector"));
-      }
+    //   if ($password_lama === $password_baru) {
+    //     $session->setFlashdata("pageStatus", "password still same");
+    //     return redirect()->to(base_url("masters/collector"));
+    //   }
 
-      if ($password_baru !== $password_ulangi) {
-        $session->setFlashdata("pageStatus", "new password is not matched");
-        return redirect()->to(base_url("masters/collector"));
-      }
+    //   if ($password_baru !== $password_ulangi) {
+    //     $session->setFlashdata("pageStatus", "new password is not matched");
+    //     return redirect()->to(base_url("masters/collector"));
+    //   }
 
-      $data = array(
-        "username" => $username,
-        "email" => $email,
-        "pass" => password_hash($password_baru, PASSWORD_DEFAULT)
-      );
-    } else {
-      $data = array(
-        "username" => $username,
-        "email" => $email
-      );
-    }
+    //   $data = array(
+    //     "username" => $username,
+    //     "email" => $email,
+    //     "pass" => password_hash($password_baru, PASSWORD_DEFAULT)
+    //   );
+    // } else {
+    //   $data = array(
+    //     "username" => $username,
+    //     "email" => $email
+    //   );
+    // }
+    $data = array(
+      "username" => $username,
+      "email" => $email
+    );
 
     $this->collector->updateCollector($id_pengguna, $data);
 
@@ -381,7 +390,8 @@ class Masters extends BaseController
     $data = array($column_name => $nama);
     $this->lensa_kacamata->updateDataMasterLensa($jenis_data, $id_column, $id_data, $data);
 
-    $session->setFlashdata("pageStatus", "update success");
+    $session->setFlashdata("pageStatus", "update success $jenis_data");
+    $session->setFlashdata("jenisData", $jenis_data);
     return redirect()->to(base_url("masters/lensa"));
   }
 
@@ -422,10 +432,36 @@ class Masters extends BaseController
     return redirect()->to(base_url("masters/lensa"));
   }
 
-  public function getLensVariantByCategoryName($nama = "")
+  public function getMasterDataLensByCategory($kategori = "", $id = "")
   {
-    $nama = rawurldecode($nama);
-    $result = $this->lensa_kacamata->getAllLensVariantByCategoryName($nama);
+    // $nama = rawurldecode($nama);
+    switch ($kategori) {
+      case "lensa": {
+          $kategori = "lensa";
+          $data_id = $id;
+          $id = "id_lensa";
+          break;
+        }
+      case "warna": {
+          $kategori = "warna";
+          $data_id = $id;
+          $id = "id_warna";
+          break;
+        }
+      case "bahan": {
+          $kategori = "flattop_bahan";
+          $data_id = $id;
+          $id = "id_flattop";
+          break;
+        }
+      case "coating": {
+          $kategori = "coating";
+          $data_id = $id;
+          $id = "id_coating";
+          break;
+        }
+    }
+    $result = $this->lensa_kacamata->getMasterDataLensByCategory($kategori, $id, $data_id);
     return json_encode($result);
   }
 }
