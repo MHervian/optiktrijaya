@@ -318,7 +318,7 @@ class Masters extends BaseController
     $nama = $request->getPost("nama");
 
     switch ($jenis_data) {
-      case "createJenis": {
+      case "createJenisLensa": {
           $data = array("jenis_lensa" => $nama);
           $this->lensa_kacamata->insertLensa($data);
           break;
