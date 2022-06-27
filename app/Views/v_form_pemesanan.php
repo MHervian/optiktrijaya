@@ -59,20 +59,13 @@
             <div class="col-lg-12">
               <div class="card card-primary card-outline">
                 <div class="card-body">
+                  <div class="mb-3 font-weight-bold"><span class="text-danger font-weight-bold">&#42;</span> Wajib diisi</div>
                   <div class="form-group row">
                     <div class="col-4 p-0" style="position: relative;">
-                      <h6>Form Cari Konsumen</h6>
+                      <h6><span class="text-danger font-weight-bold">&#42;</span> Form Cari Konsumen</h6>
                       <input type="text" class="form-control" id="cariKonsumen" placeholder="Cari dgn Nomor / Nama.." />
                       <div id="boxSearchResult" class="list-search-cst-container">
                         <ul id="listSearchResult" class="m-0 p-0 ul-search-cst">
-                          <!-- <li class="list-content">
-                            <a href="javascript:void(0)">
-                              <span><b>Vian</b> : 09723874823</span>
-                              <p class="m-0">
-                                Jalan Wahid Hasyim, Wahid Hasyim
-                              </p>
-                            </a>
-                          </li> -->
                         </ul>
                       </div>
                     </div>
@@ -117,7 +110,7 @@
                       <div class="col-lg-4">
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputSP">No. SP : </label>
+                            <label for="inputSP"><span class="text-danger font-weight-bold">&#42;</span> No. SP : </label>
                           </div>
                           <div class="col-6">
                             <input type="text" class="form-control" name="sp" id="inputSP" placeholder="Input No SP.." required />
@@ -125,7 +118,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputFrame">Frame : </label>
+                            <label for="inputFrame"><span class="text-danger font-weight-bold">&#42;</span> Frame : </label>
                           </div>
                           <div class="col-6">
                             <input type="text" class="form-control" name="frame" id="inputFrame" placeholder="Input Frame.." required />
@@ -133,7 +126,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputFrame">Jenis Lensa : </label>
+                            <label for="inputFrame"><span class="text-danger font-weight-bold">&#42;</span> Jenis Lensa : </label>
                           </div>
                           <div class="col-6">
                             <select id="lensSelection" class="form-control" name="jenis_lensa" id="inputFrame" required>
@@ -153,7 +146,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputBahanFlattop">Bahan Flattop :
+                            <label for="inputBahanFlattop"><span class="text-danger font-weight-bold">&#42;</span> Bahan Flattop :
                             </label>
                           </div>
                           <div class="col-6">
@@ -170,7 +163,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputCoating">Coating : </label>
+                            <label for="inputCoating"><span class="text-danger font-weight-bold">&#42;</span> Coating : </label>
                           </div>
                           <div class="col-6">
                             <select id="inputCoating" name="coating" class="form-control" required>
@@ -186,7 +179,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputWarna">Warna : </label>
+                            <label for="inputWarna"><span class="text-danger font-weight-bold">&#42;</span> Warna : </label>
                           </div>
                           <div class="col-6">
                             <select id="inputWarna" name="warna" class="form-control" required>
@@ -202,7 +195,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputHarga">Harga : </label>
+                            <label for="inputHarga"><span class="text-danger font-weight-bold">&#42;</span> Harga : </label>
                           </div>
                           <div class="col-6">
                             <input type="text" id="inputHarga" name="harga" class="form-control" placeholder="0" required />
@@ -210,7 +203,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputDP">DP : </label>
+                            <label for="inputDP"><span class="text-danger font-weight-bold">&#42;</span> DP : </label>
                           </div>
                           <div class="col-6">
                             <input type="text" id="inputDP" name="dp" class="form-control" placeholder="0" required />
@@ -218,7 +211,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputTanggal">Tanggal Pengiriman:
+                            <label for="inputTanggal"><span class="text-danger font-weight-bold">&#42;</span> Tanggal Pengiriman:
                             </label>
                           </div>
                           <div class="col-6">
@@ -227,7 +220,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputTanggalJatuhTempo">Tanggal Jatuh Tempo:
+                            <label for="inputTanggalJatuhTempo"><span class="text-danger font-weight-bold">&#42;</span> Tanggal Jatuh Tempo:
                             </label>
                           </div>
                           <div class="col-6">
@@ -236,7 +229,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputSales">Sales: </label>
+                            <label for="inputSales"><span class="text-danger font-weight-bold">&#42;</span> Sales: </label>
                           </div>
                           <div class="col-6">
                             <!-- <input type="text" id="inputSales" name="sales" class="form-control" placeholder="Input Nama Sales.." /> -->
@@ -267,7 +260,7 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td>R</td>
+                              <td><span class="text-danger font-weight-bold">&#42;</span> R</td>
                               <td><input type="text" name="r_sph" class="form-control" placeholder="0.00" /></td>
                               <td><input type="text" name="r_cyl" class="form-control" placeholder="0.00" /></td>
                               <td><input type="text" name="r_axis" class="form-control" placeholder="0.00" /></td>
@@ -276,7 +269,7 @@
                               <td><input type="text" name="r_prism" class="form-control" placeholder="0.00" /></td>
                             </tr>
                             <tr>
-                              <td>L</td>
+                              <td><span class="text-danger font-weight-bold">&#42;</span> L</td>
                               <td><input type="text" name="l_sph" class="form-control" placeholder="0.00" /></td>
                               <td><input type="text" name="l_cyl" class="form-control" placeholder="0.00" /></td>
                               <td><input type="text" name="l_axis" class="form-control" placeholder="0.00" /></td>
