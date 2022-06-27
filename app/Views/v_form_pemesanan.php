@@ -139,14 +139,10 @@
                               ?>
                             </select>
                           </div>
-                          <!-- <div class="col-4">
-                            <select id="lensVariant" name="varian_lensa" class="form-control">
-                            </select>
-                          </div> -->
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputBahanFlattop"><span class="text-danger font-weight-bold">&#42;</span> Bahan Flattop :
+                            <label for="inputBahanFlattop"><span class="text-danger font-weight-bold">&#42;</span> Bahan Lensa :
                             </label>
                           </div>
                           <div class="col-6">
@@ -245,7 +241,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="offset-lg-1 col-lg-5">
+                      <div class="col-lg-8">
                         <table class="table table-bordered">
                           <thead>
                             <tr>
