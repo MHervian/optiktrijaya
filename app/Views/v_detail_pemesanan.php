@@ -92,7 +92,7 @@
                     <a href="<?= base_url("pemesanan/edit/" . $detail["id_pemesanan"]) ?>" class="btn btn-primary">
                       <i class="fas fa-edit"></i> Ubah
                     </a>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#form_delete_pemesanan">
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#form_delete_pemesanan" type="button" data-toggle="modal" data-backdrop="static" data-keyboard="false">
                       <i class="fas fa-trash"></i> Hapus
                     </button>
                   </h5>
@@ -262,7 +262,7 @@
                           ?>
                         </tbody>
                       </table>
-                      <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran">
+                      <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran" data-backdrop="static" data-keyboard="false">
                         Input Pembayaran
                       </button>
                     </div>
@@ -315,16 +315,28 @@
             <div class="form-group row">
               <label for="inputCollector" class="col-sm-4 col-form-label">Nama Collector</label>
               <div class="col-sm-8">
-                <select name="collector" class="form-control" required>
-                  <?php
-                  foreach ($collector as $c) {
-                  ?>
-                    <option value="<?= $c["username"] ?>"><?= $c["username"] ?></option>
-                  <?php
-                  }
-                  ?>
-                </select>
-                <!-- <input type="text" class="form-control" id="inputCollector" name="collector" placeholder="Isi Nama Collector.." /> -->
+                <?php
+                $level = session("level");
+                if ($level === "collector") {
+                  $username = session("username");
+                ?>
+                  <input type="hidden" name="sales" value="<?= $username ?>">
+                  <input type="text" class="form-control" value="<?= $username ?>" disabled>
+                <?php
+                } else {
+                ?>
+                  <select name="collector" class="form-control" required>
+                    <?php
+                    foreach ($collector as $c) {
+                    ?>
+                      <option value="<?= $c["username"] ?>"><?= $c["username"] ?></option>
+                    <?php
+                    }
+                    ?>
+                  </select>
+                <?php
+                }
+                ?>
               </div>
             </div>
           </div>

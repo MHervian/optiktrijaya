@@ -228,16 +228,28 @@
                             <label for="inputSales"><span class="text-danger font-weight-bold">&#42;</span> Sales: </label>
                           </div>
                           <div class="col-6">
-                            <!-- <input type="text" id="inputSales" name="sales" class="form-control" placeholder="Input Nama Sales.." /> -->
-                            <select name="sales" id="inputSales" class="form-control" required>
-                              <?php
-                              foreach ($sales as $sale) {
-                              ?>
-                                <option value="<?= $sale["username"] ?>"><?= $sale["username"] ?></option>
-                              <?php
-                              }
-                              ?>
-                            </select>
+                            <?php
+                            $level = session("level");
+                            if ($level === "sales") {
+                              $username = session("username");
+                            ?>
+                              <input type="hidden" name="sales" value="<?= $username ?>">
+                              <input type="text" class="form-control" value="<?= $username ?>" disabled>
+                            <?php
+                            } else {
+                            ?>
+                              <select name="sales" id="inputSales" class="form-control" required>
+                                <?php
+                                foreach ($sales as $sale) {
+                                ?>
+                                  <option value="<?= $sale["username"] ?>"><?= $sale["username"] ?></option>
+                                <?php
+                                }
+                                ?>
+                              </select>
+                            <?php
+                            }
+                            ?>
                           </div>
                         </div>
                       </div>

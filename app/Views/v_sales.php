@@ -228,12 +228,12 @@
                 <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Isi Email Sales.." required />
               </div>
             </div>
-            <!-- <div class="form-group row">
-              <label for="inputPassword" class="col-sm-4 col-form-label">Password</label>
+            <div class="form-group row">
+              <label for="inputPassword" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Password</label>
               <div class="col-sm-8">
-                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password Akun..." />
+                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password Akun..." required />
               </div>
-            </div> -->
+            </div>
           </div>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
@@ -277,7 +277,7 @@
                 <input type="email" class="form-control" name="email" id="updateEmail" placeholder="Isi Email Sales.." />
               </div>
             </div>
-            <!-- <div class="form-group row">
+            <div class="form-group row">
               <label for="ubahPasswordLama" class="col-sm-4 col-form-label">Password Lama</label>
               <div class="col-sm-8">
                 <input type="password" class="form-control" name="password_lama" id="updatePasswordLama" placeholder="Password Akun..." />
@@ -294,7 +294,7 @@
               <div class="col-sm-8">
                 <input type="password" class="form-control" name="password_ulangi" id="inputUlangiPassword" placeholder="Password Akun..." />
               </div>
-            </div> -->
+            </div>
           </div>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">

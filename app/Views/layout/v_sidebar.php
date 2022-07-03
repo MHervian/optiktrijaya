@@ -18,6 +18,9 @@
     </div>
 
     <!-- Sidebar Menu -->
+    <?php
+    $level = session("level");
+    ?>
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item menu-open">
@@ -44,14 +47,23 @@
                 <p>Data Pesanan</p>
               </a>
             </li>
+            <?php
+            if ($level !== "collector"){
+            ?>
             <li class="nav-item">
               <a href="<?= base_url("buat-pemesanan") ?>" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Buat Pesanan Baru</p>
               </a>
             </li>
+            <?php
+            }
+            ?>
           </ul>
         </li>
+        <?php
+        if ($level === "admin" || $level === "supadmin") {
+        ?>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-file"></i>
@@ -78,12 +90,29 @@
             </li>
           </ul>
         </li>
+        <?php
+        }
+
+        if ($level === "admin" || $level === "supadmin") {
+        ?>
         <li class="nav-item">
           <a href="<?= base_url("admin") ?>" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
             <p>Admin</p>
           </a>
         </li>
+        <?php
+        } else {
+          ?>
+          <li class="nav-item">
+            <a href="<?= base_url("admin") ?>" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Pengaturan Profil</p>
+            </a>
+          </li>
+        <?php
+        }
+        ?>
         <li class="nav-item">
           <a href="<?= base_url("logout") ?>" class="nav-link">
             <i class="nav-icon fas fa-sign-out-alt"></i>

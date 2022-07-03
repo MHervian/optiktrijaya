@@ -76,14 +76,14 @@ class Masters extends BaseController
     $request = service("request");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
-    // $password = $request->getPost("password");
+    $password = $request->getPost("password");
     $id_pengguna = Uuid::uuid4();
 
     $data = array(
       "id_pengguna" => $id_pengguna->toString(),
       "username" => $username,
       "email" => $email,
-      // "pass" => password_hash($password, PASSWORD_DEFAULT),
+      "pass" => password_hash($password, PASSWORD_DEFAULT),
       "lvl_akses" => "sales"
     );
 
@@ -105,43 +105,40 @@ class Masters extends BaseController
     $id_pengguna = $request->getPost("id_pengguna");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
-    // $password_lama = $request->getPost("password_lama");
-    // $password_baru = $request->getPost("password_baru");
-    // $password_ulangi = $request->getPost("password_ulangi");
+    $password_lama = $request->getPost("password_lama");
+    $password_baru = $request->getPost("password_baru");
+    $password_ulangi = $request->getPost("password_ulangi");
 
-    // if (!empty($password_lama) && !empty($password_baru)) {
-    //   // Validation of old and new password
-    //   $profile = $this->sales->getSalesByID($id_pengguna);
-    //   if (!password_verify($password_lama, $profile["pass"])) {
-    //     $session->setFlashdata("pageStatus", "wrong old password");
-    //     return redirect()->to(base_url("masters/sales"));
-    //   }
+    if (!empty($password_lama) && !empty($password_baru)) {
+      // Validation of old and new password
+      $profile = $this->sales->getSalesByID($id_pengguna);
 
-    //   if ($password_lama === $password_baru) {
-    //     $session->setFlashdata("pageStatus", "password still same");
-    //     return redirect()->to(base_url("masters/sales"));
-    //   }
+      if (!password_verify($password_lama, $profile["pass"])) {
+        $session->setFlashdata("pageStatus", "wrong old password");
+        return redirect()->to(base_url("masters/sales"));
+      }
 
-    //   if ($password_baru !== $password_ulangi) {
-    //     $session->setFlashdata("pageStatus", "new password is not matched");
-    //     return redirect()->to(base_url("masters/sales"));
-    //   }
+      if ($password_lama === $password_baru) {
+        $session->setFlashdata("pageStatus", "password still same");
+        return redirect()->to(base_url("masters/sales"));
+      }
 
-    //   $data = array(
-    //     "username" => $username,
-    //     "email" => $email,
-    //     "pass" => password_hash($password_baru, PASSWORD_DEFAULT)
-    //   );
-    // } else {
-    //   $data = array(
-    //     "username" => $username,
-    //     "email" => $email
-    //   );
-    // }
-    $data = array(
-      "username" => $username,
-      "email" => $email
-    );
+      if ($password_baru !== $password_ulangi) {
+        $session->setFlashdata("pageStatus", "new password is not matched");
+        return redirect()->to(base_url("masters/sales"));
+      }
+
+      $data = array(
+        "username" => $username,
+        "email" => $email,
+        "pass" => password_hash($password_baru, PASSWORD_DEFAULT)
+      );
+    } else {
+      $data = array(
+        "username" => $username,
+        "email" => $email
+      );
+    }
 
     $this->sales->updateSales($id_pengguna, $data);
 
@@ -182,14 +179,14 @@ class Masters extends BaseController
     $request = service("request");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
-    // $password = $request->getPost("password");
+    $password = $request->getPost("password");
     $id_pengguna = Uuid::uuid4();
 
     $data = array(
       "id_pengguna" => $id_pengguna->toString(),
       "username" => $username,
       "email" => $email,
-      // "pass" => password_hash($password, PASSWORD_DEFAULT),
+      "pass" => password_hash($password, PASSWORD_DEFAULT),
       "lvl_akses" => "collector"
     );
 
@@ -211,43 +208,39 @@ class Masters extends BaseController
     $id_pengguna = $request->getPost("id_pengguna");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
-    // $password_lama = $request->getPost("password_lama");
-    // $password_baru = $request->getPost("password_baru");
-    // $password_ulangi = $request->getPost("password_ulangi");
+    $password_lama = $request->getPost("password_lama");
+    $password_baru = $request->getPost("password_baru");
+    $password_ulangi = $request->getPost("password_ulangi");
 
-    // if (!empty($password_lama) && !empty($password_baru)) {
-    //   // Validation of old and new password
-    //   $profile = $this->collector->getCollectorByID($id_pengguna);
-    //   if (!password_verify($password_lama, $profile["pass"])) {
-    //     $session->setFlashdata("pageStatus", "wrong old password");
-    //     return redirect()->to(base_url("masters/collector"));
-    //   }
+    if (!empty($password_lama) && !empty($password_baru)) {
+      // Validation of old and new password
+      $profile = $this->collector->getCollectorByID($id_pengguna);
+      if (!password_verify($password_lama, $profile["pass"])) {
+        $session->setFlashdata("pageStatus", "wrong old password");
+        return redirect()->to(base_url("masters/collector"));
+      }
 
-    //   if ($password_lama === $password_baru) {
-    //     $session->setFlashdata("pageStatus", "password still same");
-    //     return redirect()->to(base_url("masters/collector"));
-    //   }
+      if ($password_lama === $password_baru) {
+        $session->setFlashdata("pageStatus", "password still same");
+        return redirect()->to(base_url("masters/collector"));
+      }
 
-    //   if ($password_baru !== $password_ulangi) {
-    //     $session->setFlashdata("pageStatus", "new password is not matched");
-    //     return redirect()->to(base_url("masters/collector"));
-    //   }
+      if ($password_baru !== $password_ulangi) {
+        $session->setFlashdata("pageStatus", "new password is not matched");
+        return redirect()->to(base_url("masters/collector"));
+      }
 
-    //   $data = array(
-    //     "username" => $username,
-    //     "email" => $email,
-    //     "pass" => password_hash($password_baru, PASSWORD_DEFAULT)
-    //   );
-    // } else {
-    //   $data = array(
-    //     "username" => $username,
-    //     "email" => $email
-    //   );
-    // }
-    $data = array(
-      "username" => $username,
-      "email" => $email
-    );
+      $data = array(
+        "username" => $username,
+        "email" => $email,
+        "pass" => password_hash($password_baru, PASSWORD_DEFAULT)
+      );
+    } else {
+      $data = array(
+        "username" => $username,
+        "email" => $email
+      );
+    }
 
     $this->collector->updateCollector($id_pengguna, $data);
 
