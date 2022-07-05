@@ -96,7 +96,6 @@ class Pemesanan extends BaseController
     $no_sp = $request->getPost("sp");
     $frame = $request->getPost("frame");
     $jenis_lensa = $request->getPost("jenis_lensa");
-    // $varian_lensa = $request->getPost("varian_lensa");
     $flattop = $request->getPost("flattop");
     $coating = $request->getPost("coating");
     $warna = $request->getPost("warna");
@@ -117,13 +116,13 @@ class Pemesanan extends BaseController
     $r_mpd = $request->getPost("r_mpd");
     $l_prism = $request->getPost("l_prism");
     $r_prism = $request->getPost("r_prism");
-    $uuid = Uuid::uuid4();
+    $uuid_pemesanan = Uuid::uuid4();
 
     // Menghitung sisa kredit
     $kredit = floatval($harga) - floatval($dp);
 
     $data = array(
-      "id_pemesanan" => $uuid->toString(),
+      "id_pemesanan" => $uuid_pemesanan->toString(),
       "no_sp" => $no_sp,
       "id_konsumen" => $id_konsumen,
       "frame" => $frame,
@@ -133,7 +132,6 @@ class Pemesanan extends BaseController
       "tgl_jatuh_tempo" => $tgl_jatuh_tempo,
       "tenor" => 1,
       "sales" => $sales,
-      // "lensa" => $jenis_lensa . " - " . $varian_lensa,
       "lensa" => $jenis_lensa,
       "warna" => $warna,
       "flattop" => $flattop,
@@ -157,12 +155,14 @@ class Pemesanan extends BaseController
     $this->pemesanan->insertPemesanan($data);
 
     // Insert first credit transaction
+    $uuid_log = Uuid::uuid4();
     $data = array(
-      "id_pemesanan" => $uuid->toString(),
+      "id_pemesanan" => $uuid_pemesanan->toString(),
       "jmlh_bayar" => $dp,
       "sisa_kredit" => $kredit,
       "tenor_ke" => 1,
-      "collector" => $sales
+      "collector" => $sales,
+      "id_log" => $uuid_log->toString()
     );
     $this->transaksi->insertPembayaran($data);
 
@@ -211,6 +211,7 @@ class Pemesanan extends BaseController
     $flattop = $request->getPost("flattop");
     $coating = $request->getPost("coating");
     $warna = $request->getPost("warna");
+    $tgl_pemesanan = $request->getPost("tgl_pemesanan");
     $tgl_pengiriman = $request->getPost("tgl_pengiriman");
     $tgl_jatuh_tempo = $request->getPost("tgl_jatuh_tempo");
     $sales = $request->getPost("sales");
@@ -249,17 +250,14 @@ class Pemesanan extends BaseController
       "R_axis" => $r_axis,
       "R_add" => $r_add,
       "R_mpd" => $r_mpd,
-      "R_prism" => $r_prism
+      "R_prism" => $r_prism,
+      "tgl_pemesanan" => $tgl_pemesanan
     );
-
-    echo "<pre>";
-    var_dump($data);
-    echo "</pre>";
 
     $this->pemesanan->updatePemesanan($id_pemesanan, $data);
 
     $session->setFlashdata("pageStatus", "update success");
-    return redirect()->to(base_url("pemesanan"));
+    return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
   }
 
   public function deletePemesanan($id_pemesanan)
@@ -298,12 +296,14 @@ class Pemesanan extends BaseController
 
     $kredit = floatval($kredit) - floatval($nominal);
 
+    $uuid = Uuid::uuid4();
     $data = array(
       "id_pemesanan" => $id_pemesanan,
       "jmlh_bayar" => $nominal,
       "sisa_kredit" => $kredit,
       "tenor_ke" => $tenor,
-      "collector" => $collector
+      "collector" => $collector,
+      "id_log" => $uuid->toString()
     );
     $this->transaksi->insertPembayaran($data);
 

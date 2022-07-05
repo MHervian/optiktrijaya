@@ -48,62 +48,88 @@
               </a>
             </li>
             <?php
-            if ($level !== "collector"){
+            if ($level !== "collector") {
             ?>
-            <li class="nav-item">
-              <a href="<?= base_url("buat-pemesanan") ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Buat Pesanan Baru</p>
-              </a>
-            </li>
+              <li class="nav-item">
+                <a href="<?= base_url("buat-pemesanan") ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Buat Pesanan Baru</p>
+                </a>
+              </li>
             <?php
             }
             ?>
           </ul>
         </li>
         <?php
+        if ($level === "collector" || $level === "supadmin" || $level === "admin") {
+        ?>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-money-bill"></i>
+              <p>Kredit Bulanan<i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url("kredit/progress") ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kredit Belum Bayar</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url("kredit/terbayar") ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kredit Sudah Bayar</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        <?php
+        }
+        ?>
+        <?php
         if ($level === "admin" || $level === "supadmin") {
         ?>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-file"></i>
-            <p>Master Data <i class="right fas fa-angle-left"></i></p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="<?= base_url("masters/sales") ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Data Sales</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url("masters/collector") ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Data Collector</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="<?= base_url("masters/lensa") ?>" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Data Lensa</p>
-              </a>
-            </li>
-          </ul>
-        </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-file"></i>
+              <p>Master Data <i class="right fas fa-angle-left"></i></p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="<?= base_url("masters/sales") ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Sales</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url("masters/collector") ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Collector</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="<?= base_url("masters/lensa") ?>" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Lensa</p>
+                </a>
+              </li>
+            </ul>
+          </li>
         <?php
         }
 
         if ($level === "admin" || $level === "supadmin") {
         ?>
-        <li class="nav-item">
-          <a href="<?= base_url("admin") ?>" class="nav-link">
-            <i class="nav-icon fas fa-users"></i>
-            <p>Admin</p>
-          </a>
-        </li>
+          <li class="nav-item">
+            <a href="<?= base_url("admin") ?>" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Admin</p>
+            </a>
+          </li>
         <?php
         } else {
-          ?>
+        ?>
           <li class="nav-item">
             <a href="<?= base_url("admin") ?>" class="nav-link">
               <i class="nav-icon fas fa-users"></i>

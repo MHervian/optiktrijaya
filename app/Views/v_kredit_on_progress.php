@@ -32,15 +32,15 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Data Pemesanan</h1>
+              <h1 class="m-0">Kredit Belum Dibayar Bulan Ini <span class="font-weight-bold">(<?= date("F Y") ?>)</span></h1>
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
-                  <a href="dashboard.html">Home</a>
+                  <a href="<?= base_url("dashboard") ?>">Home</a>
                 </li>
-                <li class="breadcrumb-item active">Data Pemesanan</li>
+                <li class="breadcrumb-item active">Data Kredit Terbayar</li>
               </ol>
             </div>
             <!-- /.col -->
@@ -51,107 +51,54 @@
       </div>
       <!-- /.content-header -->
 
-      <?php
-      if (isset($pageStatus) && $pageStatus === "insert success") {
-      ?>
-        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Data Pemesanan Baru Berhasil Ditambah</p>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      <?php
-      }
-      ?>
-
-      <?php
-      if (isset($pageStatus) && $pageStatus === "update success") {
-      ?>
-        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Data Pemesanan Berhasil Diubah</p>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      <?php
-      }
-      ?>
-
-      <?php
-      if (isset($pageStatus) && $pageStatus === "delete success") {
-      ?>
-        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Data Pemesanan Berhasil Dihapus</p>
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      <?php
-      }
-      ?>
-
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12">
               <div class="card card-primary card-outline">
-                <?php
-                $level = session("level");
-                if ($level !== "collector") {
-                ?>
-                  <div class="card-header">
-                    <a href="<?= base_url("buat-pemesanan") ?>" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
-                      <i class="fas fa-plus-square"></i>
-                      Tambah Pemesanan
-                    </a>
-                  </div>
-                <?php
-                }
-                ?>
                 <div class="card-body">
                   <?php
-                  $totalRows = count($pemesanan);
+                  $totalRows = (!empty($cicilan)) ? count($cicilan) : 0;
                   if ($totalRows === 0) {
                   ?>
                     <div class="alert alert-info text-center alert-dismissible fade show mb-4" role="alert">
-                      <p class="m-0">Data Pemesanan Belum Ada</p>
+                      <p class="m-0">Belum Ada Pesanan yang Dibuat Atau Kredit Berjalan.</p>
                     </div>
                   <?php
                   } else {
                   ?>
-                    <table id="data_pemesanan" class="table table-bordered table-hover">
+                    <p class="mb-4">Jumlah kredit pesanan yang belum dibayar bulan ini: <span class="font-weight-bold"><?= $totalRows ?></span></p>
+                    <div class="mb-3">
+                      <a href="<?= base_url("kredit/terbayar") ?>" class="btn btn-primary" style="background-color: #02a09e; border-color: #02a09e;">
+                        <i class="fas fa-money-check-edit-alt"></i>
+                        Cek Kredit Sudah Terbayar
+                      </a>
+                    </div>
+                    <table id="data_konsumen" class="table table-bordered table-hover">
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>No SP</th>
-                          <th>Nama Pemesan</th>
-                          <th>No Telepon</th>
-                          <th>Sisa Kredit</th>
-                          <th>Tgl Pemesanan</th>
-                          <th>Tgl Pengiriman</th>
-                          <th>Tgl Jatuh Tempo</th>
-                          <th>Sales</th>
+                          <th>Nama Pelanggan</th>
+                          <th>No Pesanan</th>
+                          <th>Kredit</th>
+                          <th>Tenor Terakhir Ke-</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
                         $nomor = 1;
-                        foreach ($pemesanan as $data_pemesanan) {
+                        foreach ($cicilan as $c) {
                         ?>
                           <tr>
                             <td><?= $nomor ?></td>
-                            <td><?= $data_pemesanan["no_sp"] ?></td>
-                            <td><?= $data_pemesanan["nama"] ?></td>
-                            <td><?= $data_pemesanan["no_telepon"] ?></td>
-                            <td>Rp<?= number_format(floatval($data_pemesanan["sisa_kredit"]), 2) ?></td>
-                            <td><?= date("d F Y", strtotime($data_pemesanan["tgl_pemesanan"])) ?></td>
-                            <td><?= date("d F Y", strtotime($data_pemesanan["tgl_pengiriman"])) ?></td>
-                            <td><?= date("d F Y", strtotime($data_pemesanan["tgl_jatuh_tempo"])) ?></td>
-                            <td><?= $data_pemesanan["sales"] ?></td>
+                            <td><?= $c["nama"] ?></td>
+                            <td><?= $c["no_sp"] ?></td>
+                            <td>Rp<?= number_format($c["sisa_kredit"]) ?></td>
+                            <td><?= $c["tenor"] ?></td>
                             <td>
-                              <a href="<?= base_url("pemesanan/detail/" . $data_pemesanan["id_pemesanan"]) ?>">Detail</a>
+                              <a href="<?= base_url("pemesanan/detail/" . $c["id_pemesanan"]) ?>" class="text-primary d-block">Detail</a>
                             </td>
                           </tr>
                         <?php
@@ -204,7 +151,8 @@
   <!-- Custom Javascript Here -->
   <script>
     $(function() {
-      $("#data_pemesanan").DataTable({
+      // For datatable
+      $("#data_konsumen").DataTable({
         paging: true,
         lengthChange: true,
         searching: true,
@@ -212,6 +160,36 @@
         info: true,
         autoWidth: false,
         responsive: true,
+      });
+
+      $("#createKonsumen").click(function(e) {
+        $("#inputKonsumen").val("");
+        $("#inputBirth").val("");
+        $("#inputContact").val("");
+        $("#inputAddress").val("");
+      });
+
+      // If user click update form
+      $(".ubah").click(function(e) {
+        let id_konsumen = $(e.target).parent().parent().attr("id");
+        $.ajax({
+          url: "/konsumen/id/" + id_konsumen,
+          method: "GET",
+          success: function(response) {
+            result = JSON.parse(response);
+            $("#updateIDKonsumen").val(result.id_konsumen);
+            $("#updateKonsumen").val(result.nama);
+            $("#updateBirth").val(result.tgl_lahir);
+            $("#updateContact").val(result.no_telepon);
+            $("#updateAddress").val(result.alamat);
+          }
+        });
+      });
+
+      $(".hapus").click(function(e) {
+        let id_konsumen = $(e.target).parent().parent().attr("id");
+        let uri_point = $("#uriPoint").val() + "/" + id_konsumen;
+        $("#btn_delete").attr("href", uri_point);
       });
     });
   </script>

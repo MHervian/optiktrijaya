@@ -357,6 +357,7 @@
       // });
 
       $("#cariKonsumen").on("input", function(evt) {
+        $("#listSearchResult").empty();
         clearTimeout(typingTimer);
         var keyword = $(evt.target).val();
         if ($(this).val()) {
@@ -412,6 +413,15 @@
             result = JSON.parse(response);
             searchResult = result;
 
+            if (result.length == 0) {
+              var emptyResult = jQuery("<span />", {
+                class: "d-block p-3 font-weight-bold text-center",
+                text: "Pencarian Tidak Ditemukan"
+              });
+              $("#listSearchResult").append(emptyResult);
+              return; // finish the task
+            }
+
             // Begin generate list of search result
             var listSearchResult = [];
             i = 0;
@@ -445,23 +455,10 @@
               $(a).append(span).append(p);
               $(list).append(a);
 
-              // $(list).append(span);
-              // $(list).append(p);
-              // $(list).click(function(evt) {
-              //   var idxData = $(evt.target).attr("id");
-              //   idxData = idxData.split("-")[1];
-              //   $("#listSearchResult").empty();
-              //   $("#boxSearchResult").css({
-              //     "display": "none"
-              //   });
-              //   updateInfoSelection(parseInt(idxData));
-              // });
-
               listSearchResult[i] = list;
               i++;
             });
 
-            $("#listSearchResult").empty();
             $("#listSearchResult").append(listSearchResult);
           }
         });

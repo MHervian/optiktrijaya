@@ -22,6 +22,8 @@
     case "Data Master : Sales":
     case "Data Master : Collector":
     case "Data Master : Kacamata":
+    case "Data Kredit On Progress Bulan Ini":
+    case "Data Kredit Terbayar Bulan Ini":
   ?>
       <!-- DataTables -->
       <link rel="stylesheet" href="<?= base_url("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") ?>" />

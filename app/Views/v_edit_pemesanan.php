@@ -157,10 +157,6 @@
                               ?>
                             </select>
                           </div>
-                          <!-- <div class="col-4">
-                            <select id="lensVariant" name="varian_lensa" class="form-control">
-                            </select>
-                          </div> -->
                         </div>
                         <div class="form-group row">
                           <div class="col-4">
@@ -225,14 +221,15 @@
                             <input type="text" id="inputHarga" name="harga" class="form-control" value="<?= $pesanan["harga"] ?>" placeholder="0" required disabled />
                           </div>
                         </div>
-                        <!-- <div class="form-group row">
+                        <div class="form-group row">
                           <div class="col-4">
-                            <label for="inputDP">DP : </label>
+                            <label for="inputTanggal">Tanggal Pemesanan:
+                            </label>
                           </div>
                           <div class="col-6">
-                            <input type="text" id="inputDP" name="dp" class="form-control" value="" placeholder="0" required />
+                            <input type="date" id="inputTanggalPemesanan" name="tgl_pemesanan" class="form-control" value="<?= $pesanan["tgl_pemesanan"] ?>" required />
                           </div>
-                        </div> -->
+                        </div>
                         <div class="form-group row">
                           <div class="col-4">
                             <label for="inputTanggal">Tanggal Pengiriman:

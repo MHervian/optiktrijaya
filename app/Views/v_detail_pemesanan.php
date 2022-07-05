@@ -58,7 +58,7 @@
       if (isset($pageStatus) && $pageStatus === "update success") {
       ?>
         <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Detail Data Pemesanan Berhasil Diubah</p>
+          <p class="m-0">Detail Data Pemesanan Berhasil Diubah.</p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -141,6 +141,11 @@
                             <td>Rp<?= number_format(floatval($detail["sisa_kredit"]), 2) ?></td>
                           </tr>
                           <tr>
+                            <td>Tanggal Pemesanan</td>
+                            <td>:</td>
+                            <td><?= date("d F Y", strtotime($detail["tgl_pemesanan"])) ?></td>
+                          </tr>
+                          <tr>
                             <td>Tanggal Pengiriman</td>
                             <td>:</td>
                             <td><?= date("d F Y", strtotime($detail["tgl_pengiriman"])) ?></td>
@@ -216,6 +221,11 @@
                             <td><?= $age ?> Tahun</td>
                           </tr>
                           <tr>
+                            <td>Tanggal Lahir</td>
+                            <td>:</td>
+                            <td><?= date("d F Y", strtotime($detail["tgl_lahir"])) ?></td>
+                          </tr>
+                          <tr>
                             <td>Alamat</td>
                             <td>:</td>
                             <td>
@@ -241,18 +251,20 @@
                           <tr>
                             <th>Tanggal Bayar</th>
                             <th>Jumlah Bayar</th>
+                            <th>Tenor Ke-</th>
                             <th>Sisa Kredit</th>
                             <th>Collector</th>
                           </tr>
                         </thead>
                         <tbody>
                           <?php
-                          $tenor = 0;
+                          $tenor = 1;
                           foreach ($logs as $log) {
                           ?>
                             <tr>
                               <td><?= date("d F Y", strtotime($log["tgl_bayar"])) ?></td>
                               <td>Rp<?= number_format(floatval($log["jmlh_bayar"]), 2) ?></td>
+                              <td><?= $log["tenor_ke"] ?></td>
                               <td>Rp<?= number_format(floatval($log["sisa_kredit"])) ?></td>
                               <td><?= $log["collector"] ?></td>
                             </tr>
@@ -262,9 +274,16 @@
                           ?>
                         </tbody>
                       </table>
-                      <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran" data-backdrop="static" data-keyboard="false">
-                        Input Pembayaran
-                      </button>
+                      <?php
+                      $level = session("level");
+                      if ($level !== "sales") {
+                      ?>
+                        <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran" data-backdrop="static" data-keyboard="false">
+                          Input Pembayaran
+                        </button>
+                      <?php
+                      }
+                      ?>
                     </div>
                   </div>
                 </div>
@@ -320,7 +339,7 @@
                 if ($level === "collector") {
                   $username = session("username");
                 ?>
-                  <input type="hidden" name="sales" value="<?= $username ?>">
+                  <input type="hidden" name="collector" value="<?= $username ?>">
                   <input type="text" class="form-control" value="<?= $username ?>" disabled>
                 <?php
                 } else {

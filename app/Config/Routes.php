@@ -71,6 +71,8 @@ $routes->post("/buat-pemesanan/create", "Pemesanan::createNewPemesanan");
  * 5) Kredit
  */
 $routes->post("/pemesanan/bayar", "Pemesanan::addPembayaranKredit");
+$routes->get("/kredit/progress", "Kredit::onProgress");
+$routes->get("/kredit/terbayar", "Kredit::kreditTerbayar");
 
 /**
  * 6) Master Data
