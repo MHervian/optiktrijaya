@@ -11,7 +11,8 @@ class PemesananModel extends Model
   protected $allowedFields = [
     "id_pemesanan", "no_sp", "id_konsumen", "frame", "harga", "dp", "sisa_kredit", "tgl_pengiriman",
     "tgl_jatuh_tempo", "tenor", "sales", "lensa", "flattop", "coating", "L_sph", "L_cyt", "L_axis",
-    "L_add", "L_mpd", "L_prism", "R_sph", "R_cyt", "R_axis", "R_add", "R_mpd", "R_prism", "status_kredit", "warna", "tgl_pemesanan"
+    "L_add", "L_mpd", "L_prism", "R_sph", "R_cyt", "R_axis", "R_add", "R_mpd", "R_prism", "status_kredit", "warna", "tgl_pemesanan",
+    "status_jalan"
   ];
 
   public function getAllPemesanan()
@@ -29,7 +30,8 @@ class PemesananModel extends Model
       pemesanan.tgl_pengiriman AS tgl_pengiriman,
       pemesanan.tgl_jatuh_tempo AS tgl_jatuh_tempo,
       pemesanan.sales AS sales,
-      pemesanan.tgl_pemesanan AS tgl_pemesanan
+      pemesanan.tgl_pemesanan AS tgl_pemesanan,
+      pemesanan.status_jalan AS status_jalan
     ")
       ->join("konsumen", "konsumen.id_konsumen = pemesanan.id_konsumen", "INNER")
       ->get()->getResultArray();
@@ -70,7 +72,8 @@ class PemesananModel extends Model
       pemesanan.R_prism AS R_prism,
       pemesanan.status_kredit AS status_kredit,
       pemesanan.warna AS warna,
-      pemesanan.tgl_pemesanan AS tgl_pemesanan
+      pemesanan.tgl_pemesanan AS tgl_pemesanan,
+      pemesanan.status_jalan AS status_jalan
     ")
       ->join("konsumen", "konsumen.id_konsumen = pemesanan.id_konsumen", "INNER")
       ->where("pemesanan.id_pemesanan", $id_pemesanan)
@@ -178,8 +181,18 @@ class PemesananModel extends Model
     $this->update($id_pemesanan, $data);
   }
 
-  public function deletePemesanan($id_pemesanan)
+  public function deletePemesanan($id_pemesanan, $data)
   {
     $this->delete($id_pemesanan);
+  }
+
+  public function cancelPemesanan($id_pemesanan, $data)
+  {
+    $this->update($id_pemesanan, $data);
+  }
+
+  public function activatePemesanan($id_pemesanan, $data)
+  {
+    $this->update($id_pemesanan, $data);
   }
 }

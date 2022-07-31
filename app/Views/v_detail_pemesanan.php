@@ -80,6 +80,32 @@
       }
       ?>
 
+      <?php
+      if (isset($pageStatus) && $pageStatus === "cancel success") {
+      ?>
+        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Pembayaran Kredit Pesanan Ini Telah Berhasil Dicancel.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
+      <?php
+      if (isset($pageStatus) && $pageStatus === "activate success") {
+      ?>
+        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Pembayaran Kredit Pesanan Ini Telah Berhasil Diaktifkan Kembali.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
@@ -95,11 +121,40 @@
                     <button class="btn btn-danger" data-toggle="modal" data-target="#form_delete_pemesanan" type="button" data-toggle="modal" data-backdrop="static" data-keyboard="false">
                       <i class="fas fa-trash"></i> Hapus
                     </button>
+                    <?php
+                    if ($detail["status_jalan"] === "aktif") { ?>
+                      <button class="btn btn-danger" data-toggle="modal" data-target="#form_cancel_pemesanan" type="button" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                        <i class="fas fa-times-circle"></i> Cancel
+                      </button>
+                    <?php
+                    } else {
+                    ?>
+                      <button class="btn btn-success" data-toggle="modal" data-target="#form_activate_pemesanan" type="button" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                        <i class="fas fa-check-circle"></i> Activate
+                      </button>
+                    <?php
+                    }
+                    ?>
                   </h5>
                   <div class="row">
                     <div class="col-md-4">
                       <table class="table table-bordered">
                         <tbody>
+                          <tr>
+                            <td>Status</td>
+                            <td>:</td>
+                            <?php
+                            if ($detail["status_jalan"] === "aktif") {
+                            ?>
+                              <td class="text-success font-weight-bold"><?= $detail["status_jalan"] ?></td>
+                            <?php
+                            } else {
+                            ?>
+                              <td class="text-danger font-weight-bold"><?= $detail["status_jalan"] ?></td>
+                            <?php
+                            }
+                            ?>
+                          </tr>
                           <tr>
                             <td>No. SP</td>
                             <td>:</td>
@@ -276,7 +331,7 @@
                       </table>
                       <?php
                       $level = session("level");
-                      if ($level !== "sales") {
+                      if ($level !== "sales" && $detail["status_jalan"] === "aktif") {
                       ?>
                         <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran" data-backdrop="static" data-keyboard="false">
                           Input Pembayaran
@@ -375,7 +430,7 @@
   </div>
   <!-- /.modal -->
 
-  <!-- Form modal delete user -->
+  <!-- Form modal delete pemesanan -->
   <div class="modal fade" id="form_delete_pemesanan">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -388,6 +443,48 @@
         <div class="modal-body">
           <p>Tekan 'Proses' untuk menghapus data pemesanan.</p>
           <a href="<?= base_url("pemesanan/delete/" . $detail["id_pemesanan"]) ?>" class="btn btn-danger">Proses</a>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Form modal cancel pemesanan -->
+  <div class="modal fade" id="form_cancel_pemesanan">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Cancel Pemesanan</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Tekan 'Proses' untuk cancel pemesanan.</p>
+          <a href="<?= base_url("pemesanan/cancel/" . $detail["id_pemesanan"]) ?>" class="btn btn-danger">Proses</a>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Form modal aktifkan pemesanan -->
+  <div class="modal fade" id="form_activate_pemesanan">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Aktifkan Pemesanan</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Tekan 'Aktifkan' untuk aktifkan kembali pemesanan.</p>
+          <a href="<?= base_url("pemesanan/activate/" . $detail["id_pemesanan"]) ?>" class="btn btn-success">Aktifkan</a>
         </div>
       </div>
       <!-- /.modal-content -->

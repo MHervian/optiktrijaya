@@ -32,7 +32,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Kredit Sudah Dibayar Bulan Ini <span class="font-weight-bold">(<?= date("F Y") ?>)</span></h1>
+              <h1 class="m-0">Kredit Sudah Dibayar</h1>
             </div>
             <!-- /.col -->
             <div class="col-sm-6">
@@ -58,6 +58,50 @@
             <div class="col-lg-12">
               <div class="card card-primary card-outline">
                 <div class="card-body">
+                  <div class="mb-3">
+                    <a href="<?= base_url("kredit/terbayar") ?>" class="btn btn-primary" style="background-color: #02a09e; border-color: #02a09e;">
+                      <i class="fas fa-clipboard-list"></i> Lihat Kredit Belum Dibayar
+                    </a>
+                  </div>
+                  <div class="mb-5">
+                    <p>Cari Data dari Tanggal</p>
+                    <form id="form_search" action="<?= base_url("kredit/terbayar/cari") ?>" method="post" class="row">
+                      <div class="col-2 position-relative">
+                        <select id="tahun_search" class="form-control" name="tahun">
+                          <option value="none">Tahun</option>
+                          <?php
+                          foreach ($tanggal as $t) {
+                          ?>
+                            <option value="<?= $t["log_year"] ?>"><?= $t["log_year"] ?></option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                        <p id="danger_tahun" class="text-danger position-absolute" style="display:none;">Pilih Tahun</p>
+                      </div>
+                      <div class="col-2 position-relative">
+                        <select id="bulan_search" class="form-control" name="bulan">
+                          <option value="none">Bulan</option>
+                          <option value="01">Januari</option>
+                          <option value="02">Februari</option>
+                          <option value="03">Maret</option>
+                          <option value="04">April</option>
+                          <option value="05">Mei</option>
+                          <option value="06">Juni</option>
+                          <option value="07">Juli</option>
+                          <option value="08">Agustus</option>
+                          <option value="09">September</option>
+                          <option value="10">Oktober</option>
+                          <option value="11">November</option>
+                          <option value="12">Desember</option>
+                        </select>
+                        <p id="danger_bulan" class="text-danger position-absolute" style="display:none;">Pilih Bulan</p>
+                      </div>
+                      <div class="col-2">
+                        <button type="submit" class="btn btn-primary">Cari</button>
+                      </div>
+                    </form>
+                  </div>
                   <?php
                   $totalRows = (!empty($terbayar)) ? count($terbayar) : 0;
                   if ($totalRows === 0) {
@@ -68,13 +112,11 @@
                   <?php
                   } else {
                   ?>
-                    <p class="mb-4">Jumlah kredit pesanan yang dibayar bulan ini: <span class="font-weight-bold"><?= $totalRows ?></span></p>
-                    <div class="mb-3">
-                      <a href="<?= base_url("kredit/terbayar") ?>" class="btn btn-primary" style="background-color: #02a09e; border-color: #02a09e;">
-                        <i class="fas fa-clipboard-list"></i> Cek Kredit Belum Terbayar
-                      </a>
-                    </div>
-                    <table id="data_konsumen" class="table table-bordered table-hover">
+                    <hr>
+                    <h4 class="mb-2">Tanggal: <span class="font-weight-bold"><?= $tgl ?></span></h4>
+                    <h5 class="mb-4">Total data: <span class="font-weight-bold text-danger"><?= $totalRows ?></span></h5>
+                    <!-- <p class="mb-4">Jumlah kredit pesanan yang dibayar bulan ini: <span class="font-weight-bold"><?= $totalRows ?></span></p> -->
+                    <table id="data_kredit" class="table table-bordered table-hover">
                       <thead>
                         <tr>
                           <th>#</th>
@@ -157,7 +199,7 @@
   <script>
     $(function() {
       // For datatable
-      $("#data_konsumen").DataTable({
+      $("#data_kredit").DataTable({
         paging: true,
         lengthChange: true,
         searching: true,
@@ -167,34 +209,41 @@
         responsive: true,
       });
 
-      $("#createKonsumen").click(function(e) {
-        $("#inputKonsumen").val("");
-        $("#inputBirth").val("");
-        $("#inputContact").val("");
-        $("#inputAddress").val("");
-      });
-
-      // If user click update form
-      $(".ubah").click(function(e) {
-        let id_konsumen = $(e.target).parent().parent().attr("id");
-        $.ajax({
-          url: "/konsumen/id/" + id_konsumen,
-          method: "GET",
-          success: function(response) {
-            result = JSON.parse(response);
-            $("#updateIDKonsumen").val(result.id_konsumen);
-            $("#updateKonsumen").val(result.nama);
-            $("#updateBirth").val(result.tgl_lahir);
-            $("#updateContact").val(result.no_telepon);
-            $("#updateAddress").val(result.alamat);
-          }
+      $("#form_search").submit(function(evt) {
+        var tahun = $("#tahun_search").val();
+        var bulan = $("#bulan_search").val();
+        $("#tahun_search").css({
+          "border": "1px solid #ced4da"
         });
-      });
+        $("#danger_tahun").css({
+          "display": "none"
+        });
+        $("#bulan_search").css({
+          "border": "1px solid #ced4da"
+        });
+        $("#danger_bulan").css({
+          "display": "none"
+        });
 
-      $(".hapus").click(function(e) {
-        let id_konsumen = $(e.target).parent().parent().attr("id");
-        let uri_point = $("#uriPoint").val() + "/" + id_konsumen;
-        $("#btn_delete").attr("href", uri_point);
+        if (tahun === "none") {
+          $("#tahun_search").css({
+            "border": "1px solid red"
+          });
+          $("#danger_tahun").css({
+            "display": "block"
+          });
+          evt.preventDefault();
+        }
+
+        if (bulan === "none") {
+          $("#bulan_search").css({
+            "border": "1px solid red"
+          });
+          $("#danger_bulan").css({
+            "display": "block"
+          });
+          evt.preventDefault();
+        }
       });
     });
   </script>

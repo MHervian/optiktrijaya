@@ -20,32 +20,48 @@ class Kredit extends BaseController
       $session->setFlashdata("loginStatus", "user not login");
       return redirect()->to(base_url());
     }
-    $data = array("pageTitle" => "Data Kredit On Progress Bulan Ini");
+    $data = array("pageTitle" => "Data Kredit Berjalan");
     $data["username"] = $session->username;
 
-    // Query of pemesanan data
+    // Query of all pemesanan data
     $pemesanan = $this->pemesanan->getAllPemesanan();
 
     // Query of log credit transaction history based on this month-year
-    $date_now = date("Y-m");
-    $log = $this->transaksi->getAllLogsPembayaranByMonthNow($date_now);
+    $tanggal_bulan = date("Y-m");
+
+    $request = service("request");
+    if ($request->getMethod() === "post") {
+      $tahun = $request->getPost("tahun");
+      $bulan = $request->getPost("bulan");
+      $tanggal_bulan = "$tahun-$bulan";
+    }
+    $log = $this->transaksi->getAllLogsPembayaranByDate($tanggal_bulan);
+
+    $data["tgl"] = date("F Y", strtotime($tanggal_bulan));
 
     // Filter the credit which wasn't paid this month
     $filtered = null;
     $idx = 0;
+    $tmp_tgl1 = intval(strtotime($tanggal_bulan));
     foreach ($pemesanan as $p) {
+      $tmp_tgl2 = intval(strtotime(substr($p["tgl_pemesanan"], 0, 7)));
       $tmp = array_filter($log, function ($val) use ($p) {
         return $val["id_pemesanan"] === $p["id_pemesanan"];
       });
 
       if (!empty($tmp)) continue;
-      $tmp = array_values($tmp);
+
+      if ($tmp_tgl1 < $tmp_tgl2 || $p["status_jalan"] === "cancel") continue;
 
       $filtered[$idx] = $p;
       $idx++;
     }
 
+    // Query on log bayar date
+    $dates = $this->transaksi->getAllDateLog();
+
     $data["cicilan"] = $filtered;
+    $data["tanggal"] = $dates;
 
     return view("v_kredit_on_progress", $data);
   }
@@ -57,15 +73,25 @@ class Kredit extends BaseController
       $session->setFlashdata("loginStatus", "user not login");
       return redirect()->to(base_url());
     }
-    $data = array("pageTitle" => "Data Kredit Terbayar Bulan Ini");
+    $data = array("pageTitle" => "Data Kredit Terbayar");
     $data["username"] = $session->username;
 
     // Query of pemesanan data
     $pemesanan = $this->pemesanan->getAllPemesanan();
 
     // Query of log credit transaction history based on this month-year
-    $date_now = date("Y-m");
-    $log = $this->transaksi->getAllLogsPembayaranByMonthNow($date_now);
+    $tanggal_bulan = date("Y-m");
+
+    $request = service("request");
+
+    if ($request->getMethod() === "post") {
+      $tahun = $request->getPost("tahun");
+      $bulan = $request->getPost("bulan");
+      $tanggal_bulan = "$tahun-$bulan";
+    }
+    $log = $this->transaksi->getAllLogsPembayaranByDate($tanggal_bulan);
+
+    $data["tgl"] = date("F Y", strtotime($tanggal_bulan));
 
     // Filter the credit which was paid this month
     $filtered = null;
@@ -86,7 +112,11 @@ class Kredit extends BaseController
       $idx++;
     }
 
+    // Query on log bayar date
+    $dates = $this->transaksi->getAllLogBayarDate();
+
     $data["terbayar"] = $filtered;
+    $data["tanggal"] = $dates;
 
     return view("v_kredit_terbayar", $data);
   }

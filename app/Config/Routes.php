@@ -66,13 +66,17 @@ $routes->post("/pemesanan/update", "Pemesanan::updatePesanan");
 $routes->get("/pemesanan/delete/(:any)", "Pemesanan::deletePemesanan/$1");
 $routes->get("/buat-pemesanan", "Pemesanan::pemesananForm");
 $routes->post("/buat-pemesanan/create", "Pemesanan::createNewPemesanan");
+$routes->post("/pemesanan/bayar", "Pemesanan::addPembayaranKredit");
+$routes->get("/pemesanan/cancel/(:any)", "Pemesanan::cancelPemesanan/$1");
+$routes->get("/pemesanan/activate/(:any)", "Pemesanan::activatePemesanan/$1");
 
 /**
  * 5) Kredit
  */
-$routes->post("/pemesanan/bayar", "Pemesanan::addPembayaranKredit");
 $routes->get("/kredit/progress", "Kredit::onProgress");
 $routes->get("/kredit/terbayar", "Kredit::kreditTerbayar");
+$routes->post("/kredit/progress/cari", "Kredit::onProgress");
+$routes->post("/kredit/terbayar/cari", "Kredit::kreditTerbayar");
 
 /**
  * 6) Master Data

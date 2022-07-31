@@ -333,29 +333,6 @@
       // First initiate
       $("#cariKonsumen").val("");
 
-      // $.ajax({
-      //   url: "/masters/lensa/kategori/" + encodeURIComponent($("#lensSelection :selected").attr("value")),
-      //   method: "GET",
-      //   success: function(response) {
-      //     result = JSON.parse(response);
-      //     console.log(result);
-
-      //     var optionsLensVariant = [];
-      //     var i = 0;
-      //     result.forEach(el => {
-      //       var opt = jQuery("<option />", {
-      //         value: el.nama_varian,
-      //         text: el.nama_varian
-      //       });
-
-      //       optionsLensVariant[i] = opt;
-      //       i++;
-      //     });
-
-      //     $("#lensVariant").append(optionsLensVariant);
-      //   }
-      // });
-
       $("#cariKonsumen").on("input", function(evt) {
         $("#listSearchResult").empty();
         clearTimeout(typingTimer);
@@ -376,34 +353,6 @@
           $("#idKonsumen").val("");
         }
       });
-
-      // $("#lensSelection").change(function(evt) {
-
-      //   var nama_kategori = $("#lensSelection :selected").attr("value");
-      //   $.ajax({
-      //     url: "/masters/lensa/kategori/" + encodeURIComponent(nama_kategori),
-      //     method: "GET",
-      //     success: function(response) {
-      //       result = JSON.parse(response);
-      //       console.log(result);
-
-      //       var optionsLensVariant = [];
-      //       var i = 0;
-      //       result.forEach(el => {
-      //         var opt = jQuery("<option />", {
-      //           value: el.nama_varian,
-      //           text: el.nama_varian
-      //         });
-
-      //         optionsLensVariant[i] = opt;
-      //         i++;
-      //       });
-
-      //       $("#lensVariant").empty();
-      //       $("#lensVariant").append(optionsLensVariant);
-      //     }
-      //   });
-      // });
 
       function doneTyping(keyword) {
         $.ajax({

@@ -132,26 +132,38 @@
                           <th>Tgl Pengiriman</th>
                           <th>Tgl Jatuh Tempo</th>
                           <th>Sales</th>
+                          <th>Status</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
                         $nomor = 1;
-                        foreach ($pemesanan as $data_pemesanan) {
+                        foreach ($pemesanan as $p) {
                         ?>
                           <tr>
                             <td><?= $nomor ?></td>
-                            <td><?= $data_pemesanan["no_sp"] ?></td>
-                            <td><?= $data_pemesanan["nama"] ?></td>
-                            <td><?= $data_pemesanan["no_telepon"] ?></td>
-                            <td>Rp<?= number_format(floatval($data_pemesanan["sisa_kredit"]), 2) ?></td>
-                            <td><?= date("d F Y", strtotime($data_pemesanan["tgl_pemesanan"])) ?></td>
-                            <td><?= date("d F Y", strtotime($data_pemesanan["tgl_pengiriman"])) ?></td>
-                            <td><?= date("d F Y", strtotime($data_pemesanan["tgl_jatuh_tempo"])) ?></td>
-                            <td><?= $data_pemesanan["sales"] ?></td>
+                            <td><?= $p["no_sp"] ?></td>
+                            <td><?= $p["nama"] ?></td>
+                            <td><?= $p["no_telepon"] ?></td>
+                            <td>Rp<?= number_format(floatval($p["sisa_kredit"]), 2) ?></td>
+                            <td><?= date("d F Y", strtotime($p["tgl_pemesanan"])) ?></td>
+                            <td><?= date("d F Y", strtotime($p["tgl_pengiriman"])) ?></td>
+                            <td><?= date("d F Y", strtotime($p["tgl_jatuh_tempo"])) ?></td>
+                            <td><?= $p["sales"] ?></td>
+                            <?php
+                            if ($p["status_jalan"] === "aktif") {
+                            ?>
+                              <td class="font-weight-bold text-success"><?= $p["status_jalan"] ?></td>
+                            <?php
+                            } else {
+                            ?>
+                              <td class="font-weight-bold text-danger"><?= $p["status_jalan"] ?></td>
+                            <?php
+                            }
+                            ?>
                             <td>
-                              <a href="<?= base_url("pemesanan/detail/" . $data_pemesanan["id_pemesanan"]) ?>">Detail</a>
+                              <a href="<?= base_url("pemesanan/detail/" . $p["id_pemesanan"]) ?>">Detail</a>
                             </td>
                           </tr>
                         <?php

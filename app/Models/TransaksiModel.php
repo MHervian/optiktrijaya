@@ -18,11 +18,28 @@ class TransaksiModel extends Model
       ->orderBy("tgl_bayar", "DESC")->findAll();
   }
 
-  public function getAllLogsPembayaranByMonthNow($date_now)
+  public function getAllLogsPembayaranByDate($date_now)
   {
     return $this->like("tgl_bayar", $date_now, "after")
       ->findAll();
   }
+
+  public function getAllDateLog()
+  {
+    $builder = $this->db->table("pemesanan");
+    return $builder->select("DISTINCT(YEAR(tgl_pemesanan)) AS log_year")
+      ->orderBy("YEAR(tgl_pemesanan)", "DESC")
+      ->get()->getResultArray();
+  }
+
+  public function getAllLogBayarDate()
+  {
+    $builder = $this->db->table($this->table);
+    return $builder->select("DISTINCT(YEAR(tgl_bayar)) AS log_year")
+      ->orderBy("YEAR(tgl_bayar)", "DESC")
+      ->get()->getResultArray();
+  }
+
 
   public function insertPembayaran($data)
   {

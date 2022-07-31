@@ -317,4 +317,40 @@ class Pemesanan extends BaseController
     $session->setFlashdata("pageStatus", "transaction success");
     return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
   }
+
+  // Cancel credit pemesanan
+  public function cancelPemesanan($id_pemesanan = "")
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    $data = array(
+      "status_jalan" => "cancel"
+    );
+    $this->pemesanan->cancelPemesanan($id_pemesanan, $data);
+
+    $session->setFlashdata("pageStatus", "cancel success");
+    return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
+  }
+
+  // Activate credit pemesanan
+  public function activatePemesanan($id_pemesanan = "")
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    $data = array(
+      "status_jalan" => "aktif"
+    );
+    $this->pemesanan->cancelPemesanan($id_pemesanan, $data);
+
+    $session->setFlashdata("pageStatus", "activate success");
+    return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
+  }
 }
