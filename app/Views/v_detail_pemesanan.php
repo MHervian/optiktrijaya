@@ -141,7 +141,7 @@
                       <table class="table table-bordered">
                         <tbody>
                           <tr>
-                            <td>Status</td>
+                            <td>Status Pemesanan</td>
                             <td>:</td>
                             <?php
                             if ($detail["status_jalan"] === "aktif") {
@@ -151,6 +151,21 @@
                             } else {
                             ?>
                               <td class="text-danger font-weight-bold"><?= $detail["status_jalan"] ?></td>
+                            <?php
+                            }
+                            ?>
+                          </tr>
+                          <tr>
+                            <td>Status Kredit</td>
+                            <td>:</td>
+                            <?php
+                            if ($detail["status_kredit"] === "ya") {
+                            ?>
+                              <td class="text-danger font-weight-bold">Belum Selesai</td>
+                            <?php
+                            } else {
+                            ?>
+                              <td class="text-success font-weight-bold">Selesai</td>
                             <?php
                             }
                             ?>
@@ -331,7 +346,7 @@
                       </table>
                       <?php
                       $level = session("level");
-                      if ($level !== "sales" && $detail["status_jalan"] === "aktif") {
+                      if ($level !== "sales" && $detail["status_jalan"] === "aktif" && $detail["status_kredit"] === "ya") {
                       ?>
                         <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran" data-backdrop="static" data-keyboard="false">
                           Input Pembayaran
@@ -375,19 +390,27 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="<?= base_url("pemesanan/bayar") ?>" method="post">
+        <form id="form_bayar_kredit" action="<?= base_url("pemesanan/bayar") ?>" method="post">
           <input type="hidden" name="id_pemesanan" value="<?= $detail["id_pemesanan"] ?>" />
           <input type="hidden" name="tenor" value="<?= $tenor++ ?>" />
-          <input type="hidden" name="kredit" value="<?= $detail["sisa_kredit"] ?>" />
+          <input type="hidden" id="sisa_kredit" name="kredit" value="<?= $detail["sisa_kredit"] ?>" />
           <div class="modal-body">
             <div class="form-group row">
-              <label for="inputNominal" class="col-sm-4 col-form-label">Nominal Pembayaran</label>
-              <div class="col-sm-8">
+              <label class="col-sm-4 col-form-label">Kredit</label>
+              <div class="col-sm-8 input-group">
+                <span class="input-group-text">Rp</span>
+                <input type="text" class="form-control" value="<?= $detail["sisa_kredit"] ?>" disabled />
+              </div>
+            </div>
+            <div class="form-group row position-relative">
+              <label for="inputNominal" class="col-sm-4 col-form-label">Besar Bayar</label>
+              <div class="col-sm-8 input-group">
+                <span class="input-group-text">Rp</span>
                 <input type="text" class="form-control" id="inputNominal" name="nominal" placeholder="Isi Nominal.." required />
               </div>
             </div>
             <div class="form-group row">
-              <label for="inputCollector" class="col-sm-4 col-form-label">Nama Collector</label>
+              <label for="inputCollector" class="col-sm-4 col-form-label">Collector</label>
               <div class="col-sm-8">
                 <?php
                 $level = session("level");
@@ -414,6 +437,7 @@
               </div>
             </div>
           </div>
+          <p id="danger_bayar" class="text-danger px-3" style="display: none;"><i class='fas fa-exclamation-triangle'></i> Uang Kredit yang Dibayar Melebihi Sisa Kredit.</p>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
               Konfirmasi
@@ -500,6 +524,34 @@
   <script src="<?= base_url("plugins/bootstrap/js/bootstrap.bundle.min.js") ?>"></script>
   <!-- AdminLTE App -->
   <script src="<?= base_url("dist/js/adminlte.min.js") ?>"></script>
+  <script>
+    $(function() {
+      // Validasi form bayar kredit
+      $("#form_bayar_kredit").submit(function(evt) {
+        var nominal = parseInt($("#inputNominal").val());
+        var kredit = parseInt($("#sisa_kredit").val());
+        $("#danger_bayar").css({
+          "display": "none"
+        });
+        $("#inputNominal").css({
+          "border": "1px solid #ced4da"
+        });
+
+        var sisa = kredit - nominal;
+        if (sisa < 0) {
+          $("#danger_bayar").css({
+            "display": "block"
+          });
+          $("#inputNominal").css({
+            "border": "1px solid red"
+          });
+
+          evt.preventDefault();
+          return;
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>

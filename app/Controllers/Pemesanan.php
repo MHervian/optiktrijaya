@@ -103,7 +103,7 @@ class Pemesanan extends BaseController
     $dp = $request->getPost("dp");
     $tgl_pengiriman = $request->getPost("tgl_pengiriman");
     $tgl_jatuh_tempo = $request->getPost("tgl_jatuh_tempo");
-    $sales = $request->getPost("sales");
+    $sales = implode(";", $request->getPost("sales"));
     $l_sph = $request->getPost("l_sph");
     $r_sph = $request->getPost("r_sph");
     $l_cyl = $request->getPost("l_cyl");
@@ -312,6 +312,14 @@ class Pemesanan extends BaseController
       "tenor" => $tenor,
       "sisa_kredit" => $kredit
     );
+    if ($kredit == 0) {
+      $data = array(
+        "tenor" => $tenor,
+        "sisa_kredit" => $kredit,
+        "status_kredit" => "tidak"
+      );
+    }
+
     $this->pemesanan->updateKredit($id_pemesanan, $data);
 
     $session->setFlashdata("pageStatus", "transaction success");

@@ -30,6 +30,7 @@ class PemesananModel extends Model
       pemesanan.tgl_pengiriman AS tgl_pengiriman,
       pemesanan.tgl_jatuh_tempo AS tgl_jatuh_tempo,
       pemesanan.sales AS sales,
+      pemesanan.status_kredit AS status_kredit,
       pemesanan.tgl_pemesanan AS tgl_pemesanan,
       pemesanan.status_jalan AS status_jalan
     ")
@@ -181,7 +182,7 @@ class PemesananModel extends Model
     $this->update($id_pemesanan, $data);
   }
 
-  public function deletePemesanan($id_pemesanan, $data)
+  public function deletePemesanan($id_pemesanan)
   {
     $this->delete($id_pemesanan);
   }

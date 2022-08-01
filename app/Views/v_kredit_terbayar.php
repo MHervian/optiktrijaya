@@ -59,7 +59,7 @@
               <div class="card card-primary card-outline">
                 <div class="card-body">
                   <div class="mb-3">
-                    <a href="<?= base_url("kredit/terbayar") ?>" class="btn btn-primary" style="background-color: #02a09e; border-color: #02a09e;">
+                    <a href="<?= base_url("kredit/progress") ?>" class="btn btn-primary" style="background-color: #02a09e; border-color: #02a09e;">
                       <i class="fas fa-clipboard-list"></i> Lihat Kredit Belum Dibayar
                     </a>
                   </div>
@@ -143,7 +143,7 @@
                             <td><?= $tgl_bayar ?></td>
                             <td>Rp<?= number_format($tr["jmlh_bayar"]) ?></td>
                             <td><?= $tr["tenor"] ?></td>
-                            <td><?= $tr["collector"] ?></td>
+                            <td><?= str_replace(";", ", ", $tr["collector"]) ?></td>
                             <td>
                               <a href="<?= base_url("pemesanan/detail/" . $tr["id_pemesanan"]) ?>" class="text-primary d-block">Detail</a>
                             </td>

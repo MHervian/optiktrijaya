@@ -104,7 +104,7 @@
                       </table>
                     </div>
                   </div>
-                  <form action="<?= base_url("buat-pemesanan/create") ?>" method="post">
+                  <form id="buat_pemesanan" action="<?= base_url("buat-pemesanan/create") ?>" method="post">
                     <input type="hidden" id="idKonsumen" name="id_konsumen" />
                     <div class="row">
                       <div class="col-lg-4">
@@ -193,7 +193,8 @@
                           <div class="col-4">
                             <label for="inputHarga"><span class="text-danger font-weight-bold">&#42;</span> Harga : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-6 input-group">
+                            <span class="input-group-text">Rp</span>
                             <input type="text" id="inputHarga" name="harga" class="form-control" placeholder="0" required />
                           </div>
                         </div>
@@ -201,7 +202,8 @@
                           <div class="col-4">
                             <label for="inputDP"><span class="text-danger font-weight-bold">&#42;</span> DP : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-6 input-group">
+                            <span class="input-group-text">Rp</span>
                             <input type="text" id="inputDP" name="dp" class="form-control" placeholder="0" required />
                           </div>
                         </div>
@@ -227,29 +229,21 @@
                           <div class="col-4">
                             <label for="inputSales"><span class="text-danger font-weight-bold">&#42;</span> Sales: </label>
                           </div>
-                          <div class="col-6">
-                            <?php
-                            $level = session("level");
-                            if ($level === "sales") {
-                              $username = session("username");
-                            ?>
-                              <input type="hidden" name="sales" value="<?= $username ?>">
-                              <input type="text" class="form-control" value="<?= $username ?>" disabled>
-                            <?php
-                            } else {
-                            ?>
-                              <select name="sales" id="inputSales" class="form-control" required>
-                                <?php
-                                foreach ($sales as $sale) {
-                                ?>
-                                  <option value="<?= $sale["username"] ?>"><?= $sale["username"] ?></option>
-                                <?php
-                                }
-                                ?>
-                              </select>
-                            <?php
-                            }
-                            ?>
+                          <div class="col-6 position-relative">
+                            <!-- <input type="hidden" id="sales" name="sales[]"> -->
+                            <select id="inputSales" class="mb-3 form-control">
+                              <option value="none">Pilih sales..</option>
+                              <?php
+                              foreach ($sales as $sale) {
+                              ?>
+                                <option value="<?= $sale["username"] ?>"><?= $sale["username"] ?></option>
+                              <?php
+                              }
+                              ?>
+                            </select>
+                            <div id="list_sales" class="mb-4">
+                              <!-- <span class="d-inline-block bg-secondary py-1 px-3 mr-2 mb-2 rounded-pill" style="cursor:pointer"><i class="fas fa-times-circle"></i> Nama Sales</span> -->
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -289,15 +283,13 @@
                         </table>
                       </div>
                     </div>
+                    <p id="danger_dp_besar" class="mb-4 alert alert-danger" style="display: none;"></p>
                     <button type="submit" style="
                           background-color: #02a09e;
                           border-color: #02a09e;
                         " class="btn btn-primary">
                       Buat Pemesanan
                     </button>
-                    <!-- <button type="reset" class="btn btn-secondary">
-                      Ulangi
-                    </button> -->
                   </form>
                 </div>
               </div>
@@ -329,6 +321,7 @@
       var typingTimer;
       var doneTypingInterval = 800;
       var searchResult = null;
+      var idx_sales = 1;
 
       // First initiate
       $("#cariKonsumen").val("");
@@ -427,6 +420,106 @@
         $("#alamatKonsumen").empty().append(data.alamat);
         $("#idKonsumen").val(data.id_konsumen);
       }
+
+      // Function for validation
+      $("#buat_pemesanan").submit(function(evt) {
+        var harga = parseInt($("#inputHarga").val());
+        var dp = parseInt($("#inputDP").val());
+
+        // Set default first
+        $("#danger_dp_besar").css({
+          "display": "none"
+        });
+        $("#danger_sales").css({
+          "display": "none"
+        });
+        $("#inputHarga").css({
+          "border": "1px solid #ced4da"
+        });
+        $("#inputDP").css({
+          "border": "1px solid #ced4da"
+        });
+        $("#inputSales").css({
+          "border": "1px solid #ced4da"
+        });
+        $("#cariKonsumen").css({
+          "border": "1px solid #ced4da"
+        });
+
+        // Check if customer name has been choosen
+        var id_konsumen = $("#idKonsumen").val();
+        if (id_konsumen === "") {
+          $("#danger_dp_besar").css({
+            "display": "block"
+          }).html("<i class='fas fa-exclamation-triangle'></i> Konsumen Belum Dipilih untuk Pemesanan Ini.");
+          $("#cariKonsumen").css({
+            "border": "1px solid red"
+          });
+          evt.preventDefault();
+          return;
+        }
+
+        // Check if sisa lower than 0
+        var sisa = harga - dp;
+        if (sisa < 0) {
+          $("#danger_dp_besar").css({
+            "display": "block"
+          }).html("<i class='fas fa-exclamation-triangle'></i> Jumlah DP Lebih Besar dari Harga.");
+          $("#inputHarga").css({
+            "border": "1px solid red"
+          });
+          $("#inputDP").css({
+            "border": "1px solid red"
+          });
+          evt.preventDefault();
+          return;
+        }
+
+        // Check if no sales name list input
+        var jmlh_sales = $(".data-sales").length;
+        if (jmlh_sales === 0) {
+          $("#danger_dp_besar").css({
+            "display": "block"
+          }).html("<i class='fas fa-exclamation-triangle'></i> Nama Sales Belum Diinput.");
+          $("#inputSales").css({
+            "border": "1px solid red"
+          });
+          evt.preventDefault();
+          return;
+        }
+      })
+
+      // When sales selection event
+      $("#inputSales").change(function(evt) {
+        var tmp_sales = $(evt.target).val();
+
+        if (tmp_sales === "none") return;
+
+        // Create hidden type element
+        var hidden_sales = jQuery("<input />", {
+          id: "hid-sales-" + idx_sales,
+          name: "sales[]",
+          type: "hidden",
+          value: tmp_sales
+        });
+
+        // Create button type element
+        var span_sales = jQuery("<span />", {
+          id: "sales-" + idx_sales,
+          class: "d-inline-block bg-secondary py-1 px-3 mr-2 mb-2 rounded-pill data-sales",
+          style: "cursor:pointer",
+          html: "<i class='fas fa-times-circle'></i> " + tmp_sales
+        }).click(function(evt) {
+          var idx_hid_sales = evt.target.id.split("-")[1];
+          $("#hid-sales-" + idx_hid_sales).remove();
+          $(this).remove();
+        });
+
+        $("#buat_pemesanan").append(hidden_sales);
+        $("#list_sales").append(span_sales);
+
+        idx_sales += 1;
+      });
     });
   </script>
 </body>

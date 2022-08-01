@@ -132,7 +132,8 @@
                           <th>Tgl Pengiriman</th>
                           <th>Tgl Jatuh Tempo</th>
                           <th>Sales</th>
-                          <th>Status</th>
+                          <th>Status Pemesanan</th>
+                          <th>Status Kredit</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -150,7 +151,7 @@
                             <td><?= date("d F Y", strtotime($p["tgl_pemesanan"])) ?></td>
                             <td><?= date("d F Y", strtotime($p["tgl_pengiriman"])) ?></td>
                             <td><?= date("d F Y", strtotime($p["tgl_jatuh_tempo"])) ?></td>
-                            <td><?= $p["sales"] ?></td>
+                            <td><?= str_replace(";", ", ", $p["sales"]) ?></td>
                             <?php
                             if ($p["status_jalan"] === "aktif") {
                             ?>
@@ -159,6 +160,17 @@
                             } else {
                             ?>
                               <td class="font-weight-bold text-danger"><?= $p["status_jalan"] ?></td>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if ($p["status_kredit"] === "ya") {
+                            ?>
+                              <td class="font-weight-bold text-danger">Belum Selesai</td>
+                            <?php
+                            } else {
+                            ?>
+                              <td class="font-weight-bold text-success">Selesai</td>
                             <?php
                             }
                             ?>

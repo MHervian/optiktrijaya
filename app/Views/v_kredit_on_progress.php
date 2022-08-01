@@ -60,7 +60,7 @@
                 <div class="card-body">
                   <div class="mb-3">
                     <a href="<?= base_url("kredit/terbayar") ?>" class="btn btn-primary" style="background-color: #02a09e; border-color: #02a09e;">
-                      <i class="fas fa-money-check-edit-alt"></i>
+                      <i class="fas fa-clipboard-list"></i>
                       lihat Kredit Sudah Dibayar
                     </a>
                   </div>
