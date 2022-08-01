@@ -121,7 +121,8 @@
                           <th>No Telepon</th>
                           <th>Tgl Lahir</th>
                           <th>Alamat</th>
-                          <th>Kredit Aktif</th>
+                          <th>Punya Kredit Aktif</th>
+                          <th>Jumlah Pesanan</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
@@ -138,7 +139,10 @@
                             <td>
                               <?= $dataKonsumen["alamat"] ?>
                             </td>
-                            <?= ($dataKonsumen["jumlah"] !== "0") ? "<td class='text-danger font-weight-bold'>YA</td>" : "<td class='text-success font-weight-bold'>TIDAK</td>" ?>
+                            <?= (intval($dataKonsumen["jumlah"]) !== 0) ? "<td class='text-danger font-weight-bold'>YA</td>" : "<td class='text-success font-weight-bold'>TIDAK</td>" ?>
+                            <td>
+                              <?= $dataKonsumen["jumlah"] ?>
+                            </td>
                             <td>
                               <a href="<?= base_url("konsumen/detail/" . $dataKonsumen["id_konsumen"]) ?>" class="text-secondary d-block">Detail</a>
                               <a href="#" data-toggle="modal" data-target="#form_update_user" data-backdrop="static" data-keyboard="false" class="d-block ubah">Ubah</a>

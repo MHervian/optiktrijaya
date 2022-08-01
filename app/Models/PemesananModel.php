@@ -115,7 +115,7 @@ class PemesananModel extends Model
   {
     $builder = $this->db->table($this->table);
     return $builder->select("
-      id_pemesanan, no_sp, sisa_kredit, tgl_jatuh_tempo
+      id_pemesanan, no_sp, harga, sisa_kredit, tgl_jatuh_tempo
     ")
       ->where(array(
         "id_konsumen" => $id_konsumen,

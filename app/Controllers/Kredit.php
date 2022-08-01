@@ -51,7 +51,7 @@ class Kredit extends BaseController
 
       if (!empty($tmp)) continue;
 
-      if ($tmp_tgl1 < $tmp_tgl2 || $p["status_jalan"] === "cancel") continue;
+      if ($tmp_tgl1 < $tmp_tgl2 || $p["status_jalan"] === "cancel" || $p["status_kredit"] === "tidak") continue;
 
       $filtered[$idx] = $p;
       $idx++;

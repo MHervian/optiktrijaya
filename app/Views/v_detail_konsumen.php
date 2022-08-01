@@ -129,7 +129,7 @@
                   if ($totalRows === 0) {
                   ?>
                     <div class="alert alert-info text-center alert-dismissible fade show mb-4" role="alert">
-                      <p class="m-0">Belum Melakukan Pemesanan</p>
+                      <p class="m-0">Belum Ada Pemesanan</p>
                     </div>
                   <?php
                   } else {
@@ -180,7 +180,7 @@
                   if ($totalRows === 0) {
                   ?>
                     <div class="alert alert-info text-center alert-dismissible fade show mb-4" role="alert">
-                      <p class="m-0">Belum Ada Kredit Lunas</p>
+                      <p class="m-0">Belum Ada Kredit Pemesanan Lunas</p>
                     </div>
                   <?php
                   } else {
@@ -204,7 +204,7 @@
                             <td><?= $ln["no_sp"] ?></td>
                             <td>Rp<?= number_format(floatval($ln["harga"]), 2) ?></td>
                             <td>
-                              <a href="<?= base_url("pemesanan/detail/" . $kr["id_pemesanan"]) ?>">Detail</a>
+                              <a href="<?= base_url("pemesanan/detail/" . $ln["id_pemesanan"]) ?>">Detail</a>
                             </td>
                           </tr>
                         <?php

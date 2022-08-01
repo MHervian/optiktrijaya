@@ -123,7 +123,7 @@
                           <th>#</th>
                           <th>Nama Pelanggan</th>
                           <th>No Pesanan</th>
-                          <th>Kredit</th>
+                          <th>Sisa Kredit</th>
                           <th>Tenor Terakhir Ke-</th>
                           <th>Aksi</th>
                         </tr>

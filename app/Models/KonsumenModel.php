@@ -14,12 +14,12 @@ class KonsumenModel extends Model
   {
     $builder = $this->db->table($this->table);
     return $builder->select("
-      konsumen.id_konsumen AS id_konsumen,
-      konsumen.nama AS nama,
-      konsumen.no_telepon AS no_telepon,
-      konsumen.tgl_lahir AS tgl_lahir,
-      konsumen.alamat AS alamat,
-      COUNT(pemesanan.id_konsumen) AS jumlah
+        konsumen.id_konsumen AS id_konsumen,
+        konsumen.nama AS nama,
+        konsumen.no_telepon AS no_telepon,
+        konsumen.tgl_lahir AS tgl_lahir,
+        konsumen.alamat AS alamat,
+        IF(pemesanan.status_kredit = 'ya' && pemesanan.status_jalan = 'aktif', COUNT(pemesanan.id_konsumen), 0) AS jumlah
     ")
       ->join("pemesanan", "pemesanan.id_konsumen = konsumen.id_konsumen", "LEFT")
       ->groupBy("konsumen.id_konsumen")->get()->getResultArray();

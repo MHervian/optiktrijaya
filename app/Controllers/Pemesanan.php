@@ -103,7 +103,7 @@ class Pemesanan extends BaseController
     $dp = $request->getPost("dp");
     $tgl_pengiriman = $request->getPost("tgl_pengiriman");
     $tgl_jatuh_tempo = $request->getPost("tgl_jatuh_tempo");
-    $sales = implode(";", $request->getPost("sales"));
+    $sales = implode("/", $request->getPost("sales"));
     $l_sph = $request->getPost("l_sph");
     $r_sph = $request->getPost("r_sph");
     $l_cyl = $request->getPost("l_cyl");
