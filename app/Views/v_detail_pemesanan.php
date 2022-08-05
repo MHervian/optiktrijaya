@@ -320,28 +320,38 @@
                         <thead>
                           <tr>
                             <th>Tanggal Bayar</th>
-                            <th>Jumlah Bayar</th>
                             <th>Tenor Ke-</th>
-                            <th>Sisa Kredit</th>
                             <th>Collector</th>
+                            <th>Jumlah Bayar</th>
+                            <!-- <th>Sisa Kredit</th> -->
+                            <th>Aksi</th>
                           </tr>
                         </thead>
                         <tbody>
                           <?php
                           $tenor = 1;
+                          $total_kredit = 0;
                           foreach ($logs as $log) {
+                            $total_kredit += intval($log["jmlh_bayar"]);
                           ?>
                             <tr>
                               <td><?= date("d F Y", strtotime($log["tgl_bayar"])) ?></td>
-                              <td>Rp<?= number_format(floatval($log["jmlh_bayar"]), 2) ?></td>
                               <td><?= $log["tenor_ke"] ?></td>
-                              <td>Rp<?= number_format(floatval($log["sisa_kredit"])) ?></td>
                               <td><?= $log["collector"] ?></td>
+                              <td>Rp<?= number_format(floatval($log["jmlh_bayar"]), 2) ?></td>
+                              <td>
+                                <a href="#" class="text-primary mr-2 ubah-data-kredit">Ubah</a>
+                                <a href="#" class="text-danger hapus-data-kredit">Hapus</a>
+                              </td>
                             </tr>
                           <?php
                             $tenor++;
                           }
                           ?>
+                          <tr>
+                            <td colspan="3" class="text-center font-weight-bold">Total Kredit Terbayar</td>
+                            <td class="bg-success font-weight-bold">Rp<?= number_format($total_kredit, 2) ?></td>
+                          </tr>
                         </tbody>
                       </table>
                       <?php
@@ -517,6 +527,47 @@
   </div>
   <!-- /.modal -->
 
+  <!-- Form modal edit kredit -->
+  <div class="modal fade" id="form_delete_pemesanan">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Data Kredit</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form></form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <!-- Form modal hapus kredit -->
+  <div class="modal fade" id="form_delete_pemesanan">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hapus Data Kredit</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Tekan 'Proses' untuk menghapus data pemesanan.</p>
+          <a href="<?= base_url("pemesanan/delete/" . $detail["id_pemesanan"]) ?>" class="btn btn-danger">Proses</a>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
   <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->
   <script src="<?= base_url("plugins/jquery/jquery.min.js") ?>"></script>
@@ -550,6 +601,12 @@
           return;
         }
       });
+
+      $(".ubah-data-kredit").click(function(evt) {
+        var
+      })
+
+      $(".hapus-data-kredit").click(function(evt) {})
     });
   </script>
 </body>

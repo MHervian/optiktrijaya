@@ -119,9 +119,10 @@
                       </table>
                     </div>
                   </div>
-                  <form action="<?= base_url("pemesanan/update") ?>" method="post">
+                  <form id="edit_pemesanan" action="<?= base_url("pemesanan/update") ?>" method="post">
                     <input type="hidden" id="idKonsumen" name="id_konsumen" value="<?= $pesanan["id_konsumen"] ?>" />
                     <input type="hidden" name="id_pemesanan" value="<?= $pesanan["id_pemesanan"] ?>" />
+                    <input type="hidden" id="total_kredit" name="total_kredit" value="<?= $kredit ?>" />
                     <div class="row">
                       <div class="col-lg-4">
                         <div class="form-group row">
@@ -217,8 +218,18 @@
                           <div class="col-4">
                             <label for="inputHarga">Harga : </label>
                           </div>
-                          <div class="col-6">
-                            <input type="text" id="inputHarga" name="harga" class="form-control" value="<?= $pesanan["harga"] ?>" placeholder="0" required disabled />
+                          <div class="col-6 input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="text" id="inputHarga" name="harga" class="form-control" value="<?= $pesanan["harga"] ?>" placeholder="0" required />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-4">
+                            <label for="inputKredit">Jumlah Kredit : </label>
+                          </div>
+                          <div class="col-6 input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="text" id="inputKredit" class="form-control" value="<?= $kredit ?>" placeholder="0" disabled />
                           </div>
                         </div>
                         <div class="form-group row">
@@ -253,18 +264,28 @@
                             <label for="inputSales">Sales: </label>
                           </div>
                           <div class="col-6">
-                            <!-- <input type="text" id="inputSales" name="sales" class="form-control" placeholder="Input Nama Sales.." /> -->
-                            <select name="sales" id="inputSales" class="form-control" required>
+                            <select id="inputSales" class="mb-3 form-control" required>
+                              <option value="none">Pilih Sales..</option>
                               <?php
                               foreach ($sales as $sale) {
-                                $selected = "";
-                                if ($sale["username"] === $pesanan["sales"]) $selected = "selected";
                               ?>
-                                <option value="<?= $sale["username"] ?>" <?= $selected ?>><?= $sale["username"] ?></option>
+                                <option value="<?= $sale["username"] ?>"><?= $sale["username"] ?></option>
                               <?php
                               }
                               ?>
                             </select>
+                            <div id="list_sales" class="mb-4">
+                              <?php
+                              $tmp_list_sales = explode(";", $pesanan["sales"]);
+                              $nomor = 1;
+                              foreach ($tmp_list_sales as $nama_sales) {
+                              ?>
+                                <span id="sales-<?= $nomor ?>" class="d-inline-block bg-secondary py-1 px-3 mr-2 mb-2 rounded-pill list-sales" style="cursor:pointer"><i class="fas fa-times-circle"></i> <?= $nama_sales ?></span>
+                              <?php
+                                $nomor++;
+                              }
+                              ?>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -304,15 +325,22 @@
                         </table>
                       </div>
                     </div>
+                    <p id="danger_edit" class="mb-4 alert alert-danger" style="display: none;"></p>
                     <button type="submit" style="
                           background-color: #02a09e;
                           border-color: #02a09e;
                         " class="btn btn-primary">
                       Ubah Data Pemesanan
                     </button>
-                    <!-- <button type="reset" class="btn btn-secondary">
-                      Ulangi
-                    </button> -->
+                    <?php
+                    $nomor = 1;
+                    foreach ($tmp_list_sales as $nama_sales) {
+                    ?>
+                      <input id="hid-sales-<?= $nomor ?>" type="hidden" name="sales[]" value="<?= $nama_sales ?>" />
+                    <?php
+                      $nomor++;
+                    }
+                    ?>
                   </form>
                 </div>
               </div>
@@ -344,32 +372,15 @@
       var typingTimer;
       var doneTypingInterval = 800;
       var searchResult = null;
+      var idx_sales = $(".list-sales").length + 1;
 
       // First initiate
       $("#cariKonsumen").val("");
-
-      // $.ajax({
-      //   url: "/masters/lensa/kategori/" + encodeURIComponent($("#lensSelection :selected").attr("value")),
-      //   method: "GET",
-      //   success: function(response) {
-      //     result = JSON.parse(response);
-      //     console.log(result);
-
-      //     var optionsLensVariant = [];
-      //     var i = 0;
-      //     result.forEach(el => {
-      //       var opt = jQuery("<option />", {
-      //         value: el.nama_varian,
-      //         text: el.nama_varian
-      //       });
-
-      //       optionsLensVariant[i] = opt;
-      //       i++;
-      //     });
-
-      //     $("#lensVariant").append(optionsLensVariant);
-      //   }
-      // });
+      $(".list-sales").click(function(evt) {
+        var id_sales = evt.target.id.split("-")[1];
+        $("#hid-sales-" + id_sales).remove();
+        $(this).remove();
+      });
 
       $("#cariKonsumen").on("input", function(evt) {
         clearTimeout(typingTimer);
@@ -390,34 +401,6 @@
           $("#idKonsumen").val("");
         }
       });
-
-      // $("#lensSelection").change(function(evt) {
-
-      //   var nama_kategori = $("#lensSelection :selected").attr("value");
-      //   $.ajax({
-      //     url: "/masters/lensa/kategori/" + encodeURIComponent(nama_kategori),
-      //     method: "GET",
-      //     success: function(response) {
-      //       result = JSON.parse(response);
-      //       console.log(result);
-
-      //       var optionsLensVariant = [];
-      //       var i = 0;
-      //       result.forEach(el => {
-      //         var opt = jQuery("<option />", {
-      //           value: el.nama_varian,
-      //           text: el.nama_varian
-      //         });
-
-      //         optionsLensVariant[i] = opt;
-      //         i++;
-      //       });
-
-      //       $("#lensVariant").empty();
-      //       $("#lensVariant").append(optionsLensVariant);
-      //     }
-      //   });
-      // });
 
       function doneTyping(keyword) {
         $.ajax({
@@ -460,18 +443,6 @@
               $(a).append(span).append(p);
               $(list).append(a);
 
-              // $(list).append(span);
-              // $(list).append(p);
-              // $(list).click(function(evt) {
-              //   var idxData = $(evt.target).attr("id");
-              //   idxData = idxData.split("-")[1];
-              //   $("#listSearchResult").empty();
-              //   $("#boxSearchResult").css({
-              //     "display": "none"
-              //   });
-              //   updateInfoSelection(parseInt(idxData));
-              // });
-
               listSearchResult[i] = list;
               i++;
             });
@@ -496,6 +467,96 @@
         $("#alamatKonsumen").empty().append(data.alamat);
         $("#idKonsumen").val(data.id_konsumen);
       }
+
+      // Function for validation
+      $("#edit_pemesanan").submit(function(evt) {
+        var harga = parseInt($("#inputHarga").val());
+        var dp = parseInt($("#total_kredit").val());
+
+        // Set default first
+        $("#danger_edit").css({
+          "display": "none"
+        });
+        $("#inputHarga").css({
+          "border": "1px solid #ced4da"
+        });
+        $("#inputSales").css({
+          "border": "1px solid #ced4da"
+        });
+        $("#cariKonsumen").css({
+          "border": "1px solid #ced4da"
+        });
+
+        // Check if customer name hasn't been choosen
+        var id_konsumen = $("#idKonsumen").val();
+        if (id_konsumen === "") {
+          $("#danger_edit").css({
+            "display": "block"
+          }).html("<i class='fas fa-exclamation-triangle'></i> Data Konsumen Belum Dipilih untuk Ubah Data Pemesanan Ini.");
+          $("#cariKonsumen").css({
+            "border": "1px solid red"
+          });
+          evt.preventDefault();
+          return;
+        }
+
+        // Check if harga lower than kredit terkumpulkan
+        if (harga <= dp) {
+          $("#danger_edit").css({
+            "display": "block"
+          }).html("<i class='fas fa-exclamation-triangle'></i> Harga Tidak Boleh Lebih Kecil Atau Sama Dengan Total Kredit.");
+          $("#inputHarga").css({
+            "border": "1px solid red"
+          });
+          evt.preventDefault();
+          return;
+        }
+
+        // Check if no sales name list input
+        var jmlh_sales = $(".list-sales").length;
+        if (jmlh_sales === 0) {
+          $("#danger_edit").css({
+            "display": "block"
+          }).html("<i class='fas fa-exclamation-triangle'></i> Nama Sales Belum Diinput.");
+          $("#inputSales").css({
+            "border": "1px solid red"
+          });
+          evt.preventDefault();
+          return;
+        }
+      });
+
+      // When sales selection event
+      $("#inputSales").change(function(evt) {
+        var tmp_sales = $(evt.target).val();
+
+        if (tmp_sales === "none") return;
+
+        // Create hidden type element
+        var hidden_sales = jQuery("<input />", {
+          id: "hid-sales-" + idx_sales,
+          name: "sales[]",
+          type: "hidden",
+          value: tmp_sales
+        });
+
+        // Create button type element
+        var span_sales = jQuery("<span />", {
+          id: "sales-" + idx_sales,
+          class: "d-inline-block bg-secondary py-1 px-3 mr-2 mb-2 rounded-pill list-sales",
+          style: "cursor:pointer",
+          html: "<i class='fas fa-times-circle'></i> " + tmp_sales
+        }).click(function(evt) {
+          var idx_hid_sales = evt.target.id.split("-")[1];
+          $("#hid-sales-" + idx_hid_sales).remove();
+          $(this).remove();
+        });
+
+        $("#edit_pemesanan").append(hidden_sales);
+        $("#list_sales").append(span_sales);
+
+        idx_sales += 1;
+      });
     });
   </script>
 </body>

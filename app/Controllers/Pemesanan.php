@@ -103,7 +103,7 @@ class Pemesanan extends BaseController
     $dp = $request->getPost("dp");
     $tgl_pengiriman = $request->getPost("tgl_pengiriman");
     $tgl_jatuh_tempo = $request->getPost("tgl_jatuh_tempo");
-    $sales = implode("/", $request->getPost("sales"));
+    $sales = implode(";", $request->getPost("sales"));
     $l_sph = $request->getPost("l_sph");
     $r_sph = $request->getPost("r_sph");
     $l_cyl = $request->getPost("l_cyl");
@@ -191,6 +191,9 @@ class Pemesanan extends BaseController
     $data["warna"] = $this->lensa_kacamata->getAllWarna();
     $data["sales"] = $this->sales->getAllSales();
 
+    // Query log bayar based on this id
+    $data["kredit"] = array_sum(array_column($this->transaksi->getAllLogsPembayaranByID($id_pemesanan), "jmlh_bayar"));
+
     return view("v_edit_pemesanan", $data);
   }
 
@@ -214,7 +217,7 @@ class Pemesanan extends BaseController
     $tgl_pemesanan = $request->getPost("tgl_pemesanan");
     $tgl_pengiriman = $request->getPost("tgl_pengiriman");
     $tgl_jatuh_tempo = $request->getPost("tgl_jatuh_tempo");
-    $sales = $request->getPost("sales");
+    $sales = implode("/", $request->getPost("sales"));
     $l_sph = $request->getPost("l_sph");
     $r_sph = $request->getPost("r_sph");
     $l_cyl = $request->getPost("l_cyl");

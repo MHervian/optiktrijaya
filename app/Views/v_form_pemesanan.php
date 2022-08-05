@@ -241,9 +241,7 @@
                               }
                               ?>
                             </select>
-                            <div id="list_sales" class="mb-4">
-                              <!-- <span class="d-inline-block bg-secondary py-1 px-3 mr-2 mb-2 rounded-pill" style="cursor:pointer"><i class="fas fa-times-circle"></i> Nama Sales</span> -->
-                            </div>
+                            <div id="list_sales" class="mb-4"></div>
                           </div>
                         </div>
                       </div>
@@ -428,9 +426,6 @@
 
         // Set default first
         $("#danger_dp_besar").css({
-          "display": "none"
-        });
-        $("#danger_sales").css({
           "display": "none"
         });
         $("#inputHarga").css({
