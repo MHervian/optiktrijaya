@@ -7,6 +7,7 @@ use CodeIgniter\Model;
 class TransaksiModel extends Model
 {
   protected $table = "log_bayar";
+  protected $primaryKey = "id_log";
   protected $allowedFields = [
     "id_pemesanan", "tgl_bayar", "jmlh_bayar",
     "tenor_ke", "collector", "id_log"
@@ -40,6 +41,10 @@ class TransaksiModel extends Model
       ->get()->getResultArray();
   }
 
+  public function getLogByIDLog($id_log)
+  {
+    return $this->find($id_log);
+  }
 
   public function insertPembayaran($data)
   {
@@ -62,5 +67,10 @@ class TransaksiModel extends Model
   public function deletePembayaran($id_pemesanan)
   {
     $this->where("id_pemesanan", $id_pemesanan)->delete();
+  }
+
+  public function deleteKreditLog($id_log)
+  {
+    $this->delete($id_log);
   }
 }

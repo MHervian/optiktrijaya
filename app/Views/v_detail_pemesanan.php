@@ -106,6 +106,19 @@
       }
       ?>
 
+      <?php
+      if (isset($pageStatus) && $pageStatus === "delete credit success") {
+      ?>
+        <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Penghapusan Kredit Berhasil.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
@@ -582,7 +595,7 @@
   </div>
   <!-- /.modal -->
 
-  <!-- Form modal hapus kredit -->
+  <!-- Form modal hapus log kredit -->
   <div class="modal fade" id="modal_delete_kredit">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -594,8 +607,7 @@
         </div>
         <div class="modal-body">
           <p>Tekan 'Proses' untuk menghapus data kredit.</p>
-          <hidden id="delete_kredit_url" type="hidden" value="<?= base_url("kredit/log/delete/") ?>">
-            <a href="#" class="btn btn-danger">Proses</a>
+          <a id="delete_kredit_url" href="#" data-log-url-delete="<?= base_url("kredit/log/delete/") ?>" class="btn btn-danger">Proses</a>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -735,7 +747,11 @@
         return;
       });
 
-      $(".hapus-data-kredit").click(function(evt) {});
+      $(".hapus-data-kredit").click(function(evt) {
+        var id_log = $(this).attr("data-kcmt-id");
+        var url_delete = $("#delete_kredit_url").attr("data-log-url-delete");
+        $("#delete_kredit_url").attr("href", url_delete + "/" + id_log);
+      });
     });
   </script>
 </body>

@@ -120,4 +120,38 @@ class Kredit extends BaseController
 
     return view("v_kredit_terbayar", $data);
   }
+
+  // Update kredit log by id_pemesanan
+
+  // Delete kredit log by id_pemesanan
+  function deleteKreditLog($id_log = "")
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    // Query log and pemesanan by id_log and id_pemesanan 
+    $result = $this->transaksi->getLogByIDLog($id_log);
+    $id_pemesanan = $result["id_pemesanan"];
+    $kredit = intval($result["jmlh_bayar"]);
+    $result = $this->pemesanan->getPemesananByID($id_pemesanan)[0];
+    $sisa_kredit = intval($result["sisa_kredit"]);
+
+    // Delete kredit by id_log
+    $this->transaksi->deleteKreditLog($id_log);
+
+    // Calculate and update pemesanan with new sisa kredit
+    // This part might want to be update next time
+    // Like, when delete one log, tenor maybe need to decrement by one
+    $sisa_kredit = $sisa_kredit + $kredit;
+    $data = array(
+      "sisa_kredit" => $sisa_kredit
+    );
+    $this->pemesanan->updatePemesanan($id_pemesanan, $data);
+
+    $session->setFlashdata("pageStatus", "delete credit success");
+    return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
+  }
 }

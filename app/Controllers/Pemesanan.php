@@ -368,10 +368,4 @@ class Pemesanan extends BaseController
     $session->setFlashdata("pageStatus", "activate success");
     return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
   }
-
-  // Get credit pemesanan log
-
-  // Update credit pemesanan log
-
-  // Delete credit pemesanan log
 }
