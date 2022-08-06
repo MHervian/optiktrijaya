@@ -55,8 +55,7 @@ class Pemesanan extends BaseController
     $data["collector"] = $this->collector->getAllCollector();
 
     // Get all log pembayaran of this detail
-    $logs = $this->transaksi->getAllLogsPembayaranByID($id_pemesanan);
-    $data["logs"] = $logs;
+    $data["logs"] = $this->transaksi->getAllLogsPembayaranByID($id_pemesanan);
 
     $pageStatus = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
     $data["pageStatus"] = $pageStatus;
@@ -159,7 +158,6 @@ class Pemesanan extends BaseController
     $data = array(
       "id_pemesanan" => $uuid_pemesanan->toString(),
       "jmlh_bayar" => $dp,
-      "sisa_kredit" => $kredit,
       "tenor_ke" => 1,
       "collector" => $sales,
       "id_log" => $uuid_log->toString()
@@ -256,11 +254,15 @@ class Pemesanan extends BaseController
       "R_prism" => $r_prism,
       "tgl_pemesanan" => $tgl_pemesanan
     );
-
-    // Update sales name in log bayar
-    $this->transaksi->updateSalesNameInLog($sales, $id_pemesanan, "1");
-
     $this->pemesanan->updatePemesanan($id_pemesanan, $data);
+
+    // Update sales as collector name in log bayar
+    // Maybe could update with validation new DP feature here in next update
+    // Sales => Collector
+    $data = array(
+      "collector" => $sales
+    );
+    $this->transaksi->updateSalesNameInLog($data, $id_pemesanan, "1");
 
     $session->setFlashdata("pageStatus", "update success");
     return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
@@ -296,7 +298,7 @@ class Pemesanan extends BaseController
     $request = service("request");
     $id_pemesanan = $request->getPost("id_pemesanan");
     $nominal = $request->getPost("nominal");
-    $collector = $request->getPost("collector");
+    $collector = implode(";", $request->getPost("collector"));
     $tenor = $request->getPost("tenor");
     $kredit = $request->getPost("kredit");
 
@@ -306,19 +308,18 @@ class Pemesanan extends BaseController
     $data = array(
       "id_pemesanan" => $id_pemesanan,
       "jmlh_bayar" => $nominal,
-      "sisa_kredit" => $kredit,
       "tenor_ke" => $tenor,
       "collector" => $collector,
       "id_log" => $uuid->toString()
     );
     $this->transaksi->insertPembayaran($data);
 
-    // Update tenor and the remaining of kredit into pemesanan
+    // Update tenor and the remaining of kredit into pemesanan data
     $data = array(
       "tenor" => $tenor,
       "sisa_kredit" => $kredit
     );
-    if ($kredit == 0) {
+    if ($kredit == 0) { // if kredit is fininshed, all paid no left
       $data = array(
         "tenor" => $tenor,
         "sisa_kredit" => $kredit,

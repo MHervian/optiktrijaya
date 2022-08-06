@@ -9,7 +9,7 @@ class TransaksiModel extends Model
   protected $table = "log_bayar";
   protected $allowedFields = [
     "id_pemesanan", "tgl_bayar", "jmlh_bayar",
-    "sisa_kredit", "tenor_ke", "collector", "id_log"
+    "tenor_ke", "collector", "id_log"
   ];
 
   public function getAllLogsPembayaranByID($id_pemesanan)
@@ -51,9 +51,9 @@ class TransaksiModel extends Model
     $this->update($id_pemesanan, $data);
   }
 
-  public function updateSalesNameInLog($sales, $id_pemesanan, $tenor)
+  public function updateSalesNameInLog($data, $id_pemesanan, $tenor)
   {
-    $this->set(["collector" => $sales])
+    $this->set($data)
       ->where("id_pemesanan", $id_pemesanan)
       ->where("tenor_ke", $tenor)
       ->update();

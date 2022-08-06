@@ -411,7 +411,7 @@
           <input type="hidden" id="sisa_kredit" name="kredit" value="<?= $detail["sisa_kredit"] ?>" />
           <div class="modal-body">
             <div class="form-group row">
-              <label class="col-sm-4 col-form-label">Kredit</label>
+              <label class="col-sm-4 col-form-label">Sisa Kredit</label>
               <div class="col-sm-8 input-group">
                 <span class="input-group-text">Rp</span>
                 <input type="text" class="form-control" value="<?= $detail["sisa_kredit"] ?>" disabled />
@@ -421,13 +421,13 @@
               <label for="inputNominal" class="col-sm-4 col-form-label">Besar Bayar</label>
               <div class="col-sm-8 input-group">
                 <span class="input-group-text">Rp</span>
-                <input id="insert_bayar_kredit" type="text" class="form-control" id="inputNominal" name="nominal" placeholder="Isi Nominal.." required />
+                <input id="insert_bayar_kredit" type="text" class="form-control" name="nominal" placeholder="Isi Nominal.." required />
               </div>
             </div>
             <div class="form-group row">
               <label for="inputCollector" class="col-sm-4 col-form-label">Collector</label>
               <div id="insert_credit" class="col-sm-8">
-                <select id="inputCollector" class="mb-3 form-control input-collector">
+                <select id="inputNewCollector" class="mb-3 form-control input-collector">
                   <option value="none">Pilih Collector..</option>
                   <?php
                   foreach ($collector as $c) {
@@ -437,7 +437,7 @@
                   }
                   ?>
                 </select>
-                <div id="list_collector" class="mb-3"></div>
+                <div id="list_collector" class="mb-2"></div>
               </div>
             </div>
           </div>
@@ -446,7 +446,7 @@
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
               Konfirmasi
             </button>
-            <button type="reset" class="btn btn-secondary">
+            <button id="btn-reset-form-credit" type="reset" class="btn btn-secondary">
               Reset Form
             </button>
           </div>
@@ -616,20 +616,31 @@
       var idx_collector = 1;
 
       // Clean up when open back
+      // Modal form create new bayar kredit
       $("#input_pembayaran").click(function(evt) {
         $("#insert_bayar_kredit").val("");
         $("#list_collector").empty();
+        $(".collector-list-hidden").remove();
+      });
+
+      // When reset form create new bayar kredit
+      $("#btn-reset-form-credit").click(function(evt) {
+        $("#list_collector").empty();
+        $(".collector-list-hidden").remove();
       });
 
       // Validasi form bayar kredit
       $("#form_bayar_kredit").submit(function(evt) {
-        var nominal = parseInt($("#inputNominal").val());
+        var nominal = parseInt($("#insert_bayar_kredit").val());
         var kredit = parseInt($("#sisa_kredit").val());
 
-        $("#danger_bayar").css({
+        $("#danger_form_bayar_kredit").css({
           "display": "none"
         });
-        $("#inputNominal").css({
+        $("#insert_bayar_kredit").css({
+          "border": "1px solid #ced4da"
+        });
+        $("#inputNewCollector").css({
           "border": "1px solid #ced4da"
         });
 
@@ -639,7 +650,7 @@
           $("#danger_form_bayar_kredit").css({
             "display": "block"
           }).html("<i class='fas fa-exclamation-triangle'></i> Kredit yang Dibayar Melebihi Total Sisa Kredit.");
-          $("#inputNominal").css({
+          $("#insert_bayar_kredit").css({
             "border": "1px solid red"
           });
 
@@ -647,21 +658,20 @@
           return;
         }
 
-        // Check if no collector name list input
+        // Check if no list collector name in input
         var jmlh_collector = $(".data-collector").length;
         if (jmlh_collector === 0) {
           $("#danger_form_bayar_kredit").css({
             "display": "block"
           }).html("<i class='fas fa-exclamation-triangle'></i> Nama Collector Belum Diinput.");
-          $("#inputSales").css({
+          $("#inputNewCollector").css({
             "border": "1px solid red"
           });
+
           evt.preventDefault();
           return;
         }
 
-        evt.preventDefault();
-        return;
       });
 
       // Generate collector list
@@ -674,6 +684,7 @@
         var hidden_collector = jQuery("<input />", {
           id: "hid-collector-" + idx_collector,
           name: "collector[]",
+          class: "collector-list-hidden",
           type: "hidden",
           value: tmp_collector
         });
