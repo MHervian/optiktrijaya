@@ -228,7 +228,7 @@
                           <tr>
                             <td>Sales</td>
                             <td>:</td>
-                            <td><?= $detail["sales"] ?></td>
+                            <td><?= str_replace(";", "/", $detail["sales"]) ?></td>
                           </tr>
                         </tbody>
                       </table>
@@ -323,7 +323,6 @@
                             <th>Tenor Ke-</th>
                             <th>Collector</th>
                             <th>Jumlah Bayar</th>
-                            <!-- <th>Sisa Kredit</th> -->
                             <th>Aksi</th>
                           </tr>
                         </thead>
@@ -337,11 +336,17 @@
                             <tr>
                               <td><?= date("d F Y", strtotime($log["tgl_bayar"])) ?></td>
                               <td><?= $log["tenor_ke"] ?></td>
-                              <td><?= $log["collector"] ?></td>
+                              <td><?= str_replace(";", "/", $log["collector"]) ?></td>
                               <td>Rp<?= number_format(floatval($log["jmlh_bayar"]), 2) ?></td>
                               <td>
-                                <a href="#" class="text-primary mr-2 ubah-data-kredit">Ubah</a>
-                                <a href="#" class="text-danger hapus-data-kredit">Hapus</a>
+                                <?php
+                                if (intval($log["tenor_ke"]) != 1) {
+                                ?>
+                                  <a href="#" data-kcmt-id="<?= $log["id_log"] ?>" class="text-primary mr-2 ubah-data-kredit" data-toggle="modal" data-target="#modal_edit_kredit" data-backdrop="static" data-keyboard="false">Ubah</a>
+                                  <a href="#" data-kcmt-id="<?= $log["id_log"] ?>" class="text-danger hapus-data-kredit" data-toggle="modal" data-target="#modal_delete_kredit" data-backdrop="static" data-keyboard="false">Hapus</a>
+                                <?php
+                                }
+                                ?>
                               </td>
                             </tr>
                           <?php
@@ -358,7 +363,7 @@
                       $level = session("level");
                       if ($level !== "sales" && $detail["status_jalan"] === "aktif" && $detail["status_kredit"] === "ya") {
                       ?>
-                        <button style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran" data-backdrop="static" data-keyboard="false">
+                        <button id="input_pembayaran" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary" type="button" data-toggle="modal" data-target="#form_create_log_pembayaran" data-backdrop="static" data-keyboard="false">
                           Input Pembayaran
                         </button>
                       <?php
@@ -416,38 +421,27 @@
               <label for="inputNominal" class="col-sm-4 col-form-label">Besar Bayar</label>
               <div class="col-sm-8 input-group">
                 <span class="input-group-text">Rp</span>
-                <input type="text" class="form-control" id="inputNominal" name="nominal" placeholder="Isi Nominal.." required />
+                <input id="insert_bayar_kredit" type="text" class="form-control" id="inputNominal" name="nominal" placeholder="Isi Nominal.." required />
               </div>
             </div>
             <div class="form-group row">
               <label for="inputCollector" class="col-sm-4 col-form-label">Collector</label>
-              <div class="col-sm-8">
-                <?php
-                $level = session("level");
-                if ($level === "collector") {
-                  $username = session("username");
-                ?>
-                  <input type="hidden" name="collector" value="<?= $username ?>">
-                  <input type="text" class="form-control" value="<?= $username ?>" disabled>
-                <?php
-                } else {
-                ?>
-                  <select name="collector" class="form-control" required>
-                    <?php
-                    foreach ($collector as $c) {
-                    ?>
-                      <option value="<?= $c["username"] ?>"><?= $c["username"] ?></option>
-                    <?php
-                    }
-                    ?>
-                  </select>
-                <?php
-                }
-                ?>
+              <div id="insert_credit" class="col-sm-8">
+                <select id="inputCollector" class="mb-3 form-control input-collector">
+                  <option value="none">Pilih Collector..</option>
+                  <?php
+                  foreach ($collector as $c) {
+                  ?>
+                    <option value="<?= $c["username"] ?>"><?= $c["username"] ?></option>
+                  <?php
+                  }
+                  ?>
+                </select>
+                <div id="list_collector" class="mb-3"></div>
               </div>
             </div>
           </div>
-          <p id="danger_bayar" class="text-danger px-3" style="display: none;"><i class='fas fa-exclamation-triangle'></i> Uang Kredit yang Dibayar Melebihi Sisa Kredit.</p>
+          <p id="danger_form_bayar_kredit" class="text-danger px-3" style="display: none;"></p>
           <div class="form-group pl-3">
             <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
               Konfirmasi
@@ -528,7 +522,7 @@
   <!-- /.modal -->
 
   <!-- Form modal edit kredit -->
-  <div class="modal fade" id="form_delete_pemesanan">
+  <div class="modal fade" id="modal_edit_kredit">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -538,7 +532,48 @@
           </button>
         </div>
         <div class="modal-body">
-          <form></form>
+          <form id="form_edit_kredit" action="<?= base_url("kredit/log/update/" . $detail["id_pemesanan"]) ?>" method="post">
+            <input type="hidden" name="id_pemesanan" value="<?= $detail["id_pemesanan"] ?>" />
+            <input type="hidden" id="edit_tenor" name="tenor" />
+            <input type="hidden" id="edit_old_kredit" name="old_kredit" />
+            <div class="modal-body">
+              <div class="form-group row">
+                <label class="col-sm-4 col-form-label">Kredit</label>
+                <div class="col-sm-8 input-group">
+                  <span class="input-group-text">Rp</span>
+                  <input type="text" class="form-control" value="<?= $detail["sisa_kredit"] ?>" disabled />
+                </div>
+              </div>
+              <div class="form-group row position-relative">
+                <label for="inputNominal" class="col-sm-4 col-form-label">Besar Bayar</label>
+                <div class="col-sm-8 input-group">
+                  <span class="input-group-text">Rp</span>
+                  <input type="text" class="form-control" id="inputNominal" name="nominal" placeholder="Isi Nominal.." required />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputEditCollector" class="col-sm-4 col-form-label">Collector</label>
+                <div class="col-sm-8">
+                  <select id="inputEditCollector" name="collector" class="form-control input-collector" required>
+                    <?php
+                    foreach ($collector as $c) {
+                    ?>
+                      <option value="<?= $c["username"] ?>"><?= $c["username"] ?></option>
+                    <?php
+                    }
+                    ?>
+                  </select>
+                  <div id="list_collector_edit" class="mb-3"></div>
+                </div>
+              </div>
+            </div>
+            <p id="danger_bayar" class="text-danger px-3" style="display: none;"><i class='fas fa-exclamation-triangle'></i> Uang Kredit yang Dibayar Melebihi Sisa Kredit.</p>
+            <div class="form-group pl-3">
+              <button type="submit" style="background-color: #02a09e; border-color: #02a09e;" class="btn btn-primary">
+                Ubah
+              </button>
+            </div>
+          </form>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -548,7 +583,7 @@
   <!-- /.modal -->
 
   <!-- Form modal hapus kredit -->
-  <div class="modal fade" id="form_delete_pemesanan">
+  <div class="modal fade" id="modal_delete_kredit">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -558,8 +593,9 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Tekan 'Proses' untuk menghapus data pemesanan.</p>
-          <a href="<?= base_url("pemesanan/delete/" . $detail["id_pemesanan"]) ?>" class="btn btn-danger">Proses</a>
+          <p>Tekan 'Proses' untuk menghapus data kredit.</p>
+          <hidden id="delete_kredit_url" type="hidden" value="<?= base_url("kredit/log/delete/") ?>">
+            <a href="#" class="btn btn-danger">Proses</a>
         </div>
       </div>
       <!-- /.modal-content -->
@@ -577,10 +613,19 @@
   <script src="<?= base_url("dist/js/adminlte.min.js") ?>"></script>
   <script>
     $(function() {
+      var idx_collector = 1;
+
+      // Clean up when open back
+      $("#input_pembayaran").click(function(evt) {
+        $("#insert_bayar_kredit").val("");
+        $("#list_collector").empty();
+      });
+
       // Validasi form bayar kredit
       $("#form_bayar_kredit").submit(function(evt) {
         var nominal = parseInt($("#inputNominal").val());
         var kredit = parseInt($("#sisa_kredit").val());
+
         $("#danger_bayar").css({
           "display": "none"
         });
@@ -588,11 +633,12 @@
           "border": "1px solid #ced4da"
         });
 
+        // Check if kredit is bigger than nominal sisa kredit
         var sisa = kredit - nominal;
         if (sisa < 0) {
-          $("#danger_bayar").css({
+          $("#danger_form_bayar_kredit").css({
             "display": "block"
-          });
+          }).html("<i class='fas fa-exclamation-triangle'></i> Kredit yang Dibayar Melebihi Total Sisa Kredit.");
           $("#inputNominal").css({
             "border": "1px solid red"
           });
@@ -600,13 +646,85 @@
           evt.preventDefault();
           return;
         }
+
+        // Check if no collector name list input
+        var jmlh_collector = $(".data-collector").length;
+        if (jmlh_collector === 0) {
+          $("#danger_form_bayar_kredit").css({
+            "display": "block"
+          }).html("<i class='fas fa-exclamation-triangle'></i> Nama Collector Belum Diinput.");
+          $("#inputSales").css({
+            "border": "1px solid red"
+          });
+          evt.preventDefault();
+          return;
+        }
+
+        evt.preventDefault();
+        return;
       });
 
-      $(".ubah-data-kredit").click(function(evt) {
-        var
-      })
+      // Generate collector list
+      $(".input-collector").change(function(evt) {
+        var tmp_collector = $(evt.target).val();
 
-      $(".hapus-data-kredit").click(function(evt) {})
+        if (tmp_collector === "none") return;
+
+        // Create hidden type element
+        var hidden_collector = jQuery("<input />", {
+          id: "hid-collector-" + idx_collector,
+          name: "collector[]",
+          type: "hidden",
+          value: tmp_collector
+        });
+
+        // Create button type element
+        var span_collector = jQuery("<span />", {
+          id: "collector-" + idx_collector,
+          class: "d-inline-block bg-secondary py-1 px-3 mr-2 mb-2 rounded-pill data-collector",
+          style: "cursor:pointer",
+          html: "<i class='fas fa-times-circle'></i> " + tmp_collector
+        }).click(function(evt) {
+          var idx_hid_collector = evt.target.id.split("-")[1];
+          $("#hid-collector-" + idx_hid_collector).remove();
+          $(this).remove();
+        });
+
+        if ($(this).parent().attr("id") === "insert_credit") {
+          $("#form_bayar_kredit").append(hidden_collector);
+          $("#list_collector").append(span_collector);
+        } else {
+          $("#form_edit_kredit").append(hidden_collector);
+          $("#list_collector_edit").append(span_collector);
+        }
+
+        idx_collector += 1;
+      });
+
+      // Query data kredit by id_log when open modal edit kredit form
+      $(".ubah-data-kredit").click(function(evt) {
+        var id_log = $(evt.target).attr("data-kcmt-id");
+
+        // Clean up first
+
+
+        $.ajax({
+          url: "/kredit/log/id" + id_log,
+          method: "GET",
+          success: function(response) {
+            result = JSON.parse(response);
+
+          }
+        });
+      });
+
+      // Validate edit form of edit kredit log
+      $("#form_edit_kredit").submit(function(evt) {
+        evt.preventDefault();
+        return;
+      });
+
+      $(".hapus-data-kredit").click(function(evt) {});
     });
   </script>
 </body>

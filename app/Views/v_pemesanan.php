@@ -151,7 +151,7 @@
                             <td><?= date("d F Y", strtotime($p["tgl_pemesanan"])) ?></td>
                             <td><?= date("d F Y", strtotime($p["tgl_pengiriman"])) ?></td>
                             <td><?= date("d F Y", strtotime($p["tgl_jatuh_tempo"])) ?></td>
-                            <td><?= str_replace(";", ", ", $p["sales"]) ?></td>
+                            <td><?= str_replace(";", "/", $p["sales"]) ?></td>
                             <?php
                             if ($p["status_jalan"] === "aktif") {
                             ?>

@@ -217,7 +217,7 @@ class Pemesanan extends BaseController
     $tgl_pemesanan = $request->getPost("tgl_pemesanan");
     $tgl_pengiriman = $request->getPost("tgl_pengiriman");
     $tgl_jatuh_tempo = $request->getPost("tgl_jatuh_tempo");
-    $sales = implode("/", $request->getPost("sales"));
+    $sales = implode(";", $request->getPost("sales"));
     $l_sph = $request->getPost("l_sph");
     $r_sph = $request->getPost("r_sph");
     $l_cyl = $request->getPost("l_cyl");
@@ -256,6 +256,9 @@ class Pemesanan extends BaseController
       "R_prism" => $r_prism,
       "tgl_pemesanan" => $tgl_pemesanan
     );
+
+    // Update sales name in log bayar
+    $this->transaksi->updateSalesNameInLog($sales, $id_pemesanan, "1");
 
     $this->pemesanan->updatePemesanan($id_pemesanan, $data);
 
@@ -364,4 +367,10 @@ class Pemesanan extends BaseController
     $session->setFlashdata("pageStatus", "activate success");
     return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
   }
+
+  // Get credit pemesanan log
+
+  // Update credit pemesanan log
+
+  // Delete credit pemesanan log
 }

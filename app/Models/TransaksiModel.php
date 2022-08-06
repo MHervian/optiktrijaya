@@ -51,6 +51,14 @@ class TransaksiModel extends Model
     $this->update($id_pemesanan, $data);
   }
 
+  public function updateSalesNameInLog($sales, $id_pemesanan, $tenor)
+  {
+    $this->set(["collector" => $sales])
+      ->where("id_pemesanan", $id_pemesanan)
+      ->where("tenor_ke", $tenor)
+      ->update();
+  }
+
   public function deletePembayaran($id_pemesanan)
   {
     $this->where("id_pemesanan", $id_pemesanan)->delete();
