@@ -828,7 +828,7 @@
 
       // Validate edit form of edit kredit log
       $("#form_edit_kredit").submit(function(evt) {
-        var nominal = parseInt($("#insert_bayar_kredit").val());
+        var nominal = parseInt($("#edit_nominal_kredit").val());
         var kredit = parseInt($("#sisa_kredit").val());
 
         $("#danger_edit_kredit").css({
@@ -847,7 +847,7 @@
           $("#danger_edit_kredit").css({
             "display": "block"
           }).html("<i class='fas fa-exclamation-triangle'></i> Kredit yang Dibayar Melebihi Total Sisa Kredit.");
-          $("#insert_bayar_kredit").css({
+          $("#edit_nominal_kredit").css({
             "border": "1px solid red"
           });
 
@@ -861,7 +861,7 @@
           $("#danger_edit_kredit").css({
             "display": "block"
           }).html("<i class='fas fa-exclamation-triangle'></i> Nama Collector Belum Diinput.");
-          $("#inputNewCollector").css({
+          $("#inputEditCollector").css({
             "border": "1px solid red"
           });
 
