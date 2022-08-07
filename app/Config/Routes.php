@@ -78,7 +78,7 @@ $routes->get("/kredit/terbayar", "Kredit::kreditTerbayar");
 $routes->post("/kredit/progress/cari", "Kredit::onProgress");
 $routes->post("/kredit/terbayar/cari", "Kredit::kreditTerbayar");
 $routes->get("/kredit/log/id/(:any)", "Kredit::getKreditLog/$1");
-$routes->post("/kredit/log/update/(:any)", "Kredit::updateKreditLog/$1");
+$routes->post("/kredit/log/update", "Kredit::updateKreditLog");
 $routes->get("/kredit/log/delete/(:any)", "Kredit::deleteKreditLog/$1");
 
 /**

@@ -13,6 +13,7 @@ class Kredit extends BaseController
     $this->pemesanan = new PemesananModel();
   }
 
+  // Display on progress credit page
   public function onProgress()
   {
     $session = session();
@@ -66,6 +67,7 @@ class Kredit extends BaseController
     return view("v_kredit_on_progress", $data);
   }
 
+  // Display all paid credit page
   public function kreditTerbayar()
   {
     $session = session();
@@ -121,10 +123,66 @@ class Kredit extends BaseController
     return view("v_kredit_terbayar", $data);
   }
 
-  // Update kredit log by id_pemesanan
+  // Get kredit log by id_log
+  public function getKreditLog($id_log = "")
+  {
+    $result = $this->transaksi->getLogByIDLog($id_log);
+    return json_encode($result);
+  }
 
-  // Delete kredit log by id_pemesanan
-  function deleteKreditLog($id_log = "")
+  // Update kredit log
+  public function updateKreditLog()
+  {
+    $session = session();
+    if (!isset($session->username)) {
+      $session->setFlashdata("loginStatus", "user not login");
+      return redirect()->to(base_url());
+    }
+
+    $request = service("request");
+    $id_pemesanan = $request->getPost("id_pemesanan");
+    $id_log = $request->getPost("id_log");
+    $harga = intval($request->getPost("harga"));
+    $sisa_kredit = intval($request->getPost("sisa_kredit"));
+    $old_kredit = intval($request->getPost("old_kredit"));
+    $nominal = intval($request->getPost("nominal")); // data jmlh kredit terbaru
+    $tenor = $request->getPost("tenor");
+    $tgl_kredit = $request->getPost("tanggal_kredit");
+    $collector = implode(";", $request->getPost("collector"));
+
+    // Calculate sum of kredit
+    $total_kredit = $harga - $sisa_kredit;
+    if ($nominal > $old_kredit) {
+      $sisa = $nominal - $old_kredit;
+      $total_kredit = $total_kredit + $sisa;
+      $sisa_kredit = $harga - $total_kredit;
+    } else {
+      $sisa = $old_kredit - $nominal;
+      $total_kredit = $total_kredit - $sisa;
+      $sisa_kredit = $harga - $total_kredit;
+    }
+
+    // Update kredit log by id
+    $data = array(
+      "tgl_bayar" => $tgl_kredit,
+      "jmlh_bayar" => $nominal,
+      "tenor_ke" => $tenor,
+      "collector" => $collector
+    );
+    $this->transaksi->updateLogKredit($id_log, $data);
+
+    // Update pemesanan of sisa_kredit by id
+    $data = array(
+      "sisa_kredit" => $sisa_kredit
+    );
+    $this->pemesanan->updatePemesanan($id_pemesanan, $data);
+
+    $session->setFlashdata("pageStatus", "update credit success");
+    return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));
+  }
+
+  // Delete kredit log by id_log
+  public function deleteKreditLog($id_log = "")
   {
     $session = session();
     if (!isset($session->username)) {

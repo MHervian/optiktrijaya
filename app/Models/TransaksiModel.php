@@ -64,6 +64,11 @@ class TransaksiModel extends Model
       ->update();
   }
 
+  public function updateLogKredit($id_log, $data)
+  {
+    $this->update($id_log, $data);
+  }
+
   public function deletePembayaran($id_pemesanan)
   {
     $this->where("id_pemesanan", $id_pemesanan)->delete();
