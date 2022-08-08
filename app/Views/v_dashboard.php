@@ -52,7 +52,7 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-6 col-sm-6">
+            <div class="col-xl-6 col-lg-12">
               <div class="card card-primary card-outline mb-4">
                 <div class="row p-3">
                   <div class="col-md-5">
@@ -94,82 +94,86 @@
                   <a href="<?= base_url("pemesanan") ?>" class="btn btn-primary ml-3"><i class="fas fa-list"></i> Lihat Semua</a>
                 </div>
                 <div class="card-body">
-                  <table class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>No SP</th>
-                        <th>Pemesan</th>
-                        <th>Kredit</th>
-                        <th>Tenor</th>
-                        <th>Jatuh Tempo</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      $nomor = 1;
-                      foreach ($pemesanan as $p) {
-                        $strtime = strtotime($p["tgl_jatuh_tempo"]);
-                      ?>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                      <thead>
                         <tr>
-                          <td><?= $nomor ?></td>
-                          <td><?= $p["no_sp"] ?></td>
-                          <td><?= $p["nama"] ?></td>
-                          <td><?= $p["kredit"] ?></td>
-                          <td><?= $p["tenor"] ?></td>
-                          <td><?= date("d F Y", $strtime) ?></td>
-                          <td>
-                            <a href="<?= base_url("pemesanan/detail/" . $p["id_pemesanan"]) ?>">Detail</a>
-                          </td>
+                          <th>#</th>
+                          <th>No SP</th>
+                          <th>Pemesan</th>
+                          <th>Kredit</th>
+                          <th>Tenor</th>
+                          <th>Jatuh Tempo</th>
+                          <th>Aksi</th>
                         </tr>
-                      <?php
-                        $nomor++;
-                      }
-                      ?>
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $nomor = 1;
+                        foreach ($pemesanan as $p) {
+                          $strtime = strtotime($p["tgl_jatuh_tempo"]);
+                        ?>
+                          <tr>
+                            <td><?= $nomor ?></td>
+                            <td><?= $p["no_sp"] ?></td>
+                            <td><?= $p["nama"] ?></td>
+                            <td><?= $p["kredit"] ?></td>
+                            <td><?= $p["tenor"] ?></td>
+                            <td><?= date("d F Y", $strtime) ?></td>
+                            <td>
+                              <a href="<?= base_url("pemesanan/detail/" . $p["id_pemesanan"]) ?>">Detail</a>
+                            </td>
+                          </tr>
+                        <?php
+                          $nomor++;
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6 col-sm-6">
+            <div class="col-xl-6 col-lg-12">
               <div class="card card-primary card-outline">
                 <div class="card-header">
                   <h5 class="d-inline-block">Data Konsumen <b>Total : <?= $total_konsumen ?></b></h5>
                   <a href="<?= base_url("konsumen") ?>" class="btn btn-primary ml-3"><i class="fas fa-list"></i> Lihat Semua</a>
                 </div>
                 <div class="card-body">
-                  <table class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Nama Konsumen</th>
-                        <th>No Kontak</th>
-                        <th>Tgl Lahir</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      $nomor = 1;
-                      foreach ($konsumen as $k) {
-                        $str_time = strtotime($k["tgl_lahir"]);
-                      ?>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                      <thead>
                         <tr>
-                          <td><?= $nomor ?></td>
-                          <td><?= $k["nama"] ?></td>
-                          <td><?= $k["no_telepon"] ?></td>
-                          <td><?= date("d F Y", $str_time) ?></td>
-                          <td>
-                            <a href="<?= base_url("konsumen/detail/" . $k["id_konsumen"]) ?>">Detail</a>
-                          </td>
+                          <th>#</th>
+                          <th>Nama Konsumen</th>
+                          <th>No Kontak</th>
+                          <th>Tgl Lahir</th>
+                          <th>Aksi</th>
                         </tr>
-                      <?php
-                        $nomor++;
-                      }
-                      ?>
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $nomor = 1;
+                        foreach ($konsumen as $k) {
+                          $str_time = strtotime($k["tgl_lahir"]);
+                        ?>
+                          <tr>
+                            <td><?= $nomor ?></td>
+                            <td><?= $k["nama"] ?></td>
+                            <td><?= $k["no_telepon"] ?></td>
+                            <td><?= date("d F Y", $str_time) ?></td>
+                            <td>
+                              <a href="<?= base_url("konsumen/detail/" . $k["id_konsumen"]) ?>">Detail</a>
+                            </td>
+                          </tr>
+                        <?php
+                          $nomor++;
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>

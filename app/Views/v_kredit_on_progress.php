@@ -31,11 +31,11 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <h1 class="m-0">Kredit Belum Bayar</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                   <a href="<?= base_url("dashboard") ?>">Home</a>
@@ -68,7 +68,7 @@
                     <p>Cari Data dari Tanggal</p>
                     <form id="form_search" action="<?= base_url("kredit/progress/cari") ?>" method="post" class="row">
                       <input type="hidden" value="cariData" name="cari_data">
-                      <div class="col-2 position-relative">
+                      <div class="col-md-4 mb-3 position-relative">
                         <select id="tahun_search" class="form-control" name="tahun">
                           <option value="none">Tahun</option>
                           <?php
@@ -81,7 +81,7 @@
                         </select>
                         <p id="danger_tahun" class="text-danger position-absolute" style="display:none;">Pilih Tahun</p>
                       </div>
-                      <div class="col-2 position-relative">
+                      <div class="col-md-4 mb-3 position-relative">
                         <select id="bulan_search" class="form-control" name="bulan">
                           <option value="none">Bulan</option>
                           <option value="01">Januari</option>
@@ -99,7 +99,7 @@
                         </select>
                         <p id="danger_bulan" class="text-danger position-absolute" style="display:none;">Pilih Bulan</p>
                       </div>
-                      <div class="col-2">
+                      <div class="col-md-3">
                         <button id="btnSearchLog" type="submit" class="btn btn-primary">Cari</button>
                       </div>
                     </form>
@@ -117,38 +117,40 @@
                     <hr>
                     <h4 class="mb-2">Tanggal: <span class="font-weight-bold"><?= $tgl ?></span></h4>
                     <h5 class="mb-4">Total Data: <span class="font-weight-bold text-danger"><?= $totalRows ?></span></h5>
-                    <table id="data_kredit" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Nama Pelanggan</th>
-                          <th>No Pesanan</th>
-                          <th>Sisa Kredit</th>
-                          <th>Tenor Terakhir Ke-</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $nomor = 1;
-                        foreach ($cicilan as $c) {
-                        ?>
+                    <div class="table-responsive">
+                      <table id="data_kredit" class="table table-bordered table-hover">
+                        <thead>
                           <tr>
-                            <td><?= $nomor ?></td>
-                            <td><?= $c["nama"] ?></td>
-                            <td><?= $c["no_sp"] ?></td>
-                            <td>Rp<?= number_format($c["sisa_kredit"]) ?></td>
-                            <td><?= $c["tenor"] ?></td>
-                            <td>
-                              <a href="<?= base_url("pemesanan/detail/" . $c["id_pemesanan"]) ?>" class="text-primary d-block">Detail</a>
-                            </td>
+                            <th>#</th>
+                            <th>Nama Pelanggan</th>
+                            <th>No Pesanan</th>
+                            <th>Sisa Kredit</th>
+                            <th>Tenor Terakhir Ke-</th>
+                            <th>Aksi</th>
                           </tr>
-                        <?php
-                          $nomor++;
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $nomor = 1;
+                          foreach ($cicilan as $c) {
+                          ?>
+                            <tr>
+                              <td><?= $nomor ?></td>
+                              <td><?= $c["nama"] ?></td>
+                              <td><?= $c["no_sp"] ?></td>
+                              <td>Rp<?= number_format($c["sisa_kredit"]) ?></td>
+                              <td><?= $c["tenor"] ?></td>
+                              <td>
+                                <a href="<?= base_url("pemesanan/detail/" . $c["id_pemesanan"]) ?>" class="text-primary d-block">Detail</a>
+                              </td>
+                            </tr>
+                          <?php
+                            $nomor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   <?php
                   }
                   ?>

@@ -31,11 +31,11 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <h1 class="m-0">Data Master Lensa dan Kacamata</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                   <a href="dashboard.html">Home</a>
@@ -132,33 +132,35 @@
                   <?php
                   } else {
                   ?>
-                    <table id="data_konsumen" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Jenis Lensa</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $nomor = 1;
-                        foreach ($lens as $data_lensa) {
-                        ?>
-                          <tr id="lensa-<?= $data_lensa["id_lensa"] ?>">
-                            <td><?= $nomor ?></td>
-                            <td><?= $data_lensa["jenis_lensa"] ?></td>
-                            <td>
-                              <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
-                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
-                            </td>
+                    <div class="table-responsive">
+                      <table id="data_konsumen" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Jenis Lensa</th>
+                            <th>Aksi</th>
                           </tr>
-                        <?php
-                          $nomor++;
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $nomor = 1;
+                          foreach ($lens as $data_lensa) {
+                          ?>
+                            <tr id="lensa-<?= $data_lensa["id_lensa"] ?>">
+                              <td><?= $nomor ?></td>
+                              <td><?= $data_lensa["jenis_lensa"] ?></td>
+                              <td>
+                                <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
+                                <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              </td>
+                            </tr>
+                          <?php
+                            $nomor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   <?php
                   }
                   ?>
@@ -185,33 +187,35 @@
                   <?php
                   } else {
                   ?>
-                    <table id="data_warna" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Warna</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $nomor = 1;
-                        foreach ($warna as $wa) {
-                        ?>
-                          <tr id="warna-<?= $wa["id_warna"] ?>">
-                            <td><?= $nomor ?></td>
-                            <td><?= $wa["nama"] ?></td>
-                            <td>
-                              <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
-                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
-                            </td>
+                    <div class="table-responsive">
+                      <table id="data_warna" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Warna</th>
+                            <th>Aksi</th>
                           </tr>
-                        <?php
-                          $nomor++;
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $nomor = 1;
+                          foreach ($warna as $wa) {
+                          ?>
+                            <tr id="warna-<?= $wa["id_warna"] ?>">
+                              <td><?= $nomor ?></td>
+                              <td><?= $wa["nama"] ?></td>
+                              <td>
+                                <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
+                                <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              </td>
+                            </tr>
+                          <?php
+                            $nomor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   <?php
                   }
                   ?>
@@ -240,33 +244,35 @@
                   <?php
                   } else {
                   ?>
-                    <table id="data_konsumen" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Jenis Bahan</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $nomor = 1;
-                        foreach ($bahan as $bhn) {
-                        ?>
-                          <tr id="bahan-<?= $bhn["id_flattop"] ?>">
-                            <td><?= $nomor ?></td>
-                            <td><?= $bhn["bahan_lensa"] ?></td>
-                            <td>
-                              <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
-                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
-                            </td>
+                    <div class="table-responsive">
+                      <table id="data_konsumen" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Jenis Bahan</th>
+                            <th>Aksi</th>
                           </tr>
-                        <?php
-                          $nomor++;
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $nomor = 1;
+                          foreach ($bahan as $bhn) {
+                          ?>
+                            <tr id="bahan-<?= $bhn["id_flattop"] ?>">
+                              <td><?= $nomor ?></td>
+                              <td><?= $bhn["bahan_lensa"] ?></td>
+                              <td>
+                                <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
+                                <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              </td>
+                            </tr>
+                          <?php
+                            $nomor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   <?php
                   }
                   ?>
@@ -293,33 +299,35 @@
                   <?php
                   } else {
                   ?>
-                    <table id="data_konsumen" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Jenis Coating</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $nomor = 1;
-                        foreach ($coating as $coat) {
-                        ?>
-                          <tr id="coating-<?= $coat["id_coating"] ?>">
-                            <td><?= $nomor ?></td>
-                            <td><?= $coat["nama_coating"] ?></td>
-                            <td>
-                              <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
-                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
-                            </td>
+                    <div class="table-responsive">
+                      <table id="data_konsumen" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Jenis Coating</th>
+                            <th>Aksi</th>
                           </tr>
-                        <?php
-                          $nomor++;
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $nomor = 1;
+                          foreach ($coating as $coat) {
+                          ?>
+                            <tr id="coating-<?= $coat["id_coating"] ?>">
+                              <td><?= $nomor ?></td>
+                              <td><?= $coat["nama_coating"] ?></td>
+                              <td>
+                                <a href="#" data-toggle="modal" data-target="#form_update_lensa" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
+                                <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_lensa" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              </td>
+                            </tr>
+                          <?php
+                            $nomor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   <?php
                   }
                   ?>

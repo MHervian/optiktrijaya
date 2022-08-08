@@ -31,11 +31,11 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <h1 class="m-0">Buat Pemesanan</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                   <a href="<?= base_url("dashboard") ?>">Home</a>
@@ -61,7 +61,7 @@
                 <div class="card-body">
                   <div class="mb-3 font-weight-bold"><span class="text-danger font-weight-bold">&#42;</span> Wajib diisi</div>
                   <div class="form-group row">
-                    <div class="col-4 p-0" style="position: relative;">
+                    <div class="col-md-4 p-0" style="position: relative;">
                       <h6><span class="text-danger font-weight-bold">&#42;</span> Form Cari Konsumen</h6>
                       <input type="text" class="form-control" id="cariKonsumen" placeholder="Cari dgn Nomor / Nama.." />
                       <div id="boxSearchResult" class="list-search-cst-container">
@@ -71,7 +71,7 @@
                     </div>
                   </div>
                   <div class="row mb-3">
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                       <table class="table">
                         <tbody>
                           <tr>
@@ -87,7 +87,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                       <table class="table">
                         <tbody>
                           <tr>
@@ -106,29 +106,29 @@
                   </div>
                   <form id="buat_pemesanan" action="<?= base_url("buat-pemesanan/create") ?>" method="post">
                     <input type="hidden" id="idKonsumen" name="id_konsumen" />
-                    <div class="row">
+                    <div class="row mb-3">
                       <div class="col-lg-4">
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputSP"><span class="text-danger font-weight-bold">&#42;</span> No. SP : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="text" class="form-control" name="sp" id="inputSP" placeholder="Input No SP.." required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputFrame"><span class="text-danger font-weight-bold">&#42;</span> Frame : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="text" class="form-control" name="frame" id="inputFrame" placeholder="Input Frame.." required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputFrame"><span class="text-danger font-weight-bold">&#42;</span> Jenis Lensa : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="lensSelection" class="form-control" name="jenis_lensa" id="inputFrame" required>
                               <?php
                               foreach ($lensa as $lens) {
@@ -141,11 +141,11 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputBahanFlattop"><span class="text-danger font-weight-bold">&#42;</span> Bahan Lensa :
                             </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputBahanFlattop" name="flattop" class="form-control" required>
                               <?php
                               foreach ($flattop as $flat) {
@@ -158,10 +158,10 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputCoating"><span class="text-danger font-weight-bold">&#42;</span> Coating : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputCoating" name="coating" class="form-control" required>
                               <?php
                               foreach ($coating as $coat) {
@@ -174,10 +174,10 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputWarna"><span class="text-danger font-weight-bold">&#42;</span> Warna : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputWarna" name="warna" class="form-control" required>
                               <?php
                               foreach ($warna as $w) {
@@ -190,47 +190,46 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputHarga"><span class="text-danger font-weight-bold">&#42;</span> Harga : </label>
                           </div>
-                          <div class="col-6 input-group">
+                          <div class="col-xl-7 col-lg-12 col-md-8 input-group">
                             <span class="input-group-text">Rp</span>
                             <input type="text" id="inputHarga" name="harga" class="form-control" placeholder="0" required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputDP"><span class="text-danger font-weight-bold">&#42;</span> DP : </label>
                           </div>
-                          <div class="col-6 input-group">
+                          <div class="col-xl-7 col-lg-12 col-md-8 input-group">
                             <span class="input-group-text">Rp</span>
                             <input type="text" id="inputDP" name="dp" class="form-control" placeholder="0" required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputTanggal"><span class="text-danger font-weight-bold">&#42;</span> Tanggal Pengiriman:
                             </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="date" id="inputTanggal" name="tgl_pengiriman" class="form-control" placeholder="0" required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputTanggalJatuhTempo"><span class="text-danger font-weight-bold">&#42;</span> Tanggal Jatuh Tempo:
                             </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="date" id="inputTanggalJatuhTempo" name="tgl_jatuh_tempo" class="form-control" placeholder="0" required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputSales"><span class="text-danger font-weight-bold">&#42;</span> Sales: </label>
                           </div>
-                          <div class="col-6 position-relative">
-                            <!-- <input type="hidden" id="sales" name="sales[]"> -->
+                          <div class="col-xl-7 col-lg-12 col-md-8 position-relative">
                             <select id="inputSales" class="mb-3 form-control">
                               <option value="none">Pilih sales..</option>
                               <?php
@@ -246,39 +245,41 @@
                         </div>
                       </div>
                       <div class="col-lg-8">
-                        <table class="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th></th>
-                              <th>Sph</th>
-                              <th>Cyl</th>
-                              <th>Axis</th>
-                              <th>Add</th>
-                              <th>Mpd</th>
-                              <th>Prism</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td><span class="text-danger font-weight-bold">&#42;</span> R</td>
-                              <td><input type="text" name="r_sph" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_cyl" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_axis" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_add" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_mpd" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_prism" class="form-control" placeholder="0.00" /></td>
-                            </tr>
-                            <tr>
-                              <td><span class="text-danger font-weight-bold">&#42;</span> L</td>
-                              <td><input type="text" name="l_sph" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_cyl" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_axis" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_add" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_mpd" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_prism" class="form-control" placeholder="0.00" /></td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Sph</th>
+                                <th>Cyl</th>
+                                <th>Axis</th>
+                                <th>Add</th>
+                                <th>Mpd</th>
+                                <th>Prism</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><span class="text-danger font-weight-bold">&#42;</span> R</td>
+                                <td><input type="text" name="r_sph" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_cyl" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_axis" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_add" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_mpd" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_prism" class="form-control" placeholder="0.00" /></td>
+                              </tr>
+                              <tr>
+                                <td><span class="text-danger font-weight-bold">&#42;</span> L</td>
+                                <td><input type="text" name="l_sph" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_cyl" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_axis" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_add" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_mpd" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_prism" class="form-control" placeholder="0.00" /></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                     <p id="danger_dp_besar" class="mb-4 alert alert-danger" style="display: none;"></p>

@@ -29,3 +29,9 @@ Custom CSS for AdminLTE
 .list-content a > * { 
   pointer-events: none; /* Disable child event so can bubble up to parent*/
 }
+
+@media screen and (max-width: 620px) {
+  .table {
+    width: 600px;
+  }
+}

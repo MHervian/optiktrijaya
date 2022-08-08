@@ -31,11 +31,11 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <h1 class="m-0">Edit Pemesanan</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                   <a href="<?= base_url("dashboard") ?>">Home</a>
@@ -63,25 +63,17 @@
               <div class="card card-primary card-outline">
                 <div class="card-body">
                   <div class="form-group row">
-                    <div class="col-4 p-0" style="position: relative;">
+                    <div class="col-md-4 p-0" style="position: relative;">
                       <h6>Form Cari Konsumen</h6>
                       <input type="text" class="form-control" id="cariKonsumen" placeholder="Cari dgn Nomor / Nama.." />
                       <div id="boxSearchResult" class="list-search-cst-container">
                         <ul id="listSearchResult" class="m-0 p-0 ul-search-cst">
-                          <!-- <li class="list-content">
-                            <a href="javascript:void(0)">
-                              <span><b>Vian</b> : 09723874823</span>
-                              <p class="m-0">
-                                Jalan Wahid Hasyim, Wahid Hasyim
-                              </p>
-                            </a>
-                          </li> -->
                         </ul>
                       </div>
                     </div>
                   </div>
                   <div class="row mb-3">
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                       <table class="table">
                         <tbody>
                           <tr>
@@ -102,7 +94,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                       <table class="table">
                         <tbody>
                           <tr>
@@ -123,29 +115,29 @@
                     <input type="hidden" id="idKonsumen" name="id_konsumen" value="<?= $pesanan["id_konsumen"] ?>" />
                     <input type="hidden" name="id_pemesanan" value="<?= $pesanan["id_pemesanan"] ?>" />
                     <input type="hidden" id="total_kredit" name="total_kredit" value="<?= $kredit ?>" />
-                    <div class="row">
+                    <div class="row mb-3">
                       <div class="col-lg-4">
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputSP">No. SP : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="text" class="form-control" name="sp" id="inputSP" value="<?= $pesanan["no_sp"] ?>" placeholder="Input No SP.." required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputFrame">Frame : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="text" class="form-control" name="frame" id="inputFrame" value="<?= $pesanan["frame"] ?>" placeholder="Input Frame.." required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputFrame">Jenis Lensa : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="lensSelection" class="form-control" name="jenis_lensa" id="inputFrame" required>
                               <?php
                               foreach ($lensa as $lens) {
@@ -160,11 +152,11 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputBahanFlattop">Bahan Flattop :
                             </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputBahanFlattop" name="flattop" class="form-control" required>
                               <?php
                               foreach ($flattop as $flat) {
@@ -179,10 +171,10 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputCoating">Coating : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputCoating" name="coating" class="form-control" required>
                               <?php
                               foreach ($coating as $coat) {
@@ -197,10 +189,10 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputWarna">Warna : </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputWarna" name="warna" class="form-control" required>
                               <?php
                               foreach ($warna as $w) {
@@ -215,55 +207,55 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputHarga">Harga : </label>
                           </div>
-                          <div class="col-6 input-group">
+                          <div class="col-xl-7 col-lg-12 col-md-8 input-group">
                             <span class="input-group-text">Rp</span>
                             <input type="text" id="inputHarga" name="harga" class="form-control" value="<?= $pesanan["harga"] ?>" placeholder="0" required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
-                            <label for="inputKredit">Jumlah Kredit : </label>
+                          <div class="col-xl-4 col-lg-12 col-md-4">
+                            <label for="inputKredit">Sisa Kredit : </label>
                           </div>
-                          <div class="col-6 input-group">
+                          <div class="col-xl-7 col-lg-12 col-md-8 input-group">
                             <span class="input-group-text">Rp</span>
                             <input type="text" id="inputKredit" class="form-control" value="<?= $kredit ?>" placeholder="0" disabled />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputTanggal">Tanggal Pemesanan:
                             </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="date" id="inputTanggalPemesanan" name="tgl_pemesanan" class="form-control" value="<?= $pesanan["tgl_pemesanan"] ?>" required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputTanggal">Tanggal Pengiriman:
                             </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="date" id="inputTanggal" name="tgl_pengiriman" class="form-control" value="<?= $pesanan["tgl_pengiriman"] ?>" required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputTanggalJatuhTempo">Tanggal Jatuh Tempo:
                             </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="date" id="inputTanggalJatuhTempo" name="tgl_jatuh_tempo" class="form-control" value="<?= $pesanan["tgl_jatuh_tempo"] ?>" required />
                           </div>
                         </div>
                         <div class="form-group row">
-                          <div class="col-4">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
                             <label for="inputSales">Sales: </label>
                           </div>
-                          <div class="col-6">
+                          <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputSales" class="mb-3 form-control" required>
                               <option value="none">Pilih Sales..</option>
                               <?php
@@ -289,40 +281,42 @@
                           </div>
                         </div>
                       </div>
-                      <div class="offset-lg-1 col-lg-5">
-                        <table class="table table-bordered">
-                          <thead>
-                            <tr>
-                              <th></th>
-                              <th>Sph</th>
-                              <th>Cyl</th>
-                              <th>Axis</th>
-                              <th>Add</th>
-                              <th>Mpd</th>
-                              <th>Prism</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>R</td>
-                              <td><input type="text" name="r_sph" value="<?= $pesanan["R_sph"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_cyl" value="<?= $pesanan["R_cyt"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_axis" value="<?= $pesanan["R_axis"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_add" value="<?= $pesanan["R_add"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_mpd" value="<?= $pesanan["R_mpd"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="r_prism" value="<?= $pesanan["R_prism"] ?>" class="form-control" placeholder="0.00" /></td>
-                            </tr>
-                            <tr>
-                              <td>L</td>
-                              <td><input type="text" name="l_sph" value="<?= $pesanan["L_sph"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_cyl" value="<?= $pesanan["L_cyt"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_axis" value="<?= $pesanan["L_axis"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_add" value="<?= $pesanan["L_add"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_mpd" value="<?= $pesanan["L_mpd"] ?>" class="form-control" placeholder="0.00" /></td>
-                              <td><input type="text" name="l_prism" value="<?= $pesanan["L_prism"] ?>" class="form-control" placeholder="0.00" /></td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      <div class="col-lg-8">
+                        <div class="table-responsive">
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Sph</th>
+                                <th>Cyl</th>
+                                <th>Axis</th>
+                                <th>Add</th>
+                                <th>Mpd</th>
+                                <th>Prism</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>R</td>
+                                <td><input type="text" name="r_sph" value="<?= $pesanan["R_sph"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_cyl" value="<?= $pesanan["R_cyt"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_axis" value="<?= $pesanan["R_axis"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_add" value="<?= $pesanan["R_add"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_mpd" value="<?= $pesanan["R_mpd"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="r_prism" value="<?= $pesanan["R_prism"] ?>" class="form-control" placeholder="0.00" /></td>
+                              </tr>
+                              <tr>
+                                <td>L</td>
+                                <td><input type="text" name="l_sph" value="<?= $pesanan["L_sph"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_cyl" value="<?= $pesanan["L_cyt"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_axis" value="<?= $pesanan["L_axis"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_add" value="<?= $pesanan["L_add"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_mpd" value="<?= $pesanan["L_mpd"] ?>" class="form-control" placeholder="0.00" /></td>
+                                <td><input type="text" name="l_prism" value="<?= $pesanan["L_prism"] ?>" class="form-control" placeholder="0.00" /></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
                     <p id="danger_edit" class="mb-4 alert alert-danger" style="display: none;"></p>

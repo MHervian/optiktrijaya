@@ -31,11 +31,11 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <h1 class="m-0">Data Pemesanan</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                   <a href="dashboard.html">Home</a>
@@ -120,70 +120,72 @@
                   <?php
                   } else {
                   ?>
-                    <table id="data_pemesanan" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>No SP</th>
-                          <th>Nama Pemesan</th>
-                          <th>No Telepon</th>
-                          <th>Sisa Kredit</th>
-                          <th>Tgl Pemesanan</th>
-                          <th>Tgl Pengiriman</th>
-                          <th>Tgl Jatuh Tempo</th>
-                          <th>Sales</th>
-                          <th>Status Pemesanan</th>
-                          <th>Status Kredit</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $nomor = 1;
-                        foreach ($pemesanan as $p) {
-                        ?>
+                    <div class="table-responsive">
+                      <table id="data_pemesanan" class="table table-bordered table-hover">
+                        <thead>
                           <tr>
-                            <td><?= $nomor ?></td>
-                            <td><?= $p["no_sp"] ?></td>
-                            <td><?= $p["nama"] ?></td>
-                            <td><?= $p["no_telepon"] ?></td>
-                            <td>Rp<?= number_format(floatval($p["sisa_kredit"]), 2) ?></td>
-                            <td><?= date("d F Y", strtotime($p["tgl_pemesanan"])) ?></td>
-                            <td><?= date("d F Y", strtotime($p["tgl_pengiriman"])) ?></td>
-                            <td><?= date("d F Y", strtotime($p["tgl_jatuh_tempo"])) ?></td>
-                            <td><?= str_replace(";", "/", $p["sales"]) ?></td>
-                            <?php
-                            if ($p["status_jalan"] === "aktif") {
-                            ?>
-                              <td class="font-weight-bold text-success"><?= $p["status_jalan"] ?></td>
-                            <?php
-                            } else {
-                            ?>
-                              <td class="font-weight-bold text-danger"><?= $p["status_jalan"] ?></td>
-                            <?php
-                            }
-                            ?>
-                            <?php
-                            if ($p["status_kredit"] === "ya") {
-                            ?>
-                              <td class="font-weight-bold text-danger">Belum Selesai</td>
-                            <?php
-                            } else {
-                            ?>
-                              <td class="font-weight-bold text-success">Selesai</td>
-                            <?php
-                            }
-                            ?>
-                            <td>
-                              <a href="<?= base_url("pemesanan/detail/" . $p["id_pemesanan"]) ?>">Detail</a>
-                            </td>
+                            <th>#</th>
+                            <th>No SP</th>
+                            <th>Nama Pemesan</th>
+                            <th>No Telepon</th>
+                            <th>Sisa Kredit</th>
+                            <th>Tgl Pemesanan</th>
+                            <th>Tgl Pengiriman</th>
+                            <th>Tgl Jatuh Tempo</th>
+                            <th>Sales</th>
+                            <th>Status Pemesanan</th>
+                            <th>Status Kredit</th>
+                            <th>Aksi</th>
                           </tr>
-                        <?php
-                          $nomor++;
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $nomor = 1;
+                          foreach ($pemesanan as $p) {
+                          ?>
+                            <tr>
+                              <td><?= $nomor ?></td>
+                              <td><?= $p["no_sp"] ?></td>
+                              <td><?= $p["nama"] ?></td>
+                              <td><?= $p["no_telepon"] ?></td>
+                              <td>Rp<?= number_format(floatval($p["sisa_kredit"]), 2) ?></td>
+                              <td><?= date("d F Y", strtotime($p["tgl_pemesanan"])) ?></td>
+                              <td><?= date("d F Y", strtotime($p["tgl_pengiriman"])) ?></td>
+                              <td><?= date("d F Y", strtotime($p["tgl_jatuh_tempo"])) ?></td>
+                              <td><?= str_replace(";", "/", $p["sales"]) ?></td>
+                              <?php
+                              if ($p["status_jalan"] === "aktif") {
+                              ?>
+                                <td class="font-weight-bold text-success"><?= $p["status_jalan"] ?></td>
+                              <?php
+                              } else {
+                              ?>
+                                <td class="font-weight-bold text-danger"><?= $p["status_jalan"] ?></td>
+                              <?php
+                              }
+                              ?>
+                              <?php
+                              if ($p["status_kredit"] === "ya") {
+                              ?>
+                                <td class="font-weight-bold text-danger">Belum Selesai</td>
+                              <?php
+                              } else {
+                              ?>
+                                <td class="font-weight-bold text-success">Selesai</td>
+                              <?php
+                              }
+                              ?>
+                              <td>
+                                <a href="<?= base_url("pemesanan/detail/" . $p["id_pemesanan"]) ?>">Detail</a>
+                              </td>
+                            </tr>
+                          <?php
+                            $nomor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   <?php
                   }
                   ?>

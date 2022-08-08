@@ -31,11 +31,11 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <h1 class="m-0">Detail Konsumen</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                   <a href="<?= base_url("dashboard") ?>">Home</a>
@@ -59,7 +59,7 @@
         <div class="container-fluid">
           <div class="row">
             <!-- /.col-md-6 -->
-            <div class="col-lg-8">
+            <div class="col-xl-8 col-lg-12">
               <div class="card card-primary card-outline">
                 <div class="card-body">
                   <h5 class="font-weight-bold">
@@ -72,7 +72,7 @@
                     </button>
                   </h5>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                       <table class="table">
                         <tbody>
                           <tr>
@@ -85,17 +85,11 @@
                             <td>:</td>
                             <td><?= $konsumen["nama"] ?></td>
                           </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="col-md-6">
-                      <table class="table">
-                        <?php
-                        // Calculate age 
-                        $timestamp = strtotime($konsumen["tgl_lahir"]);
-                        $tahun = intval(date("Y", $timestamp));
-                        ?>
-                        <tbody>
+                          <?php
+                          // Calculate age 
+                          $timestamp = strtotime($konsumen["tgl_lahir"]);
+                          $tahun = intval(date("Y", $timestamp));
+                          ?>
                           <tr>
                             <td>Usia</td>
                             <td>:</td>
@@ -120,7 +114,7 @@
           <!-- /.row -->
 
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-xl-6">
               <div class="card card-primary card-outline">
                 <div class="card-body">
                   <h5 class="font-weight-bold">Pembayaran Kredit Aktif:</h5>
@@ -134,36 +128,38 @@
                   <?php
                   } else {
                   ?>
-                    <table class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>No. SP</th>
-                          <th>Sisa Kredit</th>
-                          <th>Jatuh Tempo</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $nomor = 1;
-                        foreach ($kredit as $kr) {
-                        ?>
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-hover">
+                        <thead>
                           <tr>
-                            <td><?= $nomor ?></td>
-                            <td><?= $kr["no_sp"] ?></td>
-                            <td>Rp<?= number_format(floatval($kr["sisa_kredit"]), 2) ?></td>
-                            <td><?= date("d F Y", strtotime($kr["tgl_jatuh_tempo"])) ?></td>
-                            <td>
-                              <a href="<?= base_url("pemesanan/detail/" . $kr["id_pemesanan"]) ?>">Detail</a>
-                            </td>
+                            <th>#</th>
+                            <th>No. SP</th>
+                            <th>Sisa Kredit</th>
+                            <th>Jatuh Tempo</th>
+                            <th>Aksi</th>
                           </tr>
-                        <?php
-                          $nomor++;
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $nomor = 1;
+                          foreach ($kredit as $kr) {
+                          ?>
+                            <tr>
+                              <td><?= $nomor ?></td>
+                              <td><?= $kr["no_sp"] ?></td>
+                              <td>Rp<?= number_format(floatval($kr["sisa_kredit"]), 2) ?></td>
+                              <td><?= date("d F Y", strtotime($kr["tgl_jatuh_tempo"])) ?></td>
+                              <td>
+                                <a href="<?= base_url("pemesanan/detail/" . $kr["id_pemesanan"]) ?>">Detail</a>
+                              </td>
+                            </tr>
+                          <?php
+                            $nomor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   <?php
                   }
                   ?>
@@ -171,7 +167,7 @@
               </div>
             </div>
             <input type="hidden" id="uriPoint" value="<?= base_url("/konsumen/delete") ?>">
-            <div class="col-lg-6">
+            <div class="col-xl-6">
               <div class="card card-primary card-outline">
                 <div class="card-body">
                   <h5 class="font-weight-bold">Pembayaran Kredit Lunas:</h5>

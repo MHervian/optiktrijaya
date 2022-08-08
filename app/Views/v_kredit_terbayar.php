@@ -31,11 +31,11 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <h1 class="m-0">Kredit Sudah Dibayar</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                   <a href="<?= base_url("dashboard") ?>">Home</a>
@@ -66,7 +66,7 @@
                   <div class="mb-5">
                     <p>Cari Data dari Tanggal</p>
                     <form id="form_search" action="<?= base_url("kredit/terbayar/cari") ?>" method="post" class="row">
-                      <div class="col-2 position-relative">
+                      <div class="col-md-4 mb-3 position-relative">
                         <select id="tahun_search" class="form-control" name="tahun">
                           <option value="none">Tahun</option>
                           <?php
@@ -79,7 +79,7 @@
                         </select>
                         <p id="danger_tahun" class="text-danger position-absolute" style="display:none;">Pilih Tahun</p>
                       </div>
-                      <div class="col-2 position-relative">
+                      <div class="col-md-4 mb-3 position-relative">
                         <select id="bulan_search" class="form-control" name="bulan">
                           <option value="none">Bulan</option>
                           <option value="01">Januari</option>
@@ -97,7 +97,7 @@
                         </select>
                         <p id="danger_bulan" class="text-danger position-absolute" style="display:none;">Pilih Bulan</p>
                       </div>
-                      <div class="col-2">
+                      <div class="col-md-3">
                         <button type="submit" class="btn btn-primary">Cari</button>
                       </div>
                     </form>
@@ -115,45 +115,46 @@
                     <hr>
                     <h4 class="mb-2">Tanggal: <span class="font-weight-bold"><?= $tgl ?></span></h4>
                     <h5 class="mb-4">Total data: <span class="font-weight-bold text-danger"><?= $totalRows ?></span></h5>
-                    <!-- <p class="mb-4">Jumlah kredit pesanan yang dibayar bulan ini: <span class="font-weight-bold"><?= $totalRows ?></span></p> -->
-                    <table id="data_kredit" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Pelanggan</th>
-                          <th>No Pesanan</th>
-                          <th>Tgl Bayar</th>
-                          <th>Besar</th>
-                          <th>Tenor Ke-</th>
-                          <th>Collector/Sales</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $nomor = 1;
-                        foreach ($terbayar as $tr) {
-                          $tgl_bayar = strtotime($tr["tgl_bayar"]);
-                          $tgl_bayar = date("d F Y", $tgl_bayar);
-                        ?>
+                    <div class="table-responsive">
+                      <table id="data_kredit" class="table table-bordered table-hover">
+                        <thead>
                           <tr>
-                            <td><?= $nomor ?></td>
-                            <td><?= $tr["nama"] ?></td>
-                            <td><?= $tr["no_sp"] ?></td>
-                            <td><?= $tgl_bayar ?></td>
-                            <td>Rp<?= number_format($tr["jmlh_bayar"]) ?></td>
-                            <td><?= $tr["tenor"] ?></td>
-                            <td><?= str_replace(";", ", ", $tr["collector"]) ?></td>
-                            <td>
-                              <a href="<?= base_url("pemesanan/detail/" . $tr["id_pemesanan"]) ?>" class="text-primary d-block">Detail</a>
-                            </td>
+                            <th>#</th>
+                            <th>Pelanggan</th>
+                            <th>No Pesanan</th>
+                            <th>Tgl Bayar</th>
+                            <th>Besar</th>
+                            <th>Tenor Ke-</th>
+                            <th>Collector/Sales</th>
+                            <th>Aksi</th>
                           </tr>
-                        <?php
-                          $nomor++;
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $nomor = 1;
+                          foreach ($terbayar as $tr) {
+                            $tgl_bayar = strtotime($tr["tgl_bayar"]);
+                            $tgl_bayar = date("d F Y", $tgl_bayar);
+                          ?>
+                            <tr>
+                              <td><?= $nomor ?></td>
+                              <td><?= $tr["nama"] ?></td>
+                              <td><?= $tr["no_sp"] ?></td>
+                              <td><?= $tgl_bayar ?></td>
+                              <td>Rp<?= number_format($tr["jmlh_bayar"]) ?></td>
+                              <td><?= $tr["tenor"] ?></td>
+                              <td><?= str_replace(";", ", ", $tr["collector"]) ?></td>
+                              <td>
+                                <a href="<?= base_url("pemesanan/detail/" . $tr["id_pemesanan"]) ?>" class="text-primary d-block">Detail</a>
+                              </td>
+                            </tr>
+                          <?php
+                            $nomor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   <?php
                   }
                   ?>

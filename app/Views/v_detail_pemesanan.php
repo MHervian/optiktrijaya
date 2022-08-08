@@ -31,11 +31,11 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <h1 class="m-0">Detail Pemesanan</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                   <a href="<?= base_url("dashboard") ?>">Home</a>
@@ -163,173 +163,179 @@
                     ?>
                   </h5>
                   <div class="row">
-                    <div class="col-md-4">
-                      <table class="table table-bordered">
-                        <tbody>
-                          <tr>
-                            <td>Status Pemesanan</td>
-                            <td>:</td>
-                            <?php
-                            if ($detail["status_jalan"] === "aktif") {
-                            ?>
-                              <td class="text-success font-weight-bold"><?= $detail["status_jalan"] ?></td>
-                            <?php
-                            } else {
-                            ?>
-                              <td class="text-danger font-weight-bold"><?= $detail["status_jalan"] ?></td>
-                            <?php
-                            }
-                            ?>
-                          </tr>
-                          <tr>
-                            <td>Status Kredit</td>
-                            <td>:</td>
-                            <?php
-                            if ($detail["status_kredit"] === "ya") {
-                            ?>
-                              <td class="text-danger font-weight-bold">Belum Selesai</td>
-                            <?php
-                            } else {
-                            ?>
-                              <td class="text-success font-weight-bold">Selesai</td>
-                            <?php
-                            }
-                            ?>
-                          </tr>
-                          <tr>
-                            <td>No. SP</td>
-                            <td>:</td>
-                            <td><?= $detail["no_sp"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Frame</td>
-                            <td>:</td>
-                            <td><?= $detail["frame"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Lensa</td>
-                            <td>:</td>
-                            <td><?= $detail["lensa"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Bahan</td>
-                            <td>:</td>
-                            <td><?= $detail["flattop"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Coating</td>
-                            <td>:</td>
-                            <td><?= $detail["coating"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Warna</td>
-                            <td>:</td>
-                            <td><?= $detail["warna"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Harga</td>
-                            <td>:</td>
-                            <td>Rp<?= number_format(floatval($detail["harga"]), 2) ?></td>
-                          </tr>
-                          <tr>
-                            <td>Sisa Kredit</td>
-                            <td>:</td>
-                            <td>Rp<?= number_format(floatval($detail["sisa_kredit"]), 2) ?></td>
-                          </tr>
-                          <tr>
-                            <td>Tanggal Pemesanan</td>
-                            <td>:</td>
-                            <td><?= date("d F Y", strtotime($detail["tgl_pemesanan"])) ?></td>
-                          </tr>
-                          <tr>
-                            <td>Tanggal Pengiriman</td>
-                            <td>:</td>
-                            <td><?= date("d F Y", strtotime($detail["tgl_pengiriman"])) ?></td>
-                          </tr>
-                          <tr>
-                            <td>Tanggal Jatuh Tempo</td>
-                            <td>:</td>
-                            <td><?= date("d F Y", strtotime($detail["tgl_jatuh_tempo"])) ?></td>
-                          </tr>
-                          <tr>
-                            <td>Sales</td>
-                            <td>:</td>
-                            <td><?= str_replace(";", "/", $detail["sales"]) ?></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div class="col-xl-4 mb-3">
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <tbody>
+                            <tr>
+                              <td>Status Pemesanan</td>
+                              <td>:</td>
+                              <?php
+                              if ($detail["status_jalan"] === "aktif") {
+                              ?>
+                                <td class="text-success font-weight-bold"><?= $detail["status_jalan"] ?></td>
+                              <?php
+                              } else {
+                              ?>
+                                <td class="text-danger font-weight-bold"><?= $detail["status_jalan"] ?></td>
+                              <?php
+                              }
+                              ?>
+                            </tr>
+                            <tr>
+                              <td>Status Kredit</td>
+                              <td>:</td>
+                              <?php
+                              if ($detail["status_kredit"] === "ya") {
+                              ?>
+                                <td class="text-danger font-weight-bold">Belum Selesai</td>
+                              <?php
+                              } else {
+                              ?>
+                                <td class="text-success font-weight-bold">Selesai</td>
+                              <?php
+                              }
+                              ?>
+                            </tr>
+                            <tr>
+                              <td>No. SP</td>
+                              <td>:</td>
+                              <td><?= $detail["no_sp"] ?></td>
+                            </tr>
+                            <tr>
+                              <td>Frame</td>
+                              <td>:</td>
+                              <td><?= $detail["frame"] ?></td>
+                            </tr>
+                            <tr>
+                              <td>Lensa</td>
+                              <td>:</td>
+                              <td><?= $detail["lensa"] ?></td>
+                            </tr>
+                            <tr>
+                              <td>Bahan</td>
+                              <td>:</td>
+                              <td><?= $detail["flattop"] ?></td>
+                            </tr>
+                            <tr>
+                              <td>Coating</td>
+                              <td>:</td>
+                              <td><?= $detail["coating"] ?></td>
+                            </tr>
+                            <tr>
+                              <td>Warna</td>
+                              <td>:</td>
+                              <td><?= $detail["warna"] ?></td>
+                            </tr>
+                            <tr>
+                              <td>Harga</td>
+                              <td>:</td>
+                              <td>Rp<?= number_format(floatval($detail["harga"]), 2) ?></td>
+                            </tr>
+                            <tr>
+                              <td>Sisa Kredit</td>
+                              <td>:</td>
+                              <td>Rp<?= number_format(floatval($detail["sisa_kredit"]), 2) ?></td>
+                            </tr>
+                            <tr>
+                              <td>Tanggal Pemesanan</td>
+                              <td>:</td>
+                              <td><?= date("d F Y", strtotime($detail["tgl_pemesanan"])) ?></td>
+                            </tr>
+                            <tr>
+                              <td>Tanggal Pengiriman</td>
+                              <td>:</td>
+                              <td><?= date("d F Y", strtotime($detail["tgl_pengiriman"])) ?></td>
+                            </tr>
+                            <tr>
+                              <td>Tanggal Jatuh Tempo</td>
+                              <td>:</td>
+                              <td><?= date("d F Y", strtotime($detail["tgl_jatuh_tempo"])) ?></td>
+                            </tr>
+                            <tr>
+                              <td>Sales</td>
+                              <td>:</td>
+                              <td><?= str_replace(";", "/", $detail["sales"]) ?></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
-                    <div class="col-md-4">
-                      <table class="table table-bordered mb-5">
-                        <thead>
-                          <tr>
-                            <th></th>
-                            <th>Sph</th>
-                            <th>Cyl</th>
-                            <th>Axis</th>
-                            <th>Add</th>
-                            <th>Mpd</th>
-                            <th>Prism</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>R</td>
-                            <td><?= $detail["R_sph"] ?></td>
-                            <td><?= $detail["R_cyt"] ?></td>
-                            <td><?= $detail["R_axis"] ?></td>
-                            <td><?= $detail["R_add"] ?></td>
-                            <td><?= $detail["R_mpd"] ?></td>
-                            <td><?= $detail["R_prism"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>L</td>
-                            <td><?= $detail["L_sph"] ?></td>
-                            <td><?= $detail["L_cyt"] ?></td>
-                            <td><?= $detail["L_axis"] ?></td>
-                            <td><?= $detail["L_add"] ?></td>
-                            <td><?= $detail["L_mpd"] ?></td>
-                            <td><?= $detail["L_prism"] ?></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div class="col-xl-6">
+                      <div class="table-responsive">
+                        <table class="table table-bordered mb-5">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Sph</th>
+                              <th>Cyl</th>
+                              <th>Axis</th>
+                              <th>Add</th>
+                              <th>Mpd</th>
+                              <th>Prism</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>R</td>
+                              <td><?= $detail["R_sph"] ?></td>
+                              <td><?= $detail["R_cyt"] ?></td>
+                              <td><?= $detail["R_axis"] ?></td>
+                              <td><?= $detail["R_add"] ?></td>
+                              <td><?= $detail["R_mpd"] ?></td>
+                              <td><?= $detail["R_prism"] ?></td>
+                            </tr>
+                            <tr>
+                              <td>L</td>
+                              <td><?= $detail["L_sph"] ?></td>
+                              <td><?= $detail["L_cyt"] ?></td>
+                              <td><?= $detail["L_axis"] ?></td>
+                              <td><?= $detail["L_add"] ?></td>
+                              <td><?= $detail["L_mpd"] ?></td>
+                              <td><?= $detail["L_prism"] ?></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <h5 class="font-weight-bold">Data Pemesan :</h5>
-                      <table class="table table-bordered">
-                        <tbody>
-                          <tr>
-                            <td>Nama</td>
-                            <td>:</td>
-                            <td><?= $detail["nama"] ?></td>
-                          </tr>
-                          <tr>
-                            <td>Nomor Telepon</td>
-                            <td>:</td>
-                            <td><?= $detail["no_telepon"] ?></td>
-                          </tr>
-                          <?php
-                          // Calculate Age
-                          $birth = date("Y", strtotime($detail["tgl_lahir"]));
-                          $age = intval(date("Y")) - intval($birth);
-                          ?>
-                          <tr>
-                            <td>Usia</td>
-                            <td>:</td>
-                            <td><?= $age ?> Tahun</td>
-                          </tr>
-                          <tr>
-                            <td>Tanggal Lahir</td>
-                            <td>:</td>
-                            <td><?= date("d F Y", strtotime($detail["tgl_lahir"])) ?></td>
-                          </tr>
-                          <tr>
-                            <td>Alamat</td>
-                            <td>:</td>
-                            <td>
-                              <?= $detail["alamat"] ?>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <div class="table-responsive">
+                        <table class="table table-bordered">
+                          <tbody>
+                            <tr>
+                              <td>Nama</td>
+                              <td>:</td>
+                              <td><?= $detail["nama"] ?></td>
+                            </tr>
+                            <tr>
+                              <td>Nomor Telepon</td>
+                              <td>:</td>
+                              <td><?= $detail["no_telepon"] ?></td>
+                            </tr>
+                            <?php
+                            // Calculate Age
+                            $birth = date("Y", strtotime($detail["tgl_lahir"]));
+                            $age = intval(date("Y")) - intval($birth);
+                            ?>
+                            <tr>
+                              <td>Usia</td>
+                              <td>:</td>
+                              <td><?= $age ?> Tahun</td>
+                            </tr>
+                            <tr>
+                              <td>Tanggal Lahir</td>
+                              <td>:</td>
+                              <td><?= date("d F Y", strtotime($detail["tgl_lahir"])) ?></td>
+                            </tr>
+                            <tr>
+                              <td>Alamat</td>
+                              <td>:</td>
+                              <td>
+                                <?= $detail["alamat"] ?>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -340,51 +346,53 @@
               <div class="card card-primary card-outline">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-xl-9">
                       <h5 class="font-weight-bold">Log Pembayaran Kredit :</h5>
-                      <table class="table table-bordered table-hover mb-3">
-                        <thead>
-                          <tr>
-                            <th>Tanggal Bayar</th>
-                            <th>Tenor Ke-</th>
-                            <th>Collector</th>
-                            <th>Jumlah Bayar</th>
-                            <th>Aksi</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                          $tenor = 1;
-                          $total_kredit = 0;
-                          foreach ($logs as $log) {
-                            $total_kredit += intval($log["jmlh_bayar"]);
-                          ?>
+                      <div class="table-responsive mb-3">
+                        <table class="table table-bordered table-hover mb-3">
+                          <thead>
                             <tr>
-                              <td><?= date("d F Y", strtotime($log["tgl_bayar"])) ?></td>
-                              <td><?= $log["tenor_ke"] ?></td>
-                              <td><?= str_replace(";", "/", $log["collector"]) ?></td>
-                              <td>Rp<?= number_format(floatval($log["jmlh_bayar"]), 2) ?></td>
-                              <td>
-                                <?php
-                                if (intval($log["tenor_ke"]) != 1) {
-                                ?>
-                                  <a href="#" data-kcmt-id="<?= $log["id_log"] ?>" class="text-primary mr-2 ubah-data-kredit" data-toggle="modal" data-target="#modal_edit_kredit" data-backdrop="static" data-keyboard="false">Ubah</a>
-                                  <a href="#" data-kcmt-id="<?= $log["id_log"] ?>" class="text-danger hapus-data-kredit" data-toggle="modal" data-target="#modal_delete_kredit" data-backdrop="static" data-keyboard="false">Hapus</a>
-                                <?php
-                                }
-                                ?>
-                              </td>
+                              <th>Tanggal Bayar</th>
+                              <th>Tenor Ke-</th>
+                              <th>Collector</th>
+                              <th>Jumlah Bayar</th>
+                              <th>Aksi</th>
                             </tr>
-                          <?php
-                            $tenor++;
-                          }
-                          ?>
-                          <tr>
-                            <td colspan="3" class="text-center font-weight-bold">Total Kredit Terbayar</td>
-                            <td class="bg-success font-weight-bold">Rp<?= number_format($total_kredit, 2) ?></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $tenor = 1;
+                            $total_kredit = 0;
+                            foreach ($logs as $log) {
+                              $total_kredit += intval($log["jmlh_bayar"]);
+                            ?>
+                              <tr>
+                                <td><?= date("d F Y", strtotime($log["tgl_bayar"])) ?></td>
+                                <td><?= $log["tenor_ke"] ?></td>
+                                <td><?= str_replace(";", "/", $log["collector"]) ?></td>
+                                <td>Rp<?= number_format(floatval($log["jmlh_bayar"]), 2) ?></td>
+                                <td>
+                                  <?php
+                                  if (intval($log["tenor_ke"]) != 1) {
+                                  ?>
+                                    <a href="#" data-kcmt-id="<?= $log["id_log"] ?>" class="text-primary mr-2 ubah-data-kredit" data-toggle="modal" data-target="#modal_edit_kredit" data-backdrop="static" data-keyboard="false">Ubah</a>
+                                    <a href="#" data-kcmt-id="<?= $log["id_log"] ?>" class="text-danger hapus-data-kredit" data-toggle="modal" data-target="#modal_delete_kredit" data-backdrop="static" data-keyboard="false">Hapus</a>
+                                  <?php
+                                  }
+                                  ?>
+                                </td>
+                              </tr>
+                            <?php
+                              $tenor++;
+                            }
+                            ?>
+                            <tr>
+                              <td colspan="3" class="text-center font-weight-bold">Total Kredit Terbayar</td>
+                              <td class="bg-success font-weight-bold">Rp<?= number_format($total_kredit, 2) ?></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <?php
                       $level = session("level");
                       if ($level !== "sales" && $detail["status_jalan"] === "aktif" && $detail["status_kredit"] === "ya") {

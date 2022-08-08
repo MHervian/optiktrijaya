@@ -31,11 +31,11 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <h1 class="m-0">Data Master Sales</h1>
             </div>
             <!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-lg-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item">
                   <a href="<?= base_url("dashboard") ?>">Home</a>
@@ -152,36 +152,38 @@
                   <?php
                   } else {
                   ?>
-                    <table id="data_sales" class="table table-bordered table-hover">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Nama Sales</th>
-                          <th>Email Sales</th>
-                          <th>Aksi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php
-                        $nomor = 1;
-                        foreach ($sales as $dataSales) {
-                        ?>
-                          <tr id="<?= $dataSales["id_pengguna"] ?>">
-                            <td><?= $nomor ?></td>
-                            <td><?= $dataSales["username"] ?></td>
-                            <td><?= $dataSales["email"] ?></td>
-                            <td>
-                              <a href="#" class="text-secondary detail" data-toggle="modal" data-target="#form_detail_sales" data-backdrop="static" data-keyboard="false">Detail</a>
-                              <a href="#" class="ubah" data-toggle="modal" data-target="#form_update_sales" data-backdrop="static" data-keyboard="false">Ubah</a>
-                              <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_sales" data-backdrop="static" data-keyboard="false">Hapus</a>
-                            </td>
+                    <div class="table-responsive">
+                      <table id="data_sales" class="table table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Nama Sales</th>
+                            <th>Email Sales</th>
+                            <th>Aksi</th>
                           </tr>
-                        <?php
-                          $nomor++;
-                        }
-                        ?>
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          <?php
+                          $nomor = 1;
+                          foreach ($sales as $dataSales) {
+                          ?>
+                            <tr id="<?= $dataSales["id_pengguna"] ?>">
+                              <td><?= $nomor ?></td>
+                              <td><?= $dataSales["username"] ?></td>
+                              <td><?= $dataSales["email"] ?></td>
+                              <td>
+                                <a href="#" class="text-secondary detail" data-toggle="modal" data-target="#form_detail_sales" data-backdrop="static" data-keyboard="false">Detail</a>
+                                <a href="#" class="ubah" data-toggle="modal" data-target="#form_update_sales" data-backdrop="static" data-keyboard="false">Ubah</a>
+                                <a href="#" class="text-danger hapus" data-toggle="modal" data-target="#form_delete_sales" data-backdrop="static" data-keyboard="false">Hapus</a>
+                              </td>
+                            </tr>
+                          <?php
+                            $nomor++;
+                          }
+                          ?>
+                        </tbody>
+                      </table>
+                    </div>
                   <?php
                   }
                   ?>
