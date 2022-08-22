@@ -181,6 +181,8 @@ class Pemesanan extends BaseController
 
     // Query pemesanan by id_pemesanan
     $data["pesanan"] = $this->pemesanan->getPemesananByID($id_pemesanan)[0];
+    // Query log bayar of first
+    $data["log"] = $this->transaksi->getLogPembayaranFirst($id_pemesanan);
 
     // Query all lens data master and sales master data
     $data["lensa"] = $this->lensa_kacamata->getAllLens();
@@ -206,8 +208,11 @@ class Pemesanan extends BaseController
     $request = service("request");
     $id_konsumen = $request->getPost("id_konsumen");
     $id_pemesanan = $request->getPost("id_pemesanan");
+    $id_history_log = $request->getPost("id_history_log");
     $no_sp = $request->getPost("sp");
     $frame = $request->getPost("frame");
+    $harga = floatval($request->getPost("harga"));
+    $dp = floatval($request->getPost("dp"));
     $lensa = $request->getPost("jenis_lensa");
     $flattop = $request->getPost("flattop");
     $coating = $request->getPost("coating");
@@ -229,10 +234,24 @@ class Pemesanan extends BaseController
     $l_prism = $request->getPost("l_prism");
     $r_prism = $request->getPost("r_prism");
 
+    $total_kredit = floatval($request->getPost("total_kredit"));
+    $old_kredit = floatval($request->getPost("old_kredit"));
+    if (floatval($dp) > $old_kredit) {
+      $sisa = $dp - $old_kredit;
+      $tmp_total_kredit = $total_kredit + $sisa;
+      $sisa_kredit = $harga - $tmp_total_kredit;
+    } else {
+      $sisa = $old_kredit - $dp;
+      $tmp_total_kredit = $total_kredit - $sisa;
+      $sisa_kredit = $harga - $tmp_total_kredit;
+    }
+
     $data = array(
       "no_sp" => $no_sp,
       "id_konsumen" => $id_konsumen,
       "frame" => $frame,
+      "harga" => $harga,
+      "sisa_kredit" => $sisa_kredit,
       "tgl_pengiriman" => $tgl_pengiriman,
       "tgl_jatuh_tempo" => $tgl_jatuh_tempo,
       "sales" => $sales,
@@ -254,15 +273,21 @@ class Pemesanan extends BaseController
       "R_prism" => $r_prism,
       "tgl_pemesanan" => $tgl_pemesanan
     );
+
+    // validate if this new dp could finish the credit or not
+    $data["status_kredit"] = "ya";
+    if ($tmp_total_kredit === floatval($harga)) $data["status_kredit"] = "tidak";
+
     $this->pemesanan->updatePemesanan($id_pemesanan, $data);
 
     // Update sales as collector name in log bayar
     // Maybe could update with validation new DP feature here in next update
     // Sales => Collector
     $data = array(
-      "collector" => $sales
+      "collector" => $sales,
+      "jmlh_bayar" => $dp
     );
-    $this->transaksi->updateSalesNameInLog($data, $id_pemesanan, "1");
+    $this->transaksi->updateFirstDPInLog($data, $id_history_log);
 
     $session->setFlashdata("pageStatus", "update success");
     return redirect()->to(base_url("pemesanan/detail/" . $id_pemesanan));

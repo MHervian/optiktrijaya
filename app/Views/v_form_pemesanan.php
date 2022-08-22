@@ -260,7 +260,7 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <td><span class="text-danger font-weight-bold">&#42;</span> R</td>
+                                <td><span class="text-danger font-weight-bold">&#42;</span>R</td>
                                 <td><input type="text" name="r_sph" class="form-control" placeholder="0.00" /></td>
                                 <td><input type="text" name="r_cyl" class="form-control" placeholder="0.00" /></td>
                                 <td><input type="text" name="r_axis" class="form-control" placeholder="0.00" /></td>
@@ -269,7 +269,7 @@
                                 <td><input type="text" name="r_prism" class="form-control" placeholder="0.00" /></td>
                               </tr>
                               <tr>
-                                <td><span class="text-danger font-weight-bold">&#42;</span> L</td>
+                                <td><span class="text-danger font-weight-bold">&#42;</span>L</td>
                                 <td><input type="text" name="l_sph" class="form-control" placeholder="0.00" /></td>
                                 <td><input type="text" name="l_cyl" class="form-control" placeholder="0.00" /></td>
                                 <td><input type="text" name="l_axis" class="form-control" placeholder="0.00" /></td>

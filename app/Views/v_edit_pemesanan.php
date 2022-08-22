@@ -62,6 +62,7 @@
             <div class="col-lg-12">
               <div class="card card-primary card-outline">
                 <div class="card-body">
+                  <div class="mb-3 font-weight-bold"><span class="text-danger font-weight-bold">&#42;</span> Jangan kosong saat pengubahan</div>
                   <div class="form-group row">
                     <div class="col-md-4 p-0" style="position: relative;">
                       <h6>Form Cari Konsumen</h6>
@@ -114,12 +115,14 @@
                   <form id="edit_pemesanan" action="<?= base_url("pemesanan/update") ?>" method="post">
                     <input type="hidden" id="idKonsumen" name="id_konsumen" value="<?= $pesanan["id_konsumen"] ?>" />
                     <input type="hidden" name="id_pemesanan" value="<?= $pesanan["id_pemesanan"] ?>" />
+                    <input type="hidden" name="id_history_log" value="<?= $log["id_log"] ?>" />
                     <input type="hidden" id="total_kredit" name="total_kredit" value="<?= $kredit ?>" />
+                    <input type="hidden" id="old_kredit" name="old_kredit" value="<?= $log["jmlh_bayar"] ?>" />
                     <div class="row mb-3">
                       <div class="col-lg-4">
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputSP">No. SP : </label>
+                            <label for="inputSP"><span class="text-danger font-weight-bold">&#42;</span> No. SP : </label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="text" class="form-control" name="sp" id="inputSP" value="<?= $pesanan["no_sp"] ?>" placeholder="Input No SP.." required />
@@ -127,7 +130,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputFrame">Frame : </label>
+                            <label for="inputFrame"><span class="text-danger font-weight-bold">&#42;</span> Frame : </label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="text" class="form-control" name="frame" id="inputFrame" value="<?= $pesanan["frame"] ?>" placeholder="Input Frame.." required />
@@ -135,7 +138,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputFrame">Jenis Lensa : </label>
+                            <label for="inputFrame"><span class="text-danger font-weight-bold">&#42;</span> Jenis Lensa : </label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="lensSelection" class="form-control" name="jenis_lensa" id="inputFrame" required>
@@ -153,8 +156,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputBahanFlattop">Bahan Flattop :
-                            </label>
+                            <label for="inputBahanFlattop"><span class="text-danger font-weight-bold">&#42;</span> Bahan Flattop :</label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputBahanFlattop" name="flattop" class="form-control" required>
@@ -172,7 +174,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputCoating">Coating : </label>
+                            <label for="inputCoating"><span class="text-danger font-weight-bold">&#42;</span> Coating : </label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputCoating" name="coating" class="form-control" required>
@@ -190,7 +192,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputWarna">Warna : </label>
+                            <label for="inputWarna"><span class="text-danger font-weight-bold">&#42;</span> Warna : </label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputWarna" name="warna" class="form-control" required>
@@ -208,7 +210,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputHarga">Harga : </label>
+                            <label for="inputHarga"><span class="text-danger font-weight-bold">&#42;</span> Harga : </label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8 input-group">
                             <span class="input-group-text">Rp</span>
@@ -221,13 +223,30 @@
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8 input-group">
                             <span class="input-group-text">Rp</span>
-                            <input type="text" id="inputKredit" class="form-control" value="<?= $kredit ?>" placeholder="0" disabled />
+                            <input type="text" id="sisaKredit" class="form-control" value="<?= $pesanan["sisa_kredit"] ?>" placeholder="0" disabled />
                           </div>
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputTanggal">Tanggal Pemesanan:
-                            </label>
+                            <label for="editDP">DP Lama: </label>
+                          </div>
+                          <div class="col-xl-7 col-lg-12 col-md-8 input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="text" class="form-control" value="<?= $log["jmlh_bayar"] ?>" placeholder="0" disabled />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
+                            <label for="editDP"><span class="text-danger font-weight-bold">&#42;</span> DP Baru: </label>
+                          </div>
+                          <div class="col-xl-7 col-lg-12 col-md-8 input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="text" id="editDP" name="dp" class="form-control" value="<?= $log["jmlh_bayar"] ?>" placeholder="0" />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-xl-4 col-lg-12 col-md-4">
+                            <label for="inputTanggal"><span class="text-danger font-weight-bold">&#42;</span> Tanggal Pemesanan:</label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="date" id="inputTanggalPemesanan" name="tgl_pemesanan" class="form-control" value="<?= $pesanan["tgl_pemesanan"] ?>" required />
@@ -235,8 +254,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputTanggal">Tanggal Pengiriman:
-                            </label>
+                            <label for="inputTanggal"><span class="text-danger font-weight-bold">&#42;</span> Tanggal Pengiriman:</label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="date" id="inputTanggal" name="tgl_pengiriman" class="form-control" value="<?= $pesanan["tgl_pengiriman"] ?>" required />
@@ -244,8 +262,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputTanggalJatuhTempo">Tanggal Jatuh Tempo:
-                            </label>
+                            <label for="inputTanggalJatuhTempo"><span class="text-danger font-weight-bold">&#42;</span> Tanggal Jatuh Tempo:</label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <input type="date" id="inputTanggalJatuhTempo" name="tgl_jatuh_tempo" class="form-control" value="<?= $pesanan["tgl_jatuh_tempo"] ?>" required />
@@ -253,7 +270,7 @@
                         </div>
                         <div class="form-group row">
                           <div class="col-xl-4 col-lg-12 col-md-4">
-                            <label for="inputSales">Sales: </label>
+                            <label for="inputSales"><span class="text-danger font-weight-bold">&#42;</span> Sales: </label>
                           </div>
                           <div class="col-xl-7 col-lg-12 col-md-8">
                             <select id="inputSales" class="mb-3 form-control" required>
@@ -297,7 +314,7 @@
                             </thead>
                             <tbody>
                               <tr>
-                                <td>R</td>
+                                <td><span class="text-danger font-weight-bold">&#42;</span>R</td>
                                 <td><input type="text" name="r_sph" value="<?= $pesanan["R_sph"] ?>" class="form-control" placeholder="0.00" /></td>
                                 <td><input type="text" name="r_cyl" value="<?= $pesanan["R_cyt"] ?>" class="form-control" placeholder="0.00" /></td>
                                 <td><input type="text" name="r_axis" value="<?= $pesanan["R_axis"] ?>" class="form-control" placeholder="0.00" /></td>
@@ -306,7 +323,7 @@
                                 <td><input type="text" name="r_prism" value="<?= $pesanan["R_prism"] ?>" class="form-control" placeholder="0.00" /></td>
                               </tr>
                               <tr>
-                                <td>L</td>
+                                <td><span class="text-danger font-weight-bold">&#42;</span>L</td>
                                 <td><input type="text" name="l_sph" value="<?= $pesanan["L_sph"] ?>" class="form-control" placeholder="0.00" /></td>
                                 <td><input type="text" name="l_cyl" value="<?= $pesanan["L_cyt"] ?>" class="form-control" placeholder="0.00" /></td>
                                 <td><input type="text" name="l_axis" value="<?= $pesanan["L_axis"] ?>" class="form-control" placeholder="0.00" /></td>
@@ -464,14 +481,19 @@
 
       // Function for validation
       $("#edit_pemesanan").submit(function(evt) {
-        var harga = parseInt($("#inputHarga").val());
-        var dp = parseInt($("#total_kredit").val());
+        var harga = parseInt($("#inputHarga").val()); // The price of pemesanan
+        var total_kredit = parseInt($("#total_kredit").val()); // the total of kredit which has been paid
+        var new_kredit = parseInt($("#editDP").val()); // new DP
+        var old_kredit = parseInt($("#old_kredit").val()); // old DP
 
         // Set default first
         $("#danger_edit").css({
           "display": "none"
         });
         $("#inputHarga").css({
+          "border": "1px solid #ced4da"
+        });
+        $("#editDP").css({
           "border": "1px solid #ced4da"
         });
         $("#inputSales").css({
@@ -495,11 +517,31 @@
         }
 
         // Check if harga lower than kredit terkumpulkan
-        if (harga <= dp) {
+        if (harga < total_kredit) {
           $("#danger_edit").css({
             "display": "block"
-          }).html("<i class='fas fa-exclamation-triangle'></i> Harga Tidak Boleh Lebih Kecil Atau Sama Dengan Total Kredit.");
+          }).html("<i class='fas fa-exclamation-triangle'></i> Harga Pemesanan Tidak Boleh Kecil Atau Sama Dengan Total Kredit.");
           $("#inputHarga").css({
+            "border": "1px solid red"
+          });
+          evt.preventDefault();
+          return;
+        }
+
+        // Check new DP
+        if (new_kredit > old_kredit) {
+          sisa = new_kredit - old_kredit;
+          total_kredit = total_kredit + sisa;
+        } else {
+          sisa = old_kredit - new_kredit;
+          total_kredit = total_kredit - sisa;
+        }
+
+        if (total_kredit > harga) {
+          $("#danger_edit").css({
+            "display": "block"
+          }).html("<i class='fas fa-exclamation-triangle'></i> Ubah Jumlah Edit DP Terbaru atau Ubah Harga Pemesanan. Data DP Baru Melebihi Harga Pemesanan.");
+          $("#editDP").css({
             "border": "1px solid red"
           });
           evt.preventDefault();

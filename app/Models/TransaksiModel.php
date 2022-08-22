@@ -25,6 +25,12 @@ class TransaksiModel extends Model
       ->findAll();
   }
 
+  public function getLogPembayaranFirst($id_pemesanan)
+  {
+    return $this->where("id_pemesanan", $id_pemesanan)
+      ->orderBy("tenor_ke", "ASC")->first();
+  }
+
   public function getAllDateLog()
   {
     $builder = $this->db->table("pemesanan");
@@ -56,11 +62,11 @@ class TransaksiModel extends Model
     $this->update($id_pemesanan, $data);
   }
 
-  public function updateSalesNameInLog($data, $id_pemesanan, $tenor)
+  public function updateFirstDPInLog($data, $id_history_log)
   {
     $this->set($data)
-      ->where("id_pemesanan", $id_pemesanan)
-      ->where("tenor_ke", $tenor)
+      ->where("id_log", $id_history_log)
+      // ->where("tenor_ke", $tenor)
       ->update();
   }
 
