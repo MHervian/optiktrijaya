@@ -22,6 +22,7 @@ class Pengguna extends BaseController
 
     $data = array("pageTitle" => "Data Admin");
     $data["username"] = $session->username;
+    $data["level_profile"] = $session->level;
 
     // Get current profile
     $data["profile"] = $this->pengguna->getAdminByUsername($session->username);

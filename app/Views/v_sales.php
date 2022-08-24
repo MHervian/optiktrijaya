@@ -68,7 +68,7 @@
       if (isset($pageStatus) && $pageStatus === "update success") {
       ?>
         <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Data Master Sales Baru Berhasil Diubah.</p>
+          <p class="m-0">Data Sales Berhasil Diubah.</p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -81,7 +81,7 @@
       if (isset($pageStatus) && $pageStatus === "delete success") {
       ?>
         <div class="my-3 alert alert-success text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Data Master Sales Baru Berhasil Dihapus.</p>
+          <p class="m-0">Data Sales Berhasil Dihapus.</p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

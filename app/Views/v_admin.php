@@ -31,8 +31,12 @@
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
+            <?php
+            $jdl_halaman = "Data Akun Saya";
+            if ($level_profile === "admin" || $level_profile === "supadmin") $jdl_halaman = "Data Admin";
+            ?>
             <div class="col-lg-6">
-              <h1 class="m-0">Data Admin</h1>
+              <h1 class="m-0"><?= $jdl_halaman ?></h1>
             </div>
             <!-- /.col -->
             <div class="col-lg-6">
@@ -107,7 +111,7 @@
       if (isset($pageStatus) && $pageStatus === "wrong old password") {
       ?>
         <div class="my-3 alert alert-danger text-center alert-dismissible fade show mb-4" role="alert">
-          <p class="m-0">Password Lama Pengguna Tidak Benar. Ulangi Lagi.</p>
+          <p class="m-0">Password Lama Pengguna Salah. Ulangi Lagi.</p>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -149,7 +153,7 @@
             <div class="col-xl-6">
               <div class="card card-primary card-outline">
                 <div class="card-header">
-                  <h5 class="card-title font-weight-bold">Akun Saya</h5>
+                  <h5 class="card-title font-weight-bold">Ubah Akun Saya</h5>
                 </div>
                 <div class="card-body">
                   <form action="<?= base_url("admin/update") ?>" method="post">
@@ -220,7 +224,7 @@
                   </div>
                   <div class="card-body">
                     <p>
-                      Penghapusan akun secara permanen. Anda tidak dapat
+                      Penghapusan akun permanen. Anda tidak dapat
                       menggunakan akun lagi. Apakah ingin memprosesnya?
                     </p>
                     <!-- <a href="<?= base_url("admin/delete/" . $profile["id_pengguna"]) ?>" class="btn btn-danger">Iya, Hapus Akun Saya</a> -->
@@ -234,56 +238,63 @@
               ?>
               <!-- /.card -->
             </div>
-            <div class="col-xl-6">
-              <div class="card card-primary card-outline">
-                <div class="card-header">
-                  <button id="btnCreateAdmin" type="submit" style="background-color: #02a09e; border-color: #02a09e;" data-toggle="modal" data-target="#form_create_admin" class="btn btn-primary" data-backdrop="static" data-keyboard="false">
-                    <i class="fas fa-plus-square"></i>
-                    Tambah Akun
-                  </button>
-                </div>
-                <div class="card-body">
-                  <h5 class="font-weight-bold">Data Semua Akun Admin</h5>
-                  <table class="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Username</th>
-                        <th>Level</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      $nomor = 1;
-                      foreach ($admin as $adm) {
-                        if ($adm["lvl_akses"] == "supadmin") continue;
-                      ?>
-                        <tr id="<?= $adm["id_pengguna"] ?>">
-                          <td><?= $nomor ?></td>
-                          <td><?= $adm["username"] ?></td>
-                          <td><?= $adm["lvl_akses"] ?></td>
-                          <td>
-                            <?php
-                            if ($adm["username"] !== $username) {
-                            ?>
-                              <a href="#" data-toggle="modal" data-target="#form_detail_admin" data-backdrop="static" data-keyboard="false" class="text-secondary detail">Detail</a>
-                              <a href="#" data-toggle="modal" data-target="#form_update_admin" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
-                              <a href="#" data-toggle="modal" data-target="#form_delete_admin" data-backdrop="static" data-keyboard="false" class="text-danger hapus">Hapus</a>
-                            <?php
-                            }
-                            ?>
-                          </td>
+            <?php
+            // first check if level either "sales" or "collector"
+            if ($level_profile === "admin" || $level_profile === "supadmin") {
+            ?>
+              <div class="col-xl-6">
+                <div class="card card-primary card-outline">
+                  <div class="card-header">
+                    <button id="btnCreateAdmin" type="submit" style="background-color: #02a09e; border-color: #02a09e;" data-toggle="modal" data-target="#form_create_admin" class="btn btn-primary" data-backdrop="static" data-keyboard="false">
+                      <i class="fas fa-plus-square"></i>
+                      Tambah Akun
+                    </button>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="font-weight-bold">Data Semua Akun Admin</h5>
+                    <table class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Username</th>
+                          <th>Level</th>
+                          <th>Aksi</th>
                         </tr>
-                      <?php
-                        $nomor++;
-                      }
-                      ?>
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        <?php
+                        $nomor = 1;
+                        foreach ($admin as $adm) {
+                          if ($adm["lvl_akses"] == "supadmin") continue; // if found the user with 'supadmin' level, skip.
+                        ?>
+                          <tr id="<?= $adm["id_pengguna"] ?>">
+                            <td><?= $nomor ?></td>
+                            <td><?= $adm["username"] ?></td>
+                            <td><?= $adm["lvl_akses"] ?></td>
+                            <td>
+                              <?php
+                              if ($adm["username"] !== $username) {
+                              ?>
+                                <a href="#" data-toggle="modal" data-target="#form_detail_admin" data-backdrop="static" data-keyboard="false" class="text-secondary detail">Detail</a>
+                                <a href="#" data-toggle="modal" data-target="#form_update_admin" data-backdrop="static" data-keyboard="false" class="ubah">Ubah</a>
+                                <a href="#" data-toggle="modal" data-target="#form_delete_admin" data-backdrop="static" data-keyboard="false" class="text-danger hapus">Hapus</a>
+                              <?php
+                              }
+                              ?>
+                            </td>
+                          </tr>
+                        <?php
+                          $nomor++;
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-            </div>
+            <?php
+            }
+            ?>
           </div>
           <!-- /.row -->
         </div>
