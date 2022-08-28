@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Models\PenggunaModel;
 use Ramsey\Uuid\Uuid;
 
+use App\Libraries\Validation;
+
 class Pengguna extends BaseController
 {
   public function __construct()
@@ -30,8 +32,8 @@ class Pengguna extends BaseController
     // Get all data admin
     $data["admin"] = $this->pengguna->getAllAdmin();
 
-    $pageStatus = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
-    $data["pageStatus"] = $pageStatus;
+    $data["pageStatus"] = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
+    $data["newEmail"] = ($session->getFlashdata("newEmail")) ? $session->getFlashdata("newEmail") : null;
 
     return view("v_admin", $data);
   }
@@ -55,6 +57,15 @@ class Pengguna extends BaseController
     $email = $request->getPost("email");
     $password = $request->getPost("password");
     $id_pengguna = Uuid::uuid4();
+
+    // Validate if this new user is duplicated
+    $valid = new Validation();
+    $result = $valid->validateNewUser($email, "admin");
+    if ($result) {
+      $session->setFlashdata("pageStatus", "insert failed");
+      $session->setFlashdata("newEmail", $email);
+      return redirect()->to(base_url("admin"));
+    }
 
     $data = array(
       "id_pengguna" => $id_pengguna->toString(),
@@ -80,15 +91,27 @@ class Pengguna extends BaseController
 
     $request = service("request");
     $id_pengguna = $request->getPost("id_pengguna");
+    $old_email = $request->getPost("old_email");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
     $password_lama = $request->getPost("password_lama");
     $password_baru = $request->getPost("password_baru");
     $password_ulangi = $request->getPost("password_ulangi");
 
+    // If new email still same as old one
+    if ($email !== $old_email) {
+      // Validate if this update of data user is duplicated
+      $valid = new Validation();
+      $result = $valid->validateNewUser($email, "admin");
+      if ($result) {
+        $session->setFlashdata("pageStatus", "update failed");
+        $session->setFlashdata("newEmail", $email);
+        return redirect()->to(base_url("admin"));
+      }
+    }
+
     if (!empty($password_lama) && !empty($password_baru)) {
       // Check whether this request from form current profile or other profile
-      // $profile = $this->pengguna->getAdminByUsername($session->username);
       $profile = $this->pengguna->getAdmin($id_pengguna);
 
       // Validation of old and new password

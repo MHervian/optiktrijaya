@@ -23,6 +23,13 @@ class CollectorModel extends Model
     return $this->find($id_pengguna);
   }
 
+  public function getCollectorByEmail($email)
+  {
+    return $this->asArray()
+      ->where("email = '$email'")
+      ->findAll();
+  }
+
   public function insertCollector($data)
   {
     return $this->insert($data);

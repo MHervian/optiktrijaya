@@ -146,6 +146,32 @@
       }
       ?>
 
+      <?php
+      if (isset($pageStatus) && $pageStatus === "insert failed") {
+      ?>
+        <div class="my-3 alert alert-danger text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Akun yang Dibuat dengan Email: <span class="font-weight-bold"><?= $newEmail ?></span> Sudah Ada. Pakai Email Baru.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
+      <?php
+      if (isset($pageStatus) && $pageStatus === "update failed") {
+      ?>
+        <div class="my-3 alert alert-danger text-center alert-dismissible fade show mb-4" role="alert">
+          <p class="m-0">Pengubahan Akun Gagal dengan Email: <span class="font-weight-bold"><?= $newEmail ?></span>. Ganti Nama Email dengan Lain.</p>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <?php
+      }
+      ?>
+
       <!-- Main content -->
       <div class="content">
         <div class="container-fluid">
@@ -269,7 +295,7 @@
                         ?>
                           <tr id="<?= $adm["id_pengguna"] ?>">
                             <td><?= $nomor ?></td>
-                            <td><?= $adm["username"] ?></td>
+                            <td><?= $adm["email"] ?></td>
                             <td><?= $adm["lvl_akses"] ?></td>
                             <td>
                               <?php
@@ -332,14 +358,14 @@
               <label for="inputEmailUsername" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Email :
               </label>
               <div class="col-sm-8">
-                <input type="email" class="form-control" name="email" id="inputEmailUsername" placeholder="Isi Nama User.." required />
+                <input type="email" class="form-control" name="email" id="inputEmailUsername" placeholder="Isi Email User.." required />
               </div>
             </div>
             <div class="form-group row">
               <label for="inputPasswordUsername" class="col-sm-4 col-form-label"><span class="text-danger font-weight-bold">&#42;</span> Password :
               </label>
               <div class="col-sm-8">
-                <input type="password" class="form-control" name="password" id="inputPasswordUsername" placeholder="Isi Nama User.." required />
+                <input type="password" class="form-control" name="password" id="inputPasswordUsername" placeholder="Isi Password Akun.." required />
               </div>
             </div>
           </div>
@@ -371,6 +397,7 @@
         </div>
         <form action="<?= base_url("admin/update") ?>" method="post">
           <input id="updateIDAdmin" type="hidden" name="id_pengguna" />
+          <input id="oldEmail" type="hidden" name="old_email" />
           <div class="modal-body">
             <div class="mb-3"><span class="text-danger font-weight-bold">&#42;</span> Isian jangan kosong</div>
             <div class="form-group row">
@@ -503,6 +530,7 @@
           success: function(response) {
             result = JSON.parse(response);
             $("#updateIDAdmin").val(result.id_pengguna);
+            $("#oldEmail").val(result.email);
             $("#updateUsername").val(result.username);
             $("#updateEmailUsername").val(result.email);
           }

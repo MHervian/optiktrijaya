@@ -7,6 +7,8 @@ use App\Models\CollectorModel;
 use App\Models\LensaKacamataModel;
 use Ramsey\Uuid\Uuid;
 
+use App\Libraries\Validation;
+
 class Masters extends BaseController
 {
   public function __construct()
@@ -59,8 +61,8 @@ class Masters extends BaseController
         }
     }
 
-    $pageStatus = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
-    $data["pageStatus"] = $pageStatus;
+    $data["pageStatus"] = ($session->getFlashdata("pageStatus")) ? $session->getFlashdata("pageStatus") : null;
+    $data["newEmail"] = ($session->getFlashdata("newEmail")) ? $session->getFlashdata("newEmail") : null;
     return view($view_file, $data);
   }
 
@@ -78,6 +80,15 @@ class Masters extends BaseController
     $email = $request->getPost("email");
     $password = $request->getPost("password");
     $id_pengguna = Uuid::uuid4();
+
+    // Validate if this new user is duplicated
+    $valid = new Validation();
+    $result = $valid->validateNewUser($email, "sales");
+    if ($result) {
+      $session->setFlashdata("pageStatus", "insert failed");
+      $session->setFlashdata("newEmail", $email);
+      return redirect()->to(base_url("masters/sales"));
+    }
 
     $data = array(
       "id_pengguna" => $id_pengguna->toString(),
@@ -104,10 +115,23 @@ class Masters extends BaseController
     $request = service("request");
     $id_pengguna = $request->getPost("id_pengguna");
     $username = $request->getPost("username");
+    $old_email = $request->getPost("old_email");
     $email = $request->getPost("email");
     $password_lama = $request->getPost("password_lama");
     $password_baru = $request->getPost("password_baru");
     $password_ulangi = $request->getPost("password_ulangi");
+
+    // If new email still same with old one
+    if ($email !== $old_email) {
+      // Validate if this update of data user is duplicated
+      $valid = new Validation();
+      $result = $valid->validateNewUser($email, "sales");
+      if ($result) {
+        $session->setFlashdata("pageStatus", "update failed");
+        $session->setFlashdata("newEmail", $email);
+        return redirect()->to(base_url("masters/sales"));
+      }
+    }
 
     if (!empty($password_lama) && !empty($password_baru)) {
       // Validation of old and new password
@@ -182,6 +206,15 @@ class Masters extends BaseController
     $password = $request->getPost("password");
     $id_pengguna = Uuid::uuid4();
 
+    // Validate if this new user is duplicated
+    $valid = new Validation();
+    $result = $valid->validateNewUser($email, "collector");
+    if ($result) {
+      $session->setFlashdata("pageStatus", "insert failed");
+      $session->setFlashdata("newEmail", $email);
+      return redirect()->to(base_url("masters/collector"));
+    }
+
     $data = array(
       "id_pengguna" => $id_pengguna->toString(),
       "username" => $username,
@@ -208,9 +241,21 @@ class Masters extends BaseController
     $id_pengguna = $request->getPost("id_pengguna");
     $username = $request->getPost("username");
     $email = $request->getPost("email");
+    $old_email = $request->getPost("old_email");
     $password_lama = $request->getPost("password_lama");
     $password_baru = $request->getPost("password_baru");
     $password_ulangi = $request->getPost("password_ulangi");
+
+    if ($email !== $old_email) {
+      // Validate if this new user is duplicated
+      $valid = new Validation();
+      $result = $valid->validateNewUser($email, "collector");
+      if ($result) {
+        $session->setFlashdata("pageStatus", "update failed");
+        $session->setFlashdata("newEmail", $email);
+        return redirect()->to(base_url("masters/collector"));
+      }
+    }
 
     if (!empty($password_lama) && !empty($password_baru)) {
       // Validation of old and new password

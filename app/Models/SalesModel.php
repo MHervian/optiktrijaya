@@ -23,6 +23,13 @@ class SalesModel extends Model
     return $this->find($id_pengguna);
   }
 
+  public function getSalesByEmail($email)
+  {
+    return $this->asArray()
+      ->where("email = '$email'")
+      ->findAll();
+  }
+
   public function insertSales($data)
   {
     return $this->insert($data);

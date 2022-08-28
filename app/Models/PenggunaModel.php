@@ -39,6 +39,13 @@ class PenggunaModel extends Model
       ->first();
   }
 
+  public function getAdminByEmail($email)
+  {
+    return
+      $this->where("email = '$email'")
+      ->findAll();
+  }
+
   public function insertAdmin($data)
   {
     $this->insert($data);
