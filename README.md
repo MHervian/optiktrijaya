@@ -1,6 +1,6 @@
 # Optiktrijaya
 
-[Optik Trijaya](https://www.trijayaoptik.com)
+[www.trijayaoptik.com](https://www.trijayaoptik.com)
 
 ## Description
 
