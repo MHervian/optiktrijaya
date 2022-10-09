@@ -46,4 +46,4 @@ Orders Page
 
 # Date Launch
 
-This project started on February 2022 and finished on September 2022
+This project started on February 2022 and finished on August 2022
